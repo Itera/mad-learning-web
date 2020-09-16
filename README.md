@@ -13,8 +13,8 @@ It gives a good overview of whats happening in the company and an easy way to jo
 &nbsp;
 
 ## How do I get started?
-Read through the [HOW-TO page](https://github.com/Itera/mad-learning/wiki/How-to-get-started) on the wiki 
-and read through our [Code of Conduct](https://github.com/Itera/mad-learning/blob/master/CODE_OF_CONDUCT.md)
+Read through the [HOW-TO page](https://github.com/Itera/mad-learning-web/wiki/How-to-get-started) on the wiki 
+and read through our [Code of Conduct](https://github.com/Itera/mad-learning-web/blob/master/CODE_OF_CONDUCT.md)
 
 &nbsp;
 
