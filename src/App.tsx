@@ -1,12 +1,15 @@
 import React from 'react';
 import { Router } from '@reach/router';
 
+import AppWrapper from './components/AppWrapper';
+import GlobalStyle from './GlobalStyle';
 import NavMenu from './components/NavMenu';
 import routes from './config/routes';
 
 function App() {
   return (
-    <>
+    <AppWrapper>
+      <GlobalStyle />
       <h1>Mad Learning</h1>
       <header>
         <NavMenu />
@@ -18,7 +21,7 @@ function App() {
           ))}
         </Router>
       </main>
-    </>
+    </AppWrapper>
   );
 }
 
