@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { ThemeProps } from './hooks/theme';
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'ApexNew';
@@ -22,9 +24,12 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    color: ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY};
+    background-color: ${({ theme }: ThemeProps) => theme.colors.BACKGROUND};
     font-family: 'ApexNew', 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
+    font-size: ${({ theme }) => theme.typography.scaleFont(1)}px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-variant-numeric:lining-nums;

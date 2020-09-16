@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import { Menu, MenuItem } from './styled';
+import { Wrapper, Icon, Menu, MenuItem } from './styled';
 import routes from '../../config/routes';
+import logo from '../../assets/images/logo.png';
 
-function NavMenu() {
+function Navbar() {
   return (
-    <nav>
+    <Wrapper>
+      <Icon src={logo} alt="Itera logo" />
       <Menu>
         {routes.map(({ path, label }) => (
           <MenuItem key={path}>
@@ -14,8 +16,8 @@ function NavMenu() {
           </MenuItem>
         ))}
       </Menu>
-    </nav>
+    </Wrapper>
   );
 }
 
-export default NavMenu;
+export default Navbar;
