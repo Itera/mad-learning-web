@@ -8,3 +8,21 @@ export const CreateEventWrapper = styled.div`
 export const Label = styled.label`
   display: block;
 `;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  justify-content: center;
+  column-gap: 10px;
+  row-gap: 15px;
+  margin-bottom: 20px;
+
+  input, textarea, select {
+    width: 250px;
+  }
+
+  textarea {
+    height: 50px;
+  }
+`;
