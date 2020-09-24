@@ -61,33 +61,33 @@ function CreateEvent() {
       <h3>Create new event</h3>
       <Form>
         <label htmlFor="name">
-          Event name:
+          Event name
           <input name="name" type="text" value={name} onChange={(event) => setName(event.target.value)}/>
         </label>
 
         <label htmlFor="time">
-          Date and time:
+          Date and time
           <input name="time" type="date" value={format(parseISO(time), 'yyyy-MM-dd')} onChange={(event) => setTime(formatISO(Date.parse(event.target.value + ' ' + format(parseISO(time), 'HH:mm'))))}/>
           <input name="time" type="time" value={format(parseISO(time), 'HH:mm')} onChange={(event) => setTime(formatISO(Date.parse(format(parseISO(time), 'yyyy-MM-dd') + ' ' + event.target.value)))}/>
         </label>
 
         <label htmlFor="description">
-          Description:
+          Description
           <textarea name="description" value={description} onChange={(event) => setDescription(event.target.value)}></textarea>
         </label>
       
         <label htmlFor="image">
-          Image link:
+          Image link
           <input name="image" type="text" value={image} onChange={(event) => setImage(event.target.value)}/>
         </label>
 
         <label htmlFor="imageAlt">
-          Image text:
+          Image text
           <input name="imageAlt" type="text" value={imageAlt} onChange={(event) => setImageAlt(event.target.value)}/>
         </label>
 
         <label htmlFor="eventType">
-          Event type:
+          Event type
           <select name="eventType" value={eventType} onChange={(event) => setEventType(event.target.value)}>
             <option value="" disabled={eventType !== ""}>Choose event type</option>
             <option value="Subject matter event">Subject matter event</option>
@@ -98,21 +98,21 @@ function CreateEvent() {
         </label>
 
         <label htmlFor="firstName">
-          Owner first name:
+          Owner first name
           <input name="firstName" type="text" value={firstName} onChange={(event) => setFirstName(event.target.value)}/>
         </label>
 
         <label htmlFor="lastName">
-          Owner last name:
+          Owner last name
           <input name="lastName" type="text" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
         </label>
 
         <label htmlFor="email">
-          Owner email:
+          Owner email
           <input name="email" type="text" value={email} onChange={(event) => setEmail(event.target.value)}/>
         </label>
+        <div><button disabled={!isFormFilled()} onClick={create}>Create</button></div>
       </Form>
-      <div><button disabled={!isFormFilled()} onClick={create}>Create</button></div>
       
     </CreateEventWrapper>
   );
