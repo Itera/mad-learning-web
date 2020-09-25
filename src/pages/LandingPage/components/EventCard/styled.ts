@@ -7,7 +7,7 @@ export const Container = styled.article`
   border: 1px solid ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY};
 
   :hover {
-    border-color: ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY_VARIANT};
+    border-color: ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY_ACCENT};
     transition: 0.3s ease-out border-color;
   }
 `;

@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover {
       cursor: pointer;
-      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_VARIANT}`};
+      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_ACCENT}`};
     }
   }
 

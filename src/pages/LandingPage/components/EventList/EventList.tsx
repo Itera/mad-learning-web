@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
+import Alert from '../../../../components/Alert';
 import EventCard from '../EventCard';
 import { Event } from '../../../../types/domain';
 import {
@@ -18,7 +19,13 @@ type EventListProps = {
 
 function EventList({ events }: EventListProps) {
   if (events.length === 0) {
-    return null;
+    return (
+      <Alert
+        heading="No ongoing events"
+        description="Check again later to see if there are any updates."
+        headingAs="h2"
+      />
+    );
   }
 
   return (

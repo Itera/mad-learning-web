@@ -8,7 +8,7 @@ function NotFoundPage() {
       <Heading>Page Not Found</Heading>
       <Content>
         Someone was too eager to deploy{' '}
-        <span role="img" aria-label="Face-emoji with mouth covered by hand">
+        <span role="img" aria-label="Blushing face with hand over mouth">
           🤭
         </span>
       </Content>
