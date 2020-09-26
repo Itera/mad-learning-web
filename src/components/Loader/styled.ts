@@ -9,7 +9,8 @@ type SpinnerProps = {
 
 export const Spinner = styled.div<SpinnerProps>`
   border-radius: 50%;
-  animation: spin 1.3s linear infinite;
+  animation: ${({ theme }: ThemeProps) =>
+    theme.styling.createAnimation('spin 1.3s linear infinite')};
 
   ${({ size, theme }: SpinnerProps) => {
     const boxSize = theme.typography.scaleFont(size);
