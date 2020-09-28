@@ -1,0 +1,9 @@
+import styled from 'styled-components';
+
+export const Heading = styled.h1`
+  text-align: center;
+`;
+
+export const Content = styled.p`
+  text-align: center;
+`;

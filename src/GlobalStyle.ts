@@ -39,6 +39,17 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  a {
+    color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY}`};
+    background-color: transparent;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_ACCENT}`};
+    }
+  }
+
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;

@@ -26,15 +26,4 @@ export const MenuItem = styled.li`
   &:first-of-type {
     padding-left: 0;
   }
-
-  & > a {
-    color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY}`};
-    background-color: transparent;
-    text-decoration: none;
-
-    &:hover {
-      cursor: pointer;
-      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_VARIANT}`};
-    }
-  }
 `;

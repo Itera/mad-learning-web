@@ -10,11 +10,14 @@ function Navbar() {
     <Wrapper>
       <Icon src={logo} alt="Itera logo" />
       <Menu>
-        {routes.map(({ path, label }) => (
-          <MenuItem key={path}>
-            <Link to={path}>{label}</Link>
-          </MenuItem>
-        ))}
+        {routes.map(
+          ({ path, label }) =>
+            label && (
+              <MenuItem key={path}>
+                <Link to={path}>{label}</Link>
+              </MenuItem>
+            )
+        )}
       </Menu>
     </Wrapper>
   );
