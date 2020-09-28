@@ -2,6 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
 import { ThemeProps } from './hooks/theme';
 
+export const UBIQUITOUS_ANIMATION = 'fade-in 0.3s ease-in';
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'ApexNew';
@@ -21,7 +23,6 @@ const GlobalStyle = createGlobalStyle`
       url('fonts/ApexNew-Bold.otf') format('opentype');
   }
 
-
   body {
     margin: 0;
     color: ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY};
@@ -36,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
 
     * {
       box-sizing: border-box;
+      animation: ${UBIQUITOUS_ANIMATION};
     }
   }
 
@@ -47,6 +49,7 @@ const GlobalStyle = createGlobalStyle`
     &:hover {
       cursor: pointer;
       color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_ACCENT}`};
+      transition: 0.3s ease-out color;
     }
   }
 
@@ -54,6 +57,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
+
+  ${({ theme }: ThemeProps) => theme.styling.global};
 `;
 
 export default GlobalStyle;
