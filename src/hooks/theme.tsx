@@ -1,4 +1,4 @@
-import React, { useContext, ReactNode } from 'react';
+import React, { useContext, ReactNode, Consumer } from 'react';
 import {
   ThemeContext,
   ThemeProvider as StyledThemeProvider,
@@ -56,4 +56,4 @@ export function ThemeProvider({ children, options }: ThemeProviderProps) {
   return <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>;
 }
 
-export const ThemeConsumer = StyledThemeConsumer;
+export const ThemeConsumer = StyledThemeConsumer as Consumer<Theme>;
