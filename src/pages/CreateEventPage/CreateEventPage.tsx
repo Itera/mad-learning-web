@@ -1,88 +1,141 @@
 import React, { useState } from 'react';
 import { CreateEventWrapper, Form } from './styled';
 import { parseISO, formatISO, format } from 'date-fns';
-import createEvent from './components/createEvent'
-
+import createEvent from './components/createEvent';
+import isFormFilled from './components/isFormFilled';
+import { InputField, TextArea, Select } from './components/FormFields';
 
 function CreateEvent() {
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [imageAlt, setImageAlt] = useState("");
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [imageAlt, setImageAlt] = useState('');
   const [time, setTime] = useState(formatISO(Date.now()));
-  const [description, setDescription] = useState("");
-  const [eventType, setEventType] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  
-  
+  const [description, setDescription] = useState('');
+  const [eventType, setEventType] = useState('Choose event type');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  let createWasSuccess = false;
+  const eventOptions: string[] = [
+    "Subject matter event",
+    "Coding event",
+    "Project presentation",
+    "Workshop"
+  ]
 
-  function isFormFilled () {
-    if (name !== "" && description !== "" && eventType !== "") {
-      return true
-    } else {
-      return false
-    }
+  function submitEvent() {
+    createEvent(time, name, description, firstName, lastName, email)
+      .then((result) => {
+        createWasSuccess = true;
+      })
+      .catch(() => {
+        console.log('Create failed');
+      });
   }
 
   return (
     <CreateEventWrapper>
       <h3>Create new event</h3>
       <Form>
-        <label>
-          Event name
-          <input name="name" type="text" value={name} onChange={(event) => setName(event.target.value)}/>
-        </label>
+        <InputField
+          id="name"
+          name="name"
+          label="Event name"
+          type="text"
+          value={name}
+          onChange={setName}
+        />
 
-        <label>
-          Date and time
-          <input name="time" type="date" value={format(parseISO(time), 'yyyy-MM-dd')} onChange={(event) => setTime(formatISO(Date.parse(event.target.value + ' ' + format(parseISO(time), 'HH:mm'))))}/>
-          <input name="time" type="time" value={format(parseISO(time), 'HH:mm')} onChange={(event) => setTime(formatISO(Date.parse(format(parseISO(time), 'yyyy-MM-dd') + ' ' + event.target.value)))}/>
-        </label>
+        <InputField
+          id="date"
+          name="date"
+          label="Date"
+          type="date"
+          value={format(parseISO(time), 'yyyy-MM-dd')}
+          onChange={(e: HTMLInputElement) =>
+            setTime(
+              formatISO(Date.parse(e + ' ' + format(parseISO(time), 'HH:mm')))
+            )
+          }
+        />
 
-        <label>
-          Description
-          <textarea name="description" value={description} onChange={(event) => setDescription(event.target.value)}></textarea>
-        </label>
-      
-        <label>
-          Image link
-          <input name="image" type="text" value={image} onChange={(event) => setImage(event.target.value)}/>
-        </label>
+        <InputField
+          id="time"
+          name="time"
+          label="Time"
+          type="time"
+          value={format(parseISO(time), 'HH:mm')}
+          onChange={(e: HTMLInputElement) =>
+            setTime(
+              formatISO(
+                Date.parse(format(parseISO(time), 'yyyy-MM-dd') + ' ' + e)
+              )
+            )
+          }
+        />
 
-        <label>
-          Image text
-          <input name="imageAlt" type="text" value={imageAlt} onChange={(event) => setImageAlt(event.target.value)}/>
-        </label>
+        <TextArea id="description" name="description" label="Description" value={description} onChange={setDescription} />
 
-        <label>
-          Event type
-          <select name="eventType" value={eventType} onChange={(event) => setEventType(event.target.value)}>
-            <option value="" disabled={eventType !== ""}>Choose event type</option>
-            <option value="Subject matter event">Subject matter event</option>
-            <option value="Coding event">Coding event</option>
-            <option value="Project presentation">Project presentation</option>
-            <option value="Workshop">Workshop</option>
-          </select>
-        </label>
+        <InputField
+          id="image"
+          name="image"
+          label="Image link"
+          type="text"
+          value={image}
+          onChange={setImage}
+        />
 
-        <label>
-          Owner first name
-          <input name="firstName" type="text" value={firstName} onChange={(event) => setFirstName(event.target.value)}/>
-        </label>
+        <InputField
+          id="imageAlt"
+          name="imageAlt"
+          label="Image text"
+          type="text"
+          value={imageAlt}
+          onChange={setImageAlt}
+        />
 
-        <label>
-          Owner last name
-          <input name="lastName" type="text" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
-        </label>
+        <Select id="eventType" name="eventType" label="Event type" value={eventType} onChange={setEventType} options={eventOptions} />
 
-        <label>
-          Owner email
-          <input name="email" type="text" value={email} onChange={(event) => setEmail(event.target.value)}/>
-        </label>
-        <div><button disabled={!isFormFilled()} onClick={createEvent(time, name, description, firstName, lastName, email)}>Create</button></div>
+        <InputField
+          id="firstName"
+          name="firstName"
+          label="Owner first name"
+          type="text"
+          value={firstName}
+          onChange={setFirstName}
+        />
+
+        <InputField
+          id="lastName"
+          name="lastName"
+          label="Owner last name"
+          type="text"
+          value={lastName}
+          onChange={setLastName}
+        />
+
+        <InputField
+          id="email"
+          name="email"
+          label="Owner email"
+          type="email"
+          value={email}
+          onChange={setEmail}
+        />
+
+        <div>
+          <button
+            disabled={!isFormFilled(name, description, eventType)}
+            onClick={(e) => {
+              e.preventDefault();
+              submitEvent();
+            }}
+          >
+            Create
+          </button>
+        </div>
+        <div>{createWasSuccess ? 'Event created' : ''}</div>
       </Form>
-      
     </CreateEventWrapper>
   );
 }

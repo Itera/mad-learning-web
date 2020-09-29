@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     src:
       local('ApexNew-Book'),
-      url('./assets/fonts/ApexNew-Book.otf') format('opentype');
+      url('fonts/ApexNew-Book.otf') format('opentype');
   }
 
   @font-face {
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     src:
       local('ApexNew-Bold'),
-      url('./assets/fonts/ApexNew-Bold.otf') format('opentype');
+      url('fonts/ApexNew-Bold.otf') format('opentype');
   }
 
 
@@ -36,6 +36,17 @@ const GlobalStyle = createGlobalStyle`
 
     * {
       box-sizing: border-box;
+    }
+  }
+
+  a {
+    color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY}`};
+    background-color: transparent;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_ACCENT}`};
     }
   }
 
