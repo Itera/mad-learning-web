@@ -1,124 +1,153 @@
 import React, { useState } from 'react';
 import { CreateEventWrapper, Form } from './styled';
-import { parseISO, formatISO, format } from 'date-fns';
-import createEvent from './components/createEvent';
-import isFormFilled from './components/isFormFilled';
-import { InputField, TextArea, Select } from './components/FormFields';
+import { formatISO, format } from 'date-fns';
+import { createEvent } from '../../api/events';
+import TextField from '../../components/TextField';
+import DateField from '../../components/DateField';
+import TimeField from '../../components/TimeField';
+import SelectField from '../../components/SelectField';
+import TextareaField from '../../components/TextareaField';
+import Alert from '../../components/Alert';
 
 function CreateEvent() {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [imageAlt, setImageAlt] = useState('');
-  const [time, setTime] = useState(formatISO(Date.now()));
+  const [date, setDate] = useState(format(Date.now(), 'yyyy-MM-dd'));
+  const [starttime, setStarttime] = useState(format(Date.now(), 'HH:mm'));
+  const [endtime, setEndtime] = useState(format(Date.now(), 'HH:mm'));
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('Choose event type');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  let createWasSuccess = false;
+  const [createWasSuccess, setCreateWasSuccess] = useState(false);
+  const [createFailed, setCreateFailed] = useState(false);
   const eventOptions: string[] = [
-    "Subject matter event",
-    "Coding event",
-    "Project presentation",
-    "Workshop"
-  ]
+    'Subject matter event',
+    'Coding event',
+    'Project presentation',
+    'Workshop',
+  ];
 
   function submitEvent() {
-    createEvent(time, name, description, firstName, lastName, email)
+    setCreateFailed(false);
+    setCreateWasSuccess(false);
+    createEvent(
+      formatISO(Date.parse(date + ' ' + starttime)),
+      name,
+      description,
+      firstName,
+      lastName,
+      email
+    )
       .then((result) => {
-        createWasSuccess = true;
+        if (result) {
+          setCreateWasSuccess(true);
+        } else {
+          setCreateFailed(true);
+        }
       })
       .catch(() => {
-        console.log('Create failed');
+        setCreateFailed(true);
       });
+  }
+
+  function isFormFilled(name: string, description: string, eventType: string) {
+    return name && description && eventType;
   }
 
   return (
     <CreateEventWrapper>
+      {createFailed ? (
+        <Alert
+          heading="Failed to create event"
+          description={<p>Please retry creating the event.</p>}
+          headingAs="h2"
+        />
+      ) : null}
       <h3>Create new event</h3>
       <Form>
-        <InputField
-          id="name"
+        <TextField
           name="name"
           label="Event name"
-          type="text"
           value={name}
           onChange={setName}
         />
 
-        <InputField
-          id="date"
+        <DateField
           name="date"
           label="Date"
-          type="date"
-          value={format(parseISO(time), 'yyyy-MM-dd')}
-          onChange={(e: HTMLInputElement) =>
-            setTime(
-              formatISO(Date.parse(e + ' ' + format(parseISO(time), 'HH:mm')))
-            )
-          }
+          value={date}
+          onChange={(date: string) => {
+            setDate(date);
+          }}
         />
 
-        <InputField
-          id="time"
+        <TimeField
           name="time"
-          label="Time"
-          type="time"
-          value={format(parseISO(time), 'HH:mm')}
-          onChange={(e: HTMLInputElement) =>
-            setTime(
-              formatISO(
-                Date.parse(format(parseISO(time), 'yyyy-MM-dd') + ' ' + e)
-              )
-            )
-          }
+          label="Start time"
+          value={starttime}
+          onChange={(time: string) => {
+            setStarttime(time);
+          }}
         />
 
-        <TextArea id="description" name="description" label="Description" value={description} onChange={setDescription} />
+        <TimeField
+          name="time"
+          label="End time"
+          value={endtime}
+          onChange={(time: string) => {
+            setEndtime(time);
+          }}
+        />
 
-        <InputField
-          id="image"
+        <TextareaField
+          name="description"
+          label="Description"
+          value={description}
+          onChange={setDescription}
+        />
+
+        <TextField
           name="image"
           label="Image link"
-          type="text"
           value={image}
           onChange={setImage}
         />
 
-        <InputField
-          id="imageAlt"
+        <TextField
           name="imageAlt"
           label="Image text"
-          type="text"
           value={imageAlt}
           onChange={setImageAlt}
         />
 
-        <Select id="eventType" name="eventType" label="Event type" value={eventType} onChange={setEventType} options={eventOptions} />
+        <SelectField
+          name="eventType"
+          label="Event type"
+          value={eventType}
+          onChange={setEventType}
+          options={eventOptions}
+        />
 
-        <InputField
-          id="firstName"
+        <TextField
           name="firstName"
           label="Owner first name"
-          type="text"
           value={firstName}
           onChange={setFirstName}
         />
 
-        <InputField
-          id="lastName"
+        <TextField
           name="lastName"
           label="Owner last name"
-          type="text"
           value={lastName}
           onChange={setLastName}
         />
 
-        <InputField
-          id="email"
+        <TextField
           name="email"
           label="Owner email"
-          type="email"
           value={email}
           onChange={setEmail}
         />
