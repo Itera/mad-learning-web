@@ -9,7 +9,8 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function createEvent(
-  time: string,
+  starttime: string,
+  endtime: string,
   name: string,
   description: string,
   firstName: string,
@@ -23,10 +24,12 @@ export async function createEvent(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      time: time,
+      starttime: starttime,
+      endtime: endtime,
       name: name,
       description: description,
       owner: {
+        id: '5f747809885eeb66847e7726', //TODO remove
         firstName: firstName,
         lastName: lastName,
         email: email,

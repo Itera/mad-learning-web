@@ -35,6 +35,7 @@ function CreateEvent() {
     setCreateWasSuccess(false);
     createEvent(
       formatISO(Date.parse(date + ' ' + starttime)),
+      formatISO(Date.parse(date + ' ' + endtime)),
       name,
       description,
       firstName,
