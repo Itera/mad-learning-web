@@ -1,6 +1,7 @@
 export type Event = {
   id: string;
-  time: string;
+  startTime: string;
+  endTime: string;
   name: string;
   description: string;
   location: string;
