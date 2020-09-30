@@ -6,7 +6,7 @@ export const event: Event = {
   description: 'Hacking i fellesskap.',
   time: '2020-09-22T16:30:00+01',
   location: 'Jernlageret',
-  image:
+  imageUrl:
     'https://itera-cdn.azureedge.net/contentassets/df1f34b7803045fa95ffd4529826f2b2/kristian-redi-2.jpg?quality=60&Cache=Always&width=1148&mode=crop&scale=both',
   imageAlt: 'Bilde av folk som programmerer i fellesskap.',
   owner: {

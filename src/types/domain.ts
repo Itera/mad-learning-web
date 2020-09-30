@@ -4,7 +4,7 @@ export type Event = {
   name: string;
   description: string;
   location: string;
-  image: string;
+  imageUrl: string;
   imageAlt: string;
   owner?: Person;
   participants?: Array<Person>;
