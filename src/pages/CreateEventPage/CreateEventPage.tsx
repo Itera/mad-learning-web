@@ -6,7 +6,7 @@ import TextField from '../../components/TextField';
 import DateField from '../../components/DateField';
 import TimeField from '../../components/TimeField';
 import SelectField from '../../components/SelectField';
-import TextareaField from '../../components/TextareaField';
+import TextAreaField from '../../components/TextAreaField';
 import Alert from '../../components/Alert';
 
 function CreateEvent() {
@@ -17,13 +17,15 @@ function CreateEvent() {
   const [starttime, setStarttime] = useState(format(Date.now(), 'HH:mm'));
   const [endtime, setEndtime] = useState(format(Date.now(), 'HH:mm'));
   const [description, setDescription] = useState('');
-  const [eventType, setEventType] = useState('Choose event type');
+  const [eventType, setEventType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [createWasSuccess, setCreateWasSuccess] = useState(false);
-  const [createFailed, setCreateFailed] = useState(false);
+  const [createFailed, setCreateFailed] = useState('');
+  const [clicked, setClicked] = useState(false);
   const eventOptions: string[] = [
+    '',
     'Subject matter event',
     'Coding event',
     'Project presentation',
@@ -31,7 +33,7 @@ function CreateEvent() {
   ];
 
   function submitEvent() {
-    setCreateFailed(false);
+    setCreateFailed('');
     setCreateWasSuccess(false);
     createEvent(
       formatISO(Date.parse(date + ' ' + starttime)),
@@ -46,12 +48,13 @@ function CreateEvent() {
         if (result) {
           setCreateWasSuccess(true);
         } else {
-          setCreateFailed(true);
+          setCreateFailed('');
         }
       })
-      .catch(() => {
-        setCreateFailed(true);
+      .catch((error) => {
+        setCreateFailed(error.message);
       });
+    setClicked(false);
   }
 
   function isFormFilled(name: string, description: string, eventType: string) {
@@ -63,7 +66,7 @@ function CreateEvent() {
       {createFailed ? (
         <Alert
           heading="Failed to create event"
-          description={<p>Please retry creating the event.</p>}
+          description={<p></p>}
           headingAs="h2"
         />
       ) : null}
@@ -103,7 +106,7 @@ function CreateEvent() {
           }}
         />
 
-        <TextareaField
+        <TextAreaField
           name="description"
           label="Description"
           value={description}
@@ -155,9 +158,10 @@ function CreateEvent() {
 
         <div>
           <button
-            disabled={!isFormFilled(name, description, eventType)}
+            disabled={!isFormFilled(name, description, eventType) && !clicked}
             onClick={(e) => {
               e.preventDefault();
+              setClicked(true);
               submitEvent();
             }}
           >

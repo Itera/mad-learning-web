@@ -8,7 +8,7 @@ type CreateEventProps = {
   onChange: Function;
 };
 
-function TextareaField({ name, label, value, onChange }: CreateEventProps) {
+function TextAreaField({ name, label, value, onChange }: CreateEventProps) {
   return (
     <FieldWrapper>
       <label>
@@ -23,4 +23,4 @@ function TextareaField({ name, label, value, onChange }: CreateEventProps) {
   );
 }
 
-export default TextareaField;
+export default TextAreaField;

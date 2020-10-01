@@ -25,9 +25,6 @@ function SelectField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
-          <option value="Choose event type" disabled>
-            Choose event type
-          </option>
           {options?.map((option, key) => (
             <option value={option} key={key}>
               {option}

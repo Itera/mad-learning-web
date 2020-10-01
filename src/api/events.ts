@@ -17,9 +17,8 @@ export async function createEvent(
   lastName: string,
   email: string
 ): Promise<Boolean> {
-  // TODO fix url in env variable
   const response = await fetch('https://localhost:5001/api/Event', {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -30,9 +29,9 @@ export async function createEvent(
       description: description,
       owner: {
         id: '5f747809885eeb66847e7726', //TODO remove
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
+        firstName,
+        lastName,
+        email,
       },
       participants: [],
     }),
@@ -40,6 +39,5 @@ export async function createEvent(
   if (response.ok) {
     return true;
   }
-  return false;
-  // throw new Error(`Failed to create event: ${response.statusText}.`);
+  throw new Error(`Failed to create event: ${response.statusText}.`);
 }
