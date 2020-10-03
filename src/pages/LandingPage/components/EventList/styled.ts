@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ThemeProps } from '../../../../hooks/theme';
+import { usingTypography } from '../../../../hooks/theme';
 
 export const GridList = styled.ul`
   margin: 0 auto;
@@ -10,8 +10,7 @@ export const GridList = styled.ul`
 export const GridItem = styled.li`
   display: inline-block;
   width: 95vw;
-  margin-bottom: ${({ theme }: ThemeProps) =>
-    theme.typography.scaleSpacing(7)}px;
+  margin-bottom: ${usingTypography((t) => t.scaleSpacing(7))}px;
 
   @media screen and (min-width: 620px) {
     width: 45vw;

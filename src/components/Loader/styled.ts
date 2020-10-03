@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ThemeProps } from '../../hooks/theme';
+import { usingStyling, ThemeProps } from '../../hooks/theme';
 
 type SpinnerProps = {
   size: number;
@@ -9,8 +9,9 @@ type SpinnerProps = {
 
 export const Spinner = styled.div<SpinnerProps>`
   border-radius: 50%;
-  animation: ${({ theme }: ThemeProps) =>
-    theme.styling.createAnimation('spin 1.3s linear infinite')};
+  animation: ${usingStyling((s) =>
+    s.createAnimation('spin 1.3s linear infinite')
+  )};
 
   ${({ size, theme }: SpinnerProps) => {
     const boxSize = theme.typography.scaleFont(size);

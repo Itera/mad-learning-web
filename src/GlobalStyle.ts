@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { ThemeProps } from './hooks/theme';
+import { usingColors, usingStyling } from './hooks/theme';
 
 export const UBIQUITOUS_ANIMATION = 'fade-in 0.3s ease-in';
 
@@ -25,8 +25,8 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    color: ${({ theme }: ThemeProps) => theme.colors.ON.PRIMARY};
-    background-color: ${({ theme }: ThemeProps) => theme.colors.BACKGROUND};
+    color: ${usingColors((c) => c.ON.PRIMARY)};
+    background-color: ${usingColors((c) => c.BACKGROUND)};
     font-family: 'ApexNew', 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
@@ -42,13 +42,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY}`};
+    color: ${usingColors((c) => c.ON.PRIMARY)};
     background-color: transparent;
     text-decoration: none;
 
     &:hover {
       cursor: pointer;
-      color: ${({ theme }: ThemeProps) => `${theme.colors.ON.PRIMARY_ACCENT}`};
+      color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
       transition: 0.3s ease-out color;
     }
   }
@@ -58,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
       monospace;
   }
 
-  ${({ theme }: ThemeProps) => theme.styling.global};
+  ${usingStyling((s) => s.global)};
 `;
 
 export default GlobalStyle;
