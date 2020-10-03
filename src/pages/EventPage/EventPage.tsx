@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
-import Alert from '../../components/Alert';
+import FailedFetchAlert from '../../components/FailedFetchAlert';
 import LoadableContent from '../../components/LoadableContent';
 import Loader from '../../components/Loader';
 import SplitSection from '../../components/SplitSection';
@@ -70,17 +70,8 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
         renderError={() => (
           <>
             <h1>{tmpEventName}</h1>
-            <Alert
+            <FailedFetchAlert
               heading="Failed to retrieve event"
-              description={
-                <p>
-                  You can try refreshing the page again, but please{' '}
-                  <a href="https://iterano.slack.com/archives/C01AMCX2E7M">
-                    contact one of the administrators
-                  </a>{' '}
-                  if the issue still persists.
-                </p>
-              }
               headingAs="h2"
             />
           </>
