@@ -1,17 +1,18 @@
 import { RouteComponentProps } from '@reach/router';
 
 import LandingPage from '../pages/LandingPage';
-import CreateEventPage from '../pages/CreateEventPage'
+import CreateEventPage from '../pages/CreateEventPage';
+import EventPage from '../pages/EventPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import { ReactComponent } from '../utils/types';
 
-export type Route = {
+export type Route<P extends RouteComponentProps> = {
   path: string;
   label?: string;
-  component: ReactComponent<RouteComponentProps>;
+  component: ReactComponent<P>;
 };
 
-const routes: Array<Route> = [
+const routes: Array<Route<any>> = [
   {
     path: '/',
     label: 'Landing Page',
@@ -21,6 +22,10 @@ const routes: Array<Route> = [
     path: '/create-event',
     label: 'Create event',
     component: CreateEventPage,
+  },
+  {
+    path: '/event/:eventId/*',
+    component: EventPage,
   },
   {
     path: '/*',
