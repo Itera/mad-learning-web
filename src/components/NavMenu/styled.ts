@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { usingTypography } from '../../hooks/theme';
+import { usingTypography } from 'src/hooks/theme';
 
 export const Wrapper = styled.nav`
   display: flex;

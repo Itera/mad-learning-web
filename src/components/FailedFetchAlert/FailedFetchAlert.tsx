@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 
-import Alert from '../Alert';
+import Alert from 'src/components/Alert';
 
 type NetworkAlertProps = {
   heading: ComponentProps<typeof Alert>['heading'];

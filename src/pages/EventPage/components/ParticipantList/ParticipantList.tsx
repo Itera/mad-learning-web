@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Button from '../../../../components/Button';
-import { Person } from '../../../../types/domain';
+import Button from 'src/components/Button';
+import { Person } from 'src/types/domain';
 import { Container } from './styled';
-import { formatPersonName } from '../../../../utils/formatting';
+import { formatPersonName } from 'src/utils/formatting';
 
 type ParticipantListProps = {
   participants: Array<Person>;

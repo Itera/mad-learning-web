@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { useAsyncData } from '../../hooks/async';
+import { useAsyncData } from 'src/hooks/async';
 
 type LoadableContentProps<D> = {
   resolveContent: () => Promise<D>;

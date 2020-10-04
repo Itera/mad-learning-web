@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { usingTypography, usingColors } from '../../hooks/theme';
+import { usingTypography, usingColors } from 'src/hooks/theme';
 
 export const Button = styled.button`
   padding: ${usingTypography((t) => t.scaleSpacing(5))}px;

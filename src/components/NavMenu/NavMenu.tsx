@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import { Wrapper, Icon, Menu, MenuItem } from './styled';
-import routes from '../../config/routes';
-import logo from '../../assets/images/logo.png';
+import routes from 'src/config/routes';
+import logo from 'src/assets/images/logo.png';
 
 function Navbar() {
   return (

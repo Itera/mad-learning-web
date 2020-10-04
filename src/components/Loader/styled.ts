@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { usingStyling, ThemeProps } from '../../hooks/theme';
+import { usingStyling, ThemeProps } from 'src/hooks/theme';
 
 type SpinnerProps = {
   size: number;

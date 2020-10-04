@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { usingTypography } from '../../../../hooks/theme';
+import { usingTypography } from 'src/hooks/theme';
 
 export const GridList = styled.ul`
   margin: 0 auto;

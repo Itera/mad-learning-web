@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import Alert from '../../../../components/Alert';
-import EventCard from '../EventCard';
-import { Event } from '../../../../types/domain';
+import Alert from 'src/components/Alert';
+import EventCard from './components/EventCard';
+import { Event } from 'src/types/domain';
 import {
   GridList,
   GridItem,

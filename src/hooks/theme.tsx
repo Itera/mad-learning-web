@@ -5,10 +5,10 @@ import {
   ThemeConsumer as StyledThemeConsumer,
 } from 'styled-components';
 
-import { modularScale } from '../utils/typography';
-import { ColorPalette } from '../config/colors';
-import { TypographyOptions } from '../config/typography';
-import { StylingOptions } from '../config/styling';
+import { modularScale } from 'src/utils/typography';
+import { ColorPalette } from 'src/config/colors';
+import { TypographyOptions } from 'src/config/typography';
+import { StylingOptions } from 'src/config/styling';
 
 type Typography = {
   scaleFont: (level: number) => number;
