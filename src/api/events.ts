@@ -1,7 +1,9 @@
 import { Event } from 'src/types/domain';
 
 export async function fetchEvents(): Promise<Array<Event>> {
-  const response = await fetch('https://localhost:5001/api/event');
+  const response = await fetch(
+    `https://${process.env.REACT_APP_MAD_LEARNING_API}/api/event`
+  );
   if (response.ok) {
     return await response.json();
   }
