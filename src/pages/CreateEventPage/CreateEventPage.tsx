@@ -53,8 +53,10 @@ function CreateEvent() {
       })
       .catch((error) => {
         setCreateFailed(error.message);
+      })
+      .finally(() => {
+        setClicked(false);
       });
-    setClicked(false);
   }
 
   function isFormFilled(name: string, description: string, eventType: string) {

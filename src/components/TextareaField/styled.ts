@@ -6,7 +6,7 @@ export const FieldWrapper = styled.div`
   margin: 10px;
 `;
 
-export const Textarea = styled.textarea`
+export const TextArea = styled.textarea`
   display: block;
   width: 100%;
   height: 100px;
