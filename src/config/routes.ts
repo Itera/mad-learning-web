@@ -1,6 +1,7 @@
 import { RouteComponentProps } from '@reach/router';
 
 import LandingPage from '../pages/LandingPage';
+import CreateEventPage from '../pages/CreateEventPage'
 import NotFoundPage from '../pages/NotFoundPage';
 import { ReactComponent } from '../utils/types';
 
@@ -15,6 +16,11 @@ const routes: Array<Route> = [
     path: '/',
     label: 'Landing Page',
     component: LandingPage,
+  },
+  {
+    path: '/create-event',
+    label: 'Create event',
+    component: CreateEventPage,
   },
   {
     path: '/*',
