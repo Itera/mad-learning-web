@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ThemeProps } from '../../../../hooks/theme';
+import { ThemeProps } from 'src/hooks/theme';
 
 export const Container = styled.article`
   height: 100%;

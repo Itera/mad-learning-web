@@ -2,8 +2,8 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 import AppWrapper from './components/AppWrapper';
-import GlobalStyle from './GlobalStyle';
 import Navbar from './components/NavMenu';
+import GlobalStyle from './GlobalStyle';
 import Providers from './Providers';
 import routes from './config/routes';
 

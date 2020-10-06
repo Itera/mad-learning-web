@@ -1,7 +1,7 @@
 import { format, parseISO, isSameDay } from 'date-fns';
 import locale from 'date-fns/locale/en-US';
 
-import { Person } from '../types/domain';
+import { Person } from 'src/types/domain';
 
 export function formatDate(date: string | Date, dateFormat = 'Pp'): string {
   const parsedDateTime = typeof date === 'string' ? parseISO(date) : date;

@@ -1,10 +1,10 @@
 import { RouteComponentProps } from '@reach/router';
 
-import LandingPage from '../pages/LandingPage';
-import CreateEventPage from '../pages/CreateEventPage';
-import EventPage from '../pages/EventPage';
-import NotFoundPage from '../pages/NotFoundPage';
-import { ReactComponent } from '../utils/types';
+import LandingPage from 'src/pages/LandingPage';
+import CreateEventPage from 'src/pages/CreateEventPage';
+import EventPage from 'src/pages/EventPage';
+import NotFoundPage from 'src/pages/NotFoundPage';
+import { ReactComponent } from 'src/utils/types';
 
 export type Route<P extends RouteComponentProps> = {
   path: string;

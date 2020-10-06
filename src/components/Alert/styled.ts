@@ -1,20 +1,23 @@
 import styled from 'styled-components';
-import { ThemeProps } from '../../hooks/theme';
+
+import { usingTypography, usingColors } from 'src/hooks/theme';
 
 export const Container = styled.article`
-  padding: ${({ theme }: ThemeProps) => theme.typography.scaleSpacing(6)}px;
+  padding: ${usingTypography((t) => t.scaleSpacing(6))}px;
 
-  ${({ theme }: ThemeProps) => `
-      color: ${theme.colors.ON.SECONDARY};
-      background-color: ${theme.colors.SURFACE.SECONDARY};
-  `}
+  ${usingColors(
+    (c) => `
+      color: ${c.ON.SECONDARY};
+      background-color: ${c.SURFACE.SECONDARY};
+  `
+  )}
 
   & a {
-    color: ${({ theme }: ThemeProps) => theme.colors.ON.SECONDARY};
+    color: ${usingColors((c) => c.ON.SECONDARY)};
     text-decoration: underline;
 
     &:hover {
-      color: ${({ theme }: ThemeProps) => theme.colors.ON.SECONDARY_ACCENT};
+      color: ${usingColors((c) => c.ON.SECONDARY_ACCENT)};
     }
   }
 `;

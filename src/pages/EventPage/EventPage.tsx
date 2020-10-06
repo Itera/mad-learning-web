@@ -1,13 +1,13 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
-import FailedFetchAlert from '../../components/FailedFetchAlert';
-import LoadableContent from '../../components/LoadableContent';
-import Loader from '../../components/Loader';
-import SplitSection from '../../components/SplitSection';
+import FailedFetchAlert from 'src/components/FailedFetchAlert';
+import LoadableContent from 'src/components/LoadableContent';
+import Loader from 'src/components/Loader';
+import SplitSection from 'src/components/SplitSection';
 import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
-import { fetchEvent } from '../../api/events';
+import { fetchEvent } from 'src/api/events';
 
 type EventPageProps = {
   eventId: string;

@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-import { ThemeProps } from '../../hooks/theme';
+import { usingTypography } from 'src/hooks/theme';
 
 export const Wrapper = styled.nav`
   display: flex;
-  padding: ${({ theme }: ThemeProps) => theme.typography.scaleSpacing(4)}px 0;
+  padding: ${usingTypography((t) => t.scaleSpacing(4))}px 0;
 `;
 
 export const Icon = styled.img`
   margin-right: 3vw;
-  padding: ${({ theme }: ThemeProps) => theme.typography.scaleSpacing(4)}px 0 0;
+  padding: ${usingTypography((t) => t.scaleSpacing(4))}px 0 0;
   width: 100px;
 `;
 
@@ -20,8 +20,7 @@ export const Menu = styled.ul`
 `;
 
 export const MenuItem = styled.li`
-  padding: ${({ theme }: ThemeProps) =>
-    `${theme.typography.scaleSpacing(2)}px`};
+  padding: ${usingTypography((t) => t.scaleSpacing(2))}px;
 
   &:first-of-type {
     padding-left: 0;

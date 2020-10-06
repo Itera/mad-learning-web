@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { MetaInfoGroup, MetaInfoLabel, MetaInfoValue } from './styled';
-import {
-  formatDateInterval,
-  formatPersonName,
-} from '../../../../utils/formatting';
-import { Event } from '../../../../types/domain';
+import { formatDateInterval, formatPersonName } from 'src/utils/formatting';
+import { Event } from 'src/types/domain';
 
 type MetaInfoProps = Pick<
   Event,

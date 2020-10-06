@@ -5,23 +5,25 @@ import {
   ThemeConsumer as StyledThemeConsumer,
 } from 'styled-components';
 
-import { modularScale } from '../utils/typography';
-import { ColorPalette } from '../config/colors';
-import { TypographyOptions } from '../config/typography';
-import { StylingOptions } from '../config/styling';
+import { modularScale } from 'src/utils/typography';
+import { ColorPalette } from 'src/config/colors';
+import { TypographyOptions } from 'src/config/typography';
+import { StylingOptions } from 'src/config/styling';
 
 type Typography = {
   scaleFont: (level: number) => number;
   scaleSpacing: (level: number) => number;
 };
 
+type Styling = {
+  global: string;
+  createAnimation: (animation: string) => string;
+};
+
 export type Theme = {
   colors: ColorPalette;
   typography: Typography;
-  styling: {
-    global: string;
-    createAnimation: (animation: string) => string;
-  };
+  styling: Styling;
 };
 
 export type ThemeProps = {
@@ -38,6 +40,24 @@ export function useColors(): ColorPalette {
 
 export function useTypography(): Typography {
   return useTheme().typography;
+}
+
+export function usingTypography<V>(
+  f: (typography: Typography) => V
+): (props: ThemeProps) => V {
+  return ({ theme }) => f(theme.typography);
+}
+
+export function usingColors<V>(
+  f: (colors: ColorPalette) => V
+): (props: ThemeProps) => V {
+  return ({ theme }) => f(theme.colors);
+}
+
+export function usingStyling<V>(
+  f: (styling: Styling) => V
+): (props: ThemeProps) => V {
+  return ({ theme }) => f(theme.styling);
 }
 
 type ThemeProviderProps = {

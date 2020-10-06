@@ -1,11 +1,11 @@
 import React from 'react';
 
-import FailedFetchAlert from '../../components/FailedFetchAlert';
+import FailedFetchAlert from 'src/components/FailedFetchAlert';
 import EventList from './components/EventList';
-import LoadableContent from '../../components/LoadableContent';
-import Loader from '../../components/Loader';
+import LoadableContent from 'src/components/LoadableContent';
+import Loader from 'src/components/Loader';
 import { Heading } from './styled';
-import { fetchEvents } from '../../api/events';
+import { fetchEvents } from 'src/api/events';
 
 function LandingPage() {
   return (

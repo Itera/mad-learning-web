@@ -1,4 +1,4 @@
-import { Event } from '../types/domain';
+import { Event } from 'src/types/domain';
 
 export const event: Event = {
   id: '0',

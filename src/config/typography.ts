@@ -1,4 +1,4 @@
-import { ModularScale } from '../utils/typography';
+import { ModularScale } from 'src/utils/typography';
 
 export type TypographyOptions = {
   fontScale: ModularScale;

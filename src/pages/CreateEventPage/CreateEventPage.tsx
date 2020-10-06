@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { CreateEventWrapper, Form } from './styled';
 import { formatISO, format } from 'date-fns';
-import { createEvent } from '../../api/events';
-import TextField from '../../components/TextField';
-import DateField from '../../components/DateField';
-import TimeField from '../../components/TimeField';
-import SelectField from '../../components/SelectField';
-import TextAreaField from '../../components/TextAreaField';
-import Alert from '../../components/Alert';
+
+import { CreateEventWrapper, Form } from './styled';
+import { createEvent } from 'src/api/events';
+import TextField from 'src/components/TextField';
+import DateField from 'src/components/DateField';
+import TimeField from 'src/components/TimeField';
+import SelectField from 'src/components/SelectField';
+import TextAreaField from 'src/components/TextAreaField';
+import Alert from 'src/components/Alert';
 
 function CreateEvent() {
   const [name, setName] = useState('');
