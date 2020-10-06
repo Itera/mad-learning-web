@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     src:
       local('ApexNew-Book'),
-      url('fonts/ApexNew-Book.otf') format('opentype');
+      url('/fonts/ApexNew-Book.otf') format('opentype');
   }
 
   @font-face {
@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     src:
       local('ApexNew-Bold'),
-      url('fonts/ApexNew-Bold.otf') format('opentype');
+      url('/fonts/ApexNew-Bold.otf') format('opentype');
   }
 
   body {

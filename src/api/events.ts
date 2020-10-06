@@ -8,6 +8,14 @@ export async function fetchEvents(): Promise<Array<Event>> {
   throw new Error(`Failed to fetch events: ${response.statusText}.`);
 }
 
+export async function fetchEvent(id: string): Promise<Event> {
+  const response = await fetch(`https://localhost:5001/api/event/${id}`);
+  if (response.ok) {
+    return await response.json();
+  }
+  throw new Error(`Failed to fetch event: ${response.statusText}.`);
+}
+
 export async function createEvent(
   starttime: string,
   endtime: string,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Alert from '../../components/Alert/';
+import FailedFetchAlert from '../../components/FailedFetchAlert';
 import EventList from './components/EventList';
 import LoadableContent from '../../components/LoadableContent';
 import Loader from '../../components/Loader';
@@ -22,17 +22,8 @@ function LandingPage() {
         )}
         renderSuccess={(events) => <EventList events={events} />}
         renderError={() => (
-          <Alert
+          <FailedFetchAlert
             heading="Failed to retrieve events"
-            description={
-              <p>
-                You can try refreshing the page again, but please{' '}
-                <a href="https://iterano.slack.com/archives/C01AMCX2E7M">
-                  contact one of the administrators
-                </a>{' '}
-                if the issue still persists.
-              </p>
-            }
             headingAs="h2"
           />
         )}
