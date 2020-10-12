@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { formatISO, format } from 'date-fns';
 
-import { CreateEventWrapper, Form } from './styled';
-import { createEvent } from 'src/api/events';
-import TextField from 'src/components/fields/TextField';
+import Alert from 'src/components/Alert';
 import DateField from 'src/components/fields/DateField';
-import TimeField from 'src/components/fields/TimeField';
 import SelectField from 'src/components/fields/SelectField';
 import TextAreaField from 'src/components/fields/TextAreaField';
-import Alert from 'src/components/Alert';
+import TextField from 'src/components/fields/TextField';
+import TimeField from 'src/components/fields/TimeField';
+import { CreateEventWrapper, Form } from './styled';
+import { createEvent } from 'src/api/events';
+import { EVENT_OPTIONS } from './constants';
 
 function CreateEvent() {
   const [name, setName] = useState('');
@@ -23,60 +24,55 @@ function CreateEvent() {
   const [lastName, setLastName] = useState('');
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
-  const [createWasSuccess, setCreateWasSuccess] = useState(false);
-  const [createFailed, setCreateFailed] = useState('');
-  const [clicked, setClicked] = useState(false);
-  const eventOptions: string[] = [
-    '',
-    'Subject matter event',
-    'Coding event',
-    'Project presentation',
-    'Workshop',
-  ];
 
-  function submitEvent() {
-    setCreateFailed('');
-    setCreateWasSuccess(false);
-    createEvent(
-      formatISO(Date.parse(date + ' ' + startTime)),
-      formatISO(Date.parse(date + ' ' + endTime)),
-      name,
-      description,
-      image,
-      imageAlt,
-      location,
-      firstName,
-      lastName,
-      email
-    )
-      .then((result) => {
-        if (result) {
-          setCreateWasSuccess(true);
-        } else {
-          setCreateFailed('');
-        }
-      })
-      .catch((error) => {
-        setCreateFailed(error.message);
-      })
-      .finally(() => {
-        setClicked(false);
-      });
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function isFormFilled(name: string, description: string, eventType: string) {
-    return name && description && eventType;
-  }
+  const isFormValid = name && description && eventType;
+  const isSubmitDisabled = !isFormValid || isSubmitting;
+
+  const handleSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await createEvent(
+        formatISO(Date.parse(date + ' ' + startTime)),
+        formatISO(Date.parse(date + ' ' + endTime)),
+        name,
+        description,
+        image,
+        imageAlt,
+        location,
+        firstName,
+        lastName,
+        email
+      );
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+    setHasSubmitted(true);
+  }, [
+    name,
+    description,
+    date,
+    startTime,
+    endTime,
+    image,
+    imageAlt,
+    location,
+    firstName,
+    lastName,
+    email,
+    setIsSubmitting,
+    setError,
+  ]);
 
   return (
     <CreateEventWrapper>
-      {createFailed ? (
-        <Alert
-          heading="Failed to create event"
-          description={<p></p>}
-          headingAs="h2"
-        />
-      ) : null}
       <h1>Create new event</h1>
       <Form>
         <TextField
@@ -132,7 +128,7 @@ function CreateEvent() {
           label="Event type"
           value={eventType}
           onChange={setEventType}
-          options={eventOptions}
+          options={EVENT_OPTIONS}
         />
         <TextField
           name="firstName"
@@ -154,17 +150,23 @@ function CreateEvent() {
         />
         <div>
           <button
-            disabled={!isFormFilled(name, description, eventType) && !clicked}
-            onClick={(e) => {
-              e.preventDefault();
-              setClicked(true);
-              submitEvent();
-            }}
+            type="button"
+            disabled={isSubmitDisabled}
+            onClick={handleSubmit}
           >
             Create
           </button>
         </div>
-        <div>{createWasSuccess ? 'Event created' : ''}</div>
+        {hasSubmitted &&
+          (error == null ? (
+            <div>Event created</div>
+          ) : (
+            <Alert
+              heading="Failed to create event"
+              description={<p></p>}
+              headingAs="h2"
+            />
+          ))}
       </Form>
     </CreateEventWrapper>
   );
