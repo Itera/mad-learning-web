@@ -77,7 +77,7 @@ function CreateEvent() {
           headingAs="h2"
         />
       ) : null}
-      <h3>Create new event</h3>
+      <h1>Create new event</h1>
       <Form>
         <TextField
           name="name"
