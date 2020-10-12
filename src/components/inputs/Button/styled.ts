@@ -10,4 +10,11 @@ export const Button = styled.button`
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
+Button.defaultProps = {
+  type: 'button',
+};

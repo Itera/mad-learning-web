@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { formatISO, format } from 'date-fns';
 
 import Alert from 'src/components/Alert';
+import Button from 'src/components/inputs/Button';
 import DateField from 'src/components/fields/DateField';
 import SelectField from 'src/components/fields/SelectField';
 import TextAreaField from 'src/components/fields/TextAreaField';
@@ -149,13 +150,9 @@ function CreateEvent() {
           onChange={setEmail}
         />
         <div>
-          <button
-            type="button"
-            disabled={isSubmitDisabled}
-            onClick={handleSubmit}
-          >
+          <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
             Create
-          </button>
+          </Button>
         </div>
         {hasSubmitted &&
           (error == null ? (
