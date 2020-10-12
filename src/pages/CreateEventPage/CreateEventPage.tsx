@@ -21,6 +21,7 @@ function CreateEvent() {
   const [eventType, setEventType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
   const [createWasSuccess, setCreateWasSuccess] = useState(false);
   const [createFailed, setCreateFailed] = useState('');
@@ -41,6 +42,9 @@ function CreateEvent() {
       formatISO(Date.parse(date + ' ' + endtime)),
       name,
       description,
+      image,
+      imageAlt,
+      location,
       firstName,
       lastName,
       email
@@ -114,6 +118,13 @@ function CreateEvent() {
           label="Description"
           value={description}
           onChange={setDescription}
+        />
+
+        <TextField
+          name="location"
+          label="Location"
+          value={location}
+          onChange={setLocation}
         />
 
         <TextField
