@@ -15,8 +15,8 @@ function CreateEvent() {
   const [image, setImage] = useState('');
   const [imageAlt, setImageAlt] = useState('');
   const [date, setDate] = useState(format(Date.now(), 'yyyy-MM-dd'));
-  const [starttime, setStarttime] = useState(format(Date.now(), 'HH:mm'));
-  const [endtime, setEndtime] = useState(format(Date.now(), 'HH:mm'));
+  const [startTime, setStartTime] = useState(format(Date.now(), 'HH:mm'));
+  const [endTime, setEndTime] = useState(format(Date.now(), 'HH:mm'));
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -38,8 +38,8 @@ function CreateEvent() {
     setCreateFailed('');
     setCreateWasSuccess(false);
     createEvent(
-      formatISO(Date.parse(date + ' ' + starttime)),
-      formatISO(Date.parse(date + ' ' + endtime)),
+      formatISO(Date.parse(date + ' ' + startTime)),
+      formatISO(Date.parse(date + ' ' + endTime)),
       name,
       description,
       image,
@@ -85,62 +85,48 @@ function CreateEvent() {
           value={name}
           onChange={setName}
         />
-
         <DateField
           name="date"
           label="Date"
           value={date}
-          onChange={(date: string) => {
-            setDate(date);
-          }}
+          onChange={(date: string) => setDate(date)}
         />
-
         <TimeField
           name="time"
           label="Start time"
-          value={starttime}
-          onChange={(time: string) => {
-            setStarttime(time);
-          }}
+          value={startTime}
+          onChange={setStartTime}
         />
-
         <TimeField
           name="time"
           label="End time"
-          value={endtime}
-          onChange={(time: string) => {
-            setEndtime(time);
-          }}
+          value={endTime}
+          onChange={setEndTime}
         />
-
         <TextAreaField
           name="description"
           label="Description"
           value={description}
           onChange={setDescription}
         />
-
         <TextField
           name="location"
           label="Location"
           value={location}
           onChange={setLocation}
         />
-
         <TextField
           name="image"
           label="Image link"
           value={image}
           onChange={setImage}
         />
-
         <TextField
           name="imageAlt"
           label="Image text"
           value={imageAlt}
           onChange={setImageAlt}
         />
-
         <SelectField
           name="eventType"
           label="Event type"
@@ -148,28 +134,24 @@ function CreateEvent() {
           onChange={setEventType}
           options={eventOptions}
         />
-
         <TextField
           name="firstName"
           label="Owner first name"
           value={firstName}
           onChange={setFirstName}
         />
-
         <TextField
           name="lastName"
           label="Owner last name"
           value={lastName}
           onChange={setLastName}
         />
-
         <TextField
           name="email"
           label="Owner email"
           value={email}
           onChange={setEmail}
         />
-
         <div>
           <button
             disabled={!isFormFilled(name, description, eventType) && !clicked}
