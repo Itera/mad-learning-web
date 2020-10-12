@@ -3,11 +3,11 @@ import { formatISO, format } from 'date-fns';
 
 import { CreateEventWrapper, Form } from './styled';
 import { createEvent } from 'src/api/events';
-import TextField from 'src/components/TextField';
-import DateField from 'src/components/DateField';
-import TimeField from 'src/components/TimeField';
-import SelectField from 'src/components/SelectField';
-import TextAreaField from 'src/components/TextAreaField';
+import TextField from 'src/components/fields/TextField';
+import DateField from 'src/components/fields/DateField';
+import TimeField from 'src/components/fields/TimeField';
+import SelectField from 'src/components/fields/SelectField';
+import TextAreaField from 'src/components/fields/TextAreaField';
 import Alert from 'src/components/Alert';
 
 function CreateEvent() {

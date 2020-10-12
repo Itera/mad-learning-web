@@ -1,5 +1,7 @@
 import React from 'react';
-import { FieldWrapper, Select } from './styled';
+
+import FieldWrapper from 'src/components/fields/FieldWrapper';
+import Select from 'src/components/inputs/Select';
 
 type CreateEventProps = {
   name: string;

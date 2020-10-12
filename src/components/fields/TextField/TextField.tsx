@@ -1,5 +1,7 @@
 import React from 'react';
-import { FieldWrapper, TextArea } from './styled';
+
+import FieldWrapper from 'src/components/fields/FieldWrapper';
+import Input from 'src/components/inputs/Input';
 
 type CreateEventProps = {
   name: string;
@@ -8,13 +10,14 @@ type CreateEventProps = {
   onChange: Function;
 };
 
-function TextAreaField({ name, label, value, onChange }: CreateEventProps) {
+function TextField({ name, label, value, onChange }: CreateEventProps) {
   return (
     <FieldWrapper>
       <label>
         {label}
-        <TextArea
+        <Input
           name={name}
+          type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -22,5 +25,4 @@ function TextAreaField({ name, label, value, onChange }: CreateEventProps) {
     </FieldWrapper>
   );
 }
-
-export default TextAreaField;
+export default TextField;

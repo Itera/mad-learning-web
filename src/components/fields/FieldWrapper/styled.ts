@@ -5,8 +5,3 @@ export const FieldWrapper = styled.div`
   width: 300px;
   margin: 10px;
 `;
-
-export const Select = styled.select`
-  display: block;
-  width: 100%;
-`;
