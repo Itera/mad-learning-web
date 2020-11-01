@@ -1,3 +1,4 @@
 node_modules/
 build/
+scripts/generate-local-env.sh
 npm-debug.log
