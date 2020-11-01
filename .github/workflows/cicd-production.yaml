@@ -25,6 +25,7 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     env:
+      APP_NAME: mad-learning-web
       REGISTRY_NAME: itemadacr.azurecr.io
       NAMESPACE: production-mad-learning
     steps:
@@ -37,8 +38,8 @@ jobs:
           password: ${{ secrets.MAD_DOCKER_PUSH_PASSWORD }}
       # Container build and push to a Azure Container registry (ACR)
       - run: |
-          docker build . -t ${{ env.REGISTRY_NAME }}/mad-learning-web:${{ github.sha }} -t ${{ env.REGISTRY_NAME }}/mad-learning-web:latest
-          docker push ${{ env.REGISTRY_NAME }}/mad-learning-web
+          docker build . -t ${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:${{ github.sha }} -t ${{ env.REGISTRY_NAME }}/${{ env. APP_NAME }}:latest
+          docker push ${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}
       # Set the target Azure Kubernetes Service (AKS) cluster. 
       - uses: azure/k8s-set-context@v1
         with:
@@ -53,5 +54,5 @@ jobs:
             kubernetes/deployment.yaml
             kubernetes/service.yaml
             kubernetes/ingress-production.yaml
-          images: ${{ env.REGISTRY_NAME }}/mad-learning-web:latest
+          images: ${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:latest
           namespace: ${{ env.NAMESPACE }}
