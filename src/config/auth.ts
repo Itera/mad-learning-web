@@ -22,7 +22,7 @@ const authenticationParameters: MsalParams[1] = {
 };
 
 const options: MsalParams[2] = {
-  loginType: LoginType.Popup,
+  loginType: LoginType.Redirect,
   tokenRefreshUri: window.location.origin + '/auth.html',
 };
 
