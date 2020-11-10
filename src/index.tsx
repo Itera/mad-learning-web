@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Authentication from "./config/auth";
+
+
+
+const MadLearning = ():JSX.Element =>{
+  return (
+    <React.StrictMode>
+    <App />
+  </React.StrictMode>
+  )
+}
+
+const SecureApp = Authentication.secure(MadLearning);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <SecureApp/>,
   document.getElementById('root')
 );
 
