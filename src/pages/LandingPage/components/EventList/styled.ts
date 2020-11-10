@@ -18,7 +18,7 @@ export const GridItem = styled.li`
   }
 
   @media screen and (min-width: 1250px) {
-    width: 29vw;
+    width: 28vw;
   }
 `;
 

@@ -21,6 +21,9 @@ export async function createEvent(
   endtime: string,
   name: string,
   description: string,
+  imageUrl: string,
+  imageAlt: string,
+  location: string,
   firstName: string,
   lastName: string,
   email: string
@@ -35,6 +38,9 @@ export async function createEvent(
       endtime: endtime,
       name: name,
       description: description,
+      imageUrl: imageUrl,
+      imageAlt: imageAlt,
+      location: location,
       owner: {
         id: '5f747809885eeb66847e7726', //TODO remove
         firstName,

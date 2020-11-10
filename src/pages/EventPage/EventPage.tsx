@@ -35,6 +35,7 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
           description,
           startTime,
           endTime,
+          imageUrl,
           location,
           owner,
           participants,
@@ -46,6 +47,7 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
                 name={name}
                 startTime={startTime}
                 endTime={endTime}
+                imageUrl={imageUrl}
                 location={location}
                 owner={owner}
               />

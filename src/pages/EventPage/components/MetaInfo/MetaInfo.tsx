@@ -6,13 +6,14 @@ import { Event } from 'src/types/domain';
 
 type MetaInfoProps = Pick<
   Event,
-  'name' | 'startTime' | 'endTime' | 'location' | 'owner'
+  'name' | 'startTime' | 'endTime' | 'location' | 'owner' | 'imageUrl'
 >;
 
 function MetaInfo({
   name,
   startTime,
   endTime,
+  imageUrl,
   location,
   owner,
 }: MetaInfoProps) {
