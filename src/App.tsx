@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 import AppWrapper from './components/AppWrapper';
-import Navbar from './components/NavMenu';
+import Navbar from './components/Navbar';
 import GlobalStyle from './GlobalStyle';
 import Providers from './Providers';
 import routes from './config/routes';
@@ -10,11 +10,11 @@ import routes from './config/routes';
 function App() {
   return (
     <Providers>
+      <GlobalStyle />
+      <header>
+        <Navbar />
+      </header>
       <AppWrapper>
-        <GlobalStyle />
-        <header>
-          <Navbar />
-        </header>
         <main>
           <Router>
             {routes.map(({ path, component: Component }) => (
