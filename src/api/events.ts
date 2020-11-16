@@ -1,20 +1,10 @@
 import { Event } from 'src/types/domain';
-import Authentication from "../config/auth";
 import {authFetch} from "../utils/request";
 
 export async function fetchEvents(): Promise<Array<Event>> {
-     //const tokenResponse = await Authentication.getToken();
      const response = await authFetch('https://localhost:5001/api/event', {
        method: 'GET',
      });
-     /*
-     const response = await fetch('https://localhost:5001/api/event', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + tokenResponse.accessToken,
-      },
-    });*/
     if (response.ok) {
       return await response.json();
     }
@@ -22,13 +12,8 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function fetchEvent(id: string): Promise<Event> {
-  const tokenResponse = await Authentication.getToken();
-  const response = await fetch(`https://localhost:5001/api/event/${id}`, {
+  const response = await authFetch(`https://localhost:5001/api/event/${id}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + tokenResponse.accessToken,
-    },
   });
   if (response.ok) {
     return await response.json();
@@ -45,13 +30,8 @@ export async function createEvent(
   lastName: string,
   email: string
 ): Promise<Boolean> {
-  const tokenResponse = await Authentication.getToken();
-  const response = await fetch('https://localhost:5001/api/Event', {
+  const response = await authFetch('https://localhost:5001/api/Event', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: "Bearer " + tokenResponse.accessToken,
-    },
     body: JSON.stringify({
       starttime: starttime,
       endtime: endtime,
