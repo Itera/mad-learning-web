@@ -17,7 +17,14 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function fetchEvent(id: string): Promise<Event> {
-  const response = await fetch(`https://localhost:5001/api/event/${id}`);
+  const tokenResponse = await Authentication.getToken();
+  const response = await fetch(`https://localhost:5001/api/event/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + tokenResponse.accessToken,
+    },
+  });
   if (response.ok) {
     return await response.json();
   }
