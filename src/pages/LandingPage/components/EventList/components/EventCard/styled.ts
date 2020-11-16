@@ -43,4 +43,12 @@ export const Content = styled.div``;
 
 export const Heading = styled.h2`
   margin: ${({ theme }: ThemeProps) => theme.typography.scaleSpacing(5)}px 0;
+
+  @media screen and (min-width: 400px) and (max-width: 620px),
+    screen and (min-width: 820px) and (max-width: 1400px) {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;

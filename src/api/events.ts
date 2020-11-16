@@ -27,7 +27,7 @@ export async function createEvent(
   firstName: string,
   lastName: string,
   email: string
-): Promise<Boolean> {
+): Promise<void> {
   const response = await fetch('https://localhost:5001/api/Event', {
     method: 'POST',
     headers: {
@@ -50,8 +50,8 @@ export async function createEvent(
       participants: [],
     }),
   });
-  if (response.ok) {
-    return true;
+
+  if (!response.ok) {
+    throw new Error(`Failed to create event: ${response.statusText}.`);
   }
-  throw new Error(`Failed to create event: ${response.statusText}.`);
 }
