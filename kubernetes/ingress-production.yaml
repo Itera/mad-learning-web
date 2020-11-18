@@ -18,4 +18,4 @@ spec:
     tls:
         - hosts:
             - learning.mad.itera.no
-        secretName: tls-secret
+        secretName: mad-learning-web-tls-secret
