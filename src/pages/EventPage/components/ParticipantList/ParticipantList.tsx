@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from 'src/components/Button';
+import Button from 'src/components/inputs/Button';
 import { Person } from 'src/types/domain';
 import { Container } from './styled';
 import { formatPersonName } from 'src/utils/formatting';

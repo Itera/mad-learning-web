@@ -1,79 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { formatISO, format } from 'date-fns';
 
+import Alert from 'src/components/Alert';
+import Button from 'src/components/inputs/Button';
+import DateField from 'src/components/fields/DateField';
+import SelectField from 'src/components/fields/SelectField';
+import TextAreaField from 'src/components/fields/TextAreaField';
+import TextField from 'src/components/fields/TextField';
+import TimeField from 'src/components/fields/TimeField';
 import { CreateEventWrapper, Form } from './styled';
 import { createEvent } from 'src/api/events';
-import TextField from 'src/components/TextField';
-import DateField from 'src/components/DateField';
-import TimeField from 'src/components/TimeField';
-import SelectField from 'src/components/SelectField';
-import TextAreaField from 'src/components/TextAreaField';
-import Alert from 'src/components/Alert';
+import { EVENT_OPTIONS } from './constants';
 
 function CreateEvent() {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [imageAlt, setImageAlt] = useState('');
   const [date, setDate] = useState(format(Date.now(), 'yyyy-MM-dd'));
-  const [starttime, setStarttime] = useState(format(Date.now(), 'HH:mm'));
-  const [endtime, setEndtime] = useState(format(Date.now(), 'HH:mm'));
+  const [startTime, setStartTime] = useState(format(Date.now(), 'HH:mm'));
+  const [endTime, setEndTime] = useState(format(Date.now(), 'HH:mm'));
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
-  const [createWasSuccess, setCreateWasSuccess] = useState(false);
-  const [createFailed, setCreateFailed] = useState('');
-  const [clicked, setClicked] = useState(false);
-  const eventOptions: string[] = [
-    '',
-    'Subject matter event',
-    'Coding event',
-    'Project presentation',
-    'Workshop',
-  ];
 
-  function submitEvent() {
-    setCreateFailed('');
-    setCreateWasSuccess(false);
-    createEvent(
-      formatISO(Date.parse(date + ' ' + starttime)),
-      formatISO(Date.parse(date + ' ' + endtime)),
-      name,
-      description,
-      firstName,
-      lastName,
-      email
-    )
-      .then((result) => {
-        if (result) {
-          setCreateWasSuccess(true);
-        } else {
-          setCreateFailed('');
-        }
-      })
-      .catch((error) => {
-        setCreateFailed(error.message);
-      })
-      .finally(() => {
-        setClicked(false);
-      });
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function isFormFilled(name: string, description: string, eventType: string) {
-    return name && description && eventType;
-  }
+  const isFormValid = name && description && eventType;
+  const isSubmitDisabled = !isFormValid || isSubmitting;
+
+  const handleSubmit = useCallback(async () => {
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await createEvent(
+        formatISO(Date.parse(date + ' ' + startTime)),
+        formatISO(Date.parse(date + ' ' + endTime)),
+        name,
+        description,
+        image,
+        imageAlt,
+        location,
+        firstName,
+        lastName,
+        email
+      );
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+    setHasSubmitted(true);
+  }, [
+    name,
+    description,
+    date,
+    startTime,
+    endTime,
+    image,
+    imageAlt,
+    location,
+    firstName,
+    lastName,
+    email,
+    setIsSubmitting,
+    setError,
+  ]);
 
   return (
     <CreateEventWrapper>
-      {createFailed ? (
-        <Alert
-          heading="Failed to create event"
-          description={<p></p>}
-          headingAs="h2"
-        />
-      ) : null}
-      <h3>Create new event</h3>
+      <h1>Create new event</h1>
       <Form>
         <TextField
           name="name"
@@ -81,97 +82,88 @@ function CreateEvent() {
           value={name}
           onChange={setName}
         />
-
         <DateField
           name="date"
           label="Date"
           value={date}
-          onChange={(date: string) => {
-            setDate(date);
-          }}
+          onChange={(date: string) => setDate(date)}
         />
-
         <TimeField
           name="time"
           label="Start time"
-          value={starttime}
-          onChange={(time: string) => {
-            setStarttime(time);
-          }}
+          value={startTime}
+          onChange={setStartTime}
         />
-
         <TimeField
           name="time"
           label="End time"
-          value={endtime}
-          onChange={(time: string) => {
-            setEndtime(time);
-          }}
+          value={endTime}
+          onChange={setEndTime}
         />
-
         <TextAreaField
           name="description"
           label="Description"
           value={description}
           onChange={setDescription}
         />
-
+        <TextField
+          name="location"
+          label="Location"
+          value={location}
+          onChange={setLocation}
+        />
         <TextField
           name="image"
           label="Image link"
           value={image}
           onChange={setImage}
         />
-
         <TextField
           name="imageAlt"
           label="Image text"
           value={imageAlt}
           onChange={setImageAlt}
         />
-
         <SelectField
           name="eventType"
           label="Event type"
           value={eventType}
           onChange={setEventType}
-          options={eventOptions}
+          options={EVENT_OPTIONS}
         />
-
         <TextField
           name="firstName"
           label="Owner first name"
           value={firstName}
           onChange={setFirstName}
         />
-
         <TextField
           name="lastName"
           label="Owner last name"
           value={lastName}
           onChange={setLastName}
         />
-
         <TextField
           name="email"
           label="Owner email"
           value={email}
           onChange={setEmail}
         />
-
         <div>
-          <button
-            disabled={!isFormFilled(name, description, eventType) && !clicked}
-            onClick={(e) => {
-              e.preventDefault();
-              setClicked(true);
-              submitEvent();
-            }}
-          >
+          <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
             Create
-          </button>
+          </Button>
         </div>
-        <div>{createWasSuccess ? 'Event created' : ''}</div>
+        {hasSubmitted &&
+          (error == null ? (
+            <div>Event created</div>
+          ) : (
+            <Alert
+              heading="Failed to create event"
+              description={<p></p>}
+              headingAs="h2"
+            />
+          ))}
       </Form>
     </CreateEventWrapper>
   );
