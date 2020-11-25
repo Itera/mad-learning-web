@@ -1,15 +1,18 @@
-import {ComponentType, FunctionComponent} from "react";
-import {AccessTokenResponse} from "react-aad-msal/dist/typings/AccessTokenResponse";
-import {LoginType, MsalAuthProvider, withAuthentication} from "react-aad-msal";
-
+import { ComponentType, FunctionComponent } from 'react';
+import { AccessTokenResponse } from 'react-aad-msal/dist/typings/AccessTokenResponse';
+import {
+  LoginType,
+  MsalAuthProvider,
+  withAuthentication,
+} from 'react-aad-msal';
 
 type MsalParams = ConstructorParameters<typeof MsalAuthProvider>;
 
 const config: MsalParams[0] = {
   auth: {
-    authority: 'https://login.microsoft.com/<tenant_id>', 
+    authority: 'https://login.microsoft.com/<tenant_id>',
     clientId: '<client_id>',
-    redirectUri: 'http://localhost:3000/#', 
+    redirectUri: 'http://localhost:3000/#',
     validateAuthority: true, // false when B2C
   },
   cache: {
@@ -19,27 +22,26 @@ const config: MsalParams[0] = {
 };
 
 const authenticationParameters: MsalParams[1] = {
-  scopes: [
-    'openid',
-    '<application_id_uri>',
-  ]
+  scopes: ['openid', '<application_id_uri>'],
 };
-
 
 const options: MsalParams[2] = {
   loginType: LoginType.Redirect,
   tokenRefreshUri: window.location.origin,
 };
 
-
-const authProvider = new MsalAuthProvider(config, authenticationParameters, options);
+const authProvider = new MsalAuthProvider(
+  config,
+  authenticationParameters,
+  options
+);
 
 export default class Authentication {
   static secure(Component: ComponentType<any>): FunctionComponent {
     return withAuthentication(Component, {
       provider: authProvider,
       forceLogin: true,
-    })
+    });
   }
 
   static getToken(): Promise<AccessTokenResponse> {
