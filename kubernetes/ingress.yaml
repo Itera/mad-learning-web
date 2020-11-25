@@ -2,10 +2,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: mad-learning-web
-  namespace: mad-learning
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
+    nginx.org/mergeable-ingress-type: minion
 spec:
   rules:
     - host: learning.mad.itera.no
@@ -15,7 +14,3 @@ spec:
               serviceName: mad-learning-web
               servicePort: 8080
             path: /
-    tls:
-        - hosts:
-            - learning.mad.itera.no
-        secretName: mad-learning-web-tls-secret

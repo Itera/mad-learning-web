@@ -21,4 +21,4 @@ spec:
             - containerPort: 80
         env:
         - name: MAD_LEARNING_API_URL
-          value: 'mad.itera.no/api/learning'
+          value: 'https://learning.mad.itera.no/api'

@@ -43,9 +43,8 @@ jobs:
       # Set the target Azure Kubernetes Service (AKS) cluster. 
       - uses: azure/k8s-set-context@v1
         with:
-          method: service-account
-          k8s-url: ${{ secrets.MAD_K8S_URL }}
-          k8s-secret: ${{ secrets.MAD_K8S_CI_SECRET }}
+          method: kubeconfig
+          kubeconfig: ${{ secrets.MAD_KUBECONFIG }}
         id: setcontext
       # Deploy app to AKS
       - uses: azure/k8s-deploy@v1
@@ -53,6 +52,6 @@ jobs:
           manifests: |
             kubernetes/deployment.yaml
             kubernetes/service.yaml
-            kubernetes/ingress-production.yaml
-          images: ${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:latest
+            kubernetes/ingress.yaml
+          images: ${{ env.REGISTRY_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}
           namespace: ${{ env.NAMESPACE }}
