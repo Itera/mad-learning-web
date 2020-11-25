@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: mad-learning-web
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080
