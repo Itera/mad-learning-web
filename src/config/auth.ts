@@ -4,6 +4,7 @@ import {
   LoginType,
   MsalAuthProvider,
   withAuthentication,
+  IdTokenResponse,
 } from 'react-aad-msal';
 
 type MsalParams = ConstructorParameters<typeof MsalAuthProvider>;
@@ -46,6 +47,10 @@ export default class Authentication {
 
   static getToken(): Promise<AccessTokenResponse> {
     return authProvider.getAccessToken();
+  }
+
+  static getIdToken(): Promise<IdTokenResponse> {
+    return authProvider.getIdToken();
   }
 
   static logout(): void {
