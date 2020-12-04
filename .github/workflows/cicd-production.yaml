@@ -3,7 +3,7 @@ name: CI/CD Production
 on:
   push:
     branches:
-      - master
+      - release
 
 jobs:
   build-and-test:
