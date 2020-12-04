@@ -1,7 +1,10 @@
 import { Event } from 'src/types/domain';
+import { getEnvironmentVariables } from 'src/utils/env';
+
+const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
 export async function fetchEvents(): Promise<Array<Event>> {
-  const response = await fetch('https://localhost:5001/api/event');
+  const response = await fetch(`${API_URL}/api/event`);
   if (response.ok) {
     return await response.json();
   }
@@ -9,7 +12,7 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function fetchEvent(id: string): Promise<Event> {
-  const response = await fetch(`https://localhost:5001/api/event/${id}`);
+  const response = await fetch(`${API_URL}/api/event/${id}`);
   if (response.ok) {
     return await response.json();
   }
@@ -28,7 +31,7 @@ export async function createEvent(
   lastName: string,
   email: string
 ): Promise<void> {
-  const response = await fetch('https://localhost:5001/api/Event', {
+  const response = await fetch(`${API_URL}/api/Event`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mad-learning-web
+  labels:
+    app: mad-learning-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mad-learning-web
+  template:
+    metadata:
+      labels:
+        app: mad-learning-web
+    spec:
+      containers:
+      - name: mad-learning-web
+        image: itemadacr.azurecr.io/mad-learning-web:latest
+        ports:
+            - containerPort: 80
+        env:
+        - name: MAD_LEARNING_API_URL
+          value: 'https://learning.mad.itera.no'
