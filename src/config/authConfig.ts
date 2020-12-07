@@ -1,10 +1,18 @@
 import * as msal from '@azure/msal-browser';
+import { getEnvironmentVariables } from 'src/utils/env';
+
+const env = getEnvironmentVariables();
+
+const webClientId = env.webClientId;
+const tenantId = env.tenantId;
+const apiClientId = env.apiClientId;
+const webUrl = env.webUrl;
 
 export const msalConfig = {
     auth: {
-        clientId: '{web-client-id}',
-        authority: 'https://login.microsoft.com/{tenant-id}}',
-        redirectUri: 'http://localhost:3000',
+        clientId: webClientId,
+        authority: `https://login.microsoft.com/${tenantId}`,
+        redirectUri: webUrl,
     },
     cache: {
         cacheLocation: 'localStorage', // This configures where your cache will be stored
@@ -18,14 +26,16 @@ export const loginRequest: msal.SilentRequest = {
     account: null!,
 };
 
+const apiScope = `api://${apiClientId}/.default`;
+
 export const tokenRequest: msal.SilentRequest = {
-    scopes: ['api://{api-client-id}}/.default'],
+    scopes: [apiScope],
     forceRefresh: false,
     account: null!,
 };
 
 export const silentRequest: msal.SilentRequest = {
-    scopes: ['openid', 'profile', 'api://{api-client-id}/.default'],
+    scopes: ['openid', 'profile', apiScope],
     forceRefresh: false,
     account: null!,
 }
