@@ -22,7 +22,8 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run gen:env && react-scripts start",
+    "gen:env": "./scripts/generate-local-env.sh",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

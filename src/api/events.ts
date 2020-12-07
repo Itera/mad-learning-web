@@ -1,10 +1,11 @@
 import { Event } from 'src/types/domain';
 import { authFetch } from '../utils/request';
+import { getEnvironmentVariables } from 'src/utils/env';
+
+const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
 export async function fetchEvents(): Promise<Array<Event>> {
-  const response = await authFetch('https://localhost:5001/api/event', {
-    method: 'GET',
-  });
+  const response = await authFetch(`${API_URL}/api/event`);
   if (response.ok) {
     return await response.json();
   }
@@ -12,19 +13,7 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function fetchEvent(id: string): Promise<Event> {
-  const response = await authFetch(`https://localhost:5001/api/event/${id}`, {
-    method: 'GET',
-  });
-  if (response.ok) {
-    return await response.json();
-  }
-  throw new Error(`Failed to fetch event: ${response.statusText}.`);
-}
-
-export async function rsvpEvent(id: string): Promise<Event> {
-  const response = await authFetch(`https://localhost:5001/api/event/${id}`, {
-    method: 'PUT',
-  });
+  const response = await authFetch(`${API_URL}/api/event/${id}`);
   if (response.ok) {
     return await response.json();
   }
@@ -43,7 +32,7 @@ export async function createEvent(
   lastName: string,
   email: string
 ): Promise<void> {
-  const response = await authFetch('https://localhost:5001/api/Event', {
+  const response = await authFetch(`${API_URL}/api/Event`, {
     method: 'POST',
     body: JSON.stringify({
       starttime: starttime,
