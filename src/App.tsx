@@ -7,7 +7,15 @@ import GlobalStyle from './GlobalStyle';
 import Providers from './Providers';
 import routes from './config/routes';
 
+import { useMsal } from "./config/auth";
+
 function App() {
+  const { loading,  popupOpen } = useMsal();
+
+  if (loading || popupOpen) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Providers>
       <GlobalStyle />

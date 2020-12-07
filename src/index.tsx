@@ -3,19 +3,21 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Authentication from './config/auth';
+import { MsalProvider } from './config/auth';
+import { msalConfig } from './config/authConfig';
 
 function MadLearning(): JSX.Element {
   return (
     <React.StrictMode>
-      <App />
+      <MsalProvider
+        config={msalConfig}>
+        <App />
+      </MsalProvider>
     </React.StrictMode>
   );
 }
 
-const SecureApp = Authentication.secure(MadLearning);
-
-ReactDOM.render(<SecureApp />, document.getElementById('root'));
+ReactDOM.render(<MadLearning />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
