@@ -1,5 +1,7 @@
 import {
   AuthenticationResult,
+  BrowserAuthError,
+  BrowserAuthErrorMessage,
   Configuration,
   PublicClientApplication,
   RedirectRequest,
@@ -131,14 +133,13 @@ class AuthProvider {
       return;
     }
 
-    let request = this.createRequestWithLoginHint(loginRequest);
-
-    if (request instanceof Error) {
-      console.error(request);
-      return;
-    }
-
     try {
+      let request = this.createRequestWithLoginHint(loginRequest);
+  
+      if (request instanceof Error) {
+        throw new InteractionRequiredAuthError('cant_create_request');
+      }
+
       const response = await this.publicClient.ssoSilent(request);
       this.handleLoginResponse(response, null);
     } catch (err) {
@@ -146,7 +147,11 @@ class AuthProvider {
         try {
           await this.publicClient.loginRedirect(loginRequest);
         } catch (err) {
-          console.error(err);
+          if (err instanceof BrowserAuthError && (err as BrowserAuthError).errorCode === BrowserAuthErrorMessage.interactionInProgress.code) {
+            console.warn('Tried to issue login via redirect while interaction was in progress, this should be fixed in the future');
+          } else {
+            console.error(err);
+          }
         }
       } else {
         console.error(err);
