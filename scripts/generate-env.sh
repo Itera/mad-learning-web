@@ -1,2 +1,3 @@
 #!/bin/sh
-envsubst < ./public/env.template.js > ./public/env.js
+
+./node_modules/.bin/envsub ./public/env.template.js ./public/env.js

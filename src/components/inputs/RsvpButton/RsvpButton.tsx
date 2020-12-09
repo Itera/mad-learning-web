@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Button from 'src/components/inputs/Button';
 import { Event } from 'src/types/domain';
 import { rsvpEvent } from 'src/api/events';
-import { useMsal } from 'src/config/auth';
+import { AuthProviderInstance } from 'src/utils/auth';
 
 type RsvpButtonProps = {
   event: Event;
 };
 
 function RsvpButton({ event }: RsvpButtonProps) {
-  const { token } = useMsal();
+  const account = AuthProviderInstance.account;
 
   const hasJoinedEvent =
-    token != null &&
+    account &&
     event.participants
       ?.map((person) => person.id)
-      ?.includes(token.account.homeAccountId);
+      ?.includes(account.localAccountId);
 
   const label = hasJoinedEvent ? 'Cancel' : 'Join';
 
@@ -24,7 +24,7 @@ function RsvpButton({ event }: RsvpButtonProps) {
     <Button
       variant="highlight"
       onClick={() => rsvpEvent(event.id)}
-      disabled={token == null}
+      disabled={account == null}
     >
       {label}
     </Button>

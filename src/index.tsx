@@ -3,16 +3,11 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { MsalProvider } from './config/auth';
-import { msalConfig } from './config/authConfig';
 
 function MadLearning(): JSX.Element {
   return (
     <React.StrictMode>
-      <MsalProvider
-        config={msalConfig}>
-        <App />
-      </MsalProvider>
+      <App />
     </React.StrictMode>
   );
 }

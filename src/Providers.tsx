@@ -7,9 +7,7 @@ type ProvidersProps = {
 };
 
 function Providers({ children }: ProvidersProps) {
-  return (
-      <ThemeProvider options={theme}>{children}</ThemeProvider>
-  );
+  return <ThemeProvider options={theme}>{children}</ThemeProvider>;
 }
 
 export default Providers;
