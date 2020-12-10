@@ -1,6 +1,7 @@
 import { Event } from 'src/types/domain';
 import { authFetch } from '../utils/request';
 import { getEnvironmentVariables } from 'src/utils/env';
+import { AuthProviderInstance } from 'src/utils/auth';
 
 const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
@@ -37,11 +38,11 @@ export async function createEvent(
   description: string,
   imageUrl: string,
   imageAlt: string,
-  location: string,
-  firstName: string,
-  lastName: string,
-  email: string
+  location: string
 ): Promise<void> {
+  const account = AuthProviderInstance.account;
+  const accountName = AuthProviderInstance.accountName;
+
   const response = await authFetch(`${API_URL}/api/Event`, {
     method: 'POST',
     body: JSON.stringify({
@@ -52,11 +53,11 @@ export async function createEvent(
       imageUrl: imageUrl,
       imageAlt: imageAlt,
       location: location,
-      owner: {
-        id: '5f747809885eeb66847e7726', //TODO remove
-        firstName,
-        lastName,
-        email,
+      owner: { // TODO: can be filled in API side unless you can create an event with an owner that is not current user
+        id: account!.localAccountId,
+        firstName: accountName.firstName,
+        lastName: accountName.lastName,
+        email: account!.username,
       },
       participants: [],
     }),

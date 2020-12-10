@@ -33,6 +33,20 @@ class AuthProvider {
     return this._account;
   }
 
+  get accountName(): { firstName: string, lastName: string } {
+    const account = this._account;
+
+    if (!account)
+      throw new Error('Not logged in, cant get name');
+    
+    const parts = (account.name ?? '').split(' ');
+
+    return {
+      firstName: parts.slice(0, -1).join(' '),
+      lastName: parts.slice(-1).join(' '),
+    };
+  }
+
   get token() {
     return this._token;
   }
