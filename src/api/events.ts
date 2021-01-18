@@ -67,3 +67,13 @@ export async function createEvent(
     throw new Error(`Failed to create event: ${response.statusText}.`);
   }
 }
+
+export async function deleteEvent(id: string): Promise<Event> {
+  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    return await response.json();
+  }
+  throw new Error(`Failed to delete event: ${response.statusText}.`);
+}
