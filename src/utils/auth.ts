@@ -25,7 +25,7 @@ class AuthProvider {
   private loginPromise: Promise<void> | null = null;
   private initPromise: Promise<void[]>;
 
-  get isAuthenticated() {
+  isAuthenticated() {
     return this._token && this._token.expiresOn > new Date();
   }
 
@@ -54,7 +54,7 @@ class AuthProvider {
   constructor(config: Configuration) {
     this.publicClient = new PublicClientApplication(config);
 
-    console.log('starting auth provider');
+    // console.log('starting auth provider');
 
     const initPromises: Promise<void>[] = [];
 
@@ -72,7 +72,7 @@ class AuthProvider {
     const account = this.getActiveAccount();
 
     if (account) {
-      console.log('found cached account', account);
+      // console.log('found cached account', account);
       this._account = account;
     }
 
@@ -96,17 +96,17 @@ class AuthProvider {
       return;
     }
 
-    console.log('login result', response);
+    // console.log('login result', response);
 
     const account = this.getActiveAccount();
 
     if (response) {
-      console.log('login success, has response', account);
+      // console.log('login success, has response', account);
       this._account = account;
       this._token = response;
     } else {
       if (account) {
-        console.log('has accounts', account);
+        // console.log('has accounts', account);
         this._account = account;
       }
     }
@@ -121,7 +121,7 @@ class AuthProvider {
       return;
     }
 
-    console.log('api token result', response);
+    // console.log('api token result', response);
 
     if (response) {
       if (!response.accessToken) {
@@ -143,7 +143,7 @@ class AuthProvider {
   }
 
   private async login(loginRequest: RedirectRequest) {
-    if (this.isAuthenticated) {
+    if (this.isAuthenticated()) {
       return;
     }
 

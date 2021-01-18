@@ -12,7 +12,7 @@ type DeleteButtonProps = {
 function DeleteButton({ event }: DeleteButtonProps) {
   const account = AuthProviderInstance.account;
 
-  const isOwner = account && event.owner?.person.id === account.localAccountId;
+  const isOwner = account && event.owner?.id === account.localAccountId;
 
   const label = isOwner ? 'No permission' : 'Delete';
 

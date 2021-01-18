@@ -21,12 +21,12 @@ export async function fetchEvent(id: string): Promise<Event> {
   throw new Error(`Failed to fetch event: ${response.statusText}.`);
 }
 
-export async function rsvpEvent(id: string): Promise<Event> {
+export async function rsvpEvent(id: string): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'PUT',
   });
   if (response.ok) {
-    return await response.json();
+    return;
   }
   throw new Error(`Failed to fetch event: ${response.statusText}.`);
 }

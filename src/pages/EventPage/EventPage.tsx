@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import FailedFetchAlert from 'src/components/FailedFetchAlert';
@@ -18,10 +18,20 @@ type EventPageProps = {
 
 function EventPage({ eventId, ...rest }: EventPageProps) {
   const tmpEventName = rest['*'];
+
+  const [resolveContentFunction, setResolveContentFunction] = useState(() => () => fetchEvent(eventId));
+
+  const handleRsvp = useCallback(async () => {
+    setResolveContentFunction(() => () => fetchEvent(eventId));
+  }, [
+    setResolveContentFunction,
+    eventId
+  ]); // TODO Better way to trigger rerender? :/
+
   return (
     <section id="event-page">
       <LoadableContent
-        resolveContent={() => fetchEvent(eventId)}
+        resolveContent={resolveContentFunction}
         renderLoading={() => (
           <>
             <h1>{tmpEventName}</h1>
@@ -56,7 +66,7 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} />
+                  <RsvpButton event={event} onRsvp={handleRsvp} />
                 </HighlightedBox>
               </header>
               <SplitSection

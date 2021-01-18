@@ -37,7 +37,7 @@ function ParticipantList({ participants, collapseAt }: ParticipantListProps) {
       <h2>Participants ({participants.length})</h2>
       <Container>
         {listedParticipants.map((participant) => (
-          <li>{formatPersonName(participant)}</li>
+          <li key={participant.id}>{formatPersonName(participant)}</li>
         ))}
       </Container>
       {isCollapsed && (
