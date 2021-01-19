@@ -19,7 +19,8 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
     await deleteEvent(event.id);
     onDelete();
   }, [
-    event
+    event,
+    onDelete
   ]);
 
   if (isNotOwner) {
