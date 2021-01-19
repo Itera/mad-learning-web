@@ -222,9 +222,12 @@ class AuthProvider {
         }
 
         try {
+          // console.log('acquireTokenPopup');
           response = await this.publicClient.acquireTokenPopup(request);
+          // console.log('done with acquireTokenPopup, success')
           this.handleApiTokenResponse(response, null);
         } catch (err) {
+          // console.log('done with acquireTokenPopup, fail', err)
           this.handleApiTokenResponse(null, err);
         }
       } else {

@@ -47,6 +47,12 @@ jobs:
           kubeconfig: ${{ secrets.MAD_KUBECONFIG }}
         id: setcontext
       # Deploy app to AKS
+      - uses: azure/k8s-create-secret@v1
+        with:
+          namespace: ${{ env.NAMESPACE }}
+          secret-type: 'generic'
+          arguments:  --from-literal=MAD_LEARNING_WEB_CLIENT_ID=${{ secrets.MAD_LEARNING_WEB_CLIENT_ID }} --from-literal=MAD_LEARNING_TENANT_ID=${{ secrets.MAD_LEARNING_TENANT_ID }} --from-literal=MAD_LEARNING_API_CLIENT_ID=${{ secrets.MAD_LEARNING_API_CLIENT_ID }}
+          secret-name: mad-learning-secrets
       - uses: azure/k8s-deploy@v1
         with:
           manifests: |
