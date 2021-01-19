@@ -10,6 +10,7 @@ import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
 import { HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
+import DeleteButton from 'src/components/inputs/DeleteButton';
 
 type EventPageProps = {
   eventId: string;
@@ -67,6 +68,7 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
                     owner={owner}
                   />
                   <RsvpButton event={event} onRsvp={handleRsvp} />
+                  <DeleteButton event={event} />
                 </HighlightedBox>
               </header>
               <SplitSection
