@@ -1,10 +1,12 @@
 import { Event } from 'src/types/domain';
+import { authFetch } from '../utils/request';
 import { getEnvironmentVariables } from 'src/utils/env';
+import { AuthProviderInstance } from 'src/utils/auth';
 
 const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
 export async function fetchEvents(): Promise<Array<Event>> {
-  const response = await fetch(`${API_URL}/api/event`);
+  const response = await authFetch(`${API_URL}/api/event`);
   if (response.ok) {
     return await response.json();
   }
@@ -12,9 +14,19 @@ export async function fetchEvents(): Promise<Array<Event>> {
 }
 
 export async function fetchEvent(id: string): Promise<Event> {
-  const response = await fetch(`${API_URL}/api/event/${id}`);
+  const response = await authFetch(`${API_URL}/api/event/${id}`);
   if (response.ok) {
     return await response.json();
+  }
+  throw new Error(`Failed to fetch event: ${response.statusText}.`);
+}
+
+export async function rsvpEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+    method: 'PUT',
+  });
+  if (response.ok) {
+    return;
   }
   throw new Error(`Failed to fetch event: ${response.statusText}.`);
 }
@@ -26,16 +38,13 @@ export async function createEvent(
   description: string,
   imageUrl: string,
   imageAlt: string,
-  location: string,
-  firstName: string,
-  lastName: string,
-  email: string
+  location: string
 ): Promise<void> {
-  const response = await fetch(`${API_URL}/api/Event`, {
+  const account = AuthProviderInstance.account;
+  const accountName = AuthProviderInstance.accountName;
+
+  const response = await authFetch(`${API_URL}/api/Event`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({
       starttime: starttime,
       endtime: endtime,
@@ -44,11 +53,11 @@ export async function createEvent(
       imageUrl: imageUrl,
       imageAlt: imageAlt,
       location: location,
-      owner: {
-        id: '5f747809885eeb66847e7726', //TODO remove
-        firstName,
-        lastName,
-        email,
+      owner: { // TODO: can be filled in API side unless you can create an event with an owner that is not current user
+        id: account!.localAccountId,
+        firstName: accountName.firstName,
+        lastName: accountName.lastName,
+        email: account!.username,
       },
       participants: [],
     }),
@@ -57,4 +66,14 @@ export async function createEvent(
   if (!response.ok) {
     throw new Error(`Failed to create event: ${response.statusText}.`);
   }
+}
+
+export async function deleteEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+    method: 'DELETE',
+  });
+  if (response.ok) {
+    return;
+  }
+  throw new Error(`Failed to delete event: ${response.statusText}.`);
 }

@@ -18,7 +18,22 @@ spec:
       - name: mad-learning-web
         image: itemadacr.azurecr.io/mad-learning-web:latest
         ports:
-            - containerPort: 80
+          - containerPort: 80
         env:
         - name: MAD_LEARNING_API_URL
           value: 'https://learning.mad.itera.no'
+        - name: MAD_LEARNING_API_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: mad-learning-secrets
+              key: MAD_LEARNING_API_CLIENT_ID
+        - name: MAD_LEARNING_TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: mad-learning-secrets
+              key: MAD_LEARNING_TENANT_ID
+        - name: MAD_LEARNING_WEB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: mad-learning-secrets
+              key: MAD_LEARNING_WEB_CLIENT_ID

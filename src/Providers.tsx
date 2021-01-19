@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-
 import { ThemeProvider } from './hooks/theme';
 import theme from './config/theme';
 

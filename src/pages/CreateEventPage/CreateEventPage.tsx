@@ -21,10 +21,7 @@ function CreateEvent() {
   const [endTime, setEndTime] = useState(format(Date.now(), 'HH:mm'));
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [location, setLocation] = useState('');
-  const [email, setEmail] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -45,10 +42,7 @@ function CreateEvent() {
         description,
         image,
         imageAlt,
-        location,
-        firstName,
-        lastName,
-        email
+        location
       );
     } catch (error) {
       setError(error.message);
@@ -65,9 +59,6 @@ function CreateEvent() {
     image,
     imageAlt,
     location,
-    firstName,
-    lastName,
-    email,
     setIsSubmitting,
     setError,
   ]);
@@ -130,24 +121,6 @@ function CreateEvent() {
           value={eventType}
           onChange={setEventType}
           options={EVENT_OPTIONS}
-        />
-        <TextField
-          name="firstName"
-          label="Owner first name"
-          value={firstName}
-          onChange={setFirstName}
-        />
-        <TextField
-          name="lastName"
-          label="Owner last name"
-          value={lastName}
-          onChange={setLastName}
-        />
-        <TextField
-          name="email"
-          label="Owner email"
-          value={email}
-          onChange={setEmail}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>

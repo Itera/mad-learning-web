@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/msal-browser": "^2.7.0",
     "@reach/router": "^1.3.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -22,10 +23,13 @@
   },
   "scripts": {
     "start": "npm run gen:env && react-scripts start",
-    "gen:env": "./scripts/generate-local-env.sh",
+    "gen:env": "node ./scripts/generate-local-env.js",
     "build": "react-scripts build",
+    "build-docker-env": "docker build -f Dockerfile.dev -t mad-learning-web-dev:latest .",
+    "run-docker-env": "docker run --rm -it --name mad-learning-web-dev -v ${PWD}:/code -v /code/node_modules -v /code/build mad-learning-web-dev:latest",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "npx prettier --write ./src/**/*.{ts,tsx}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "envsub": "^4.0.7"
   }
 }

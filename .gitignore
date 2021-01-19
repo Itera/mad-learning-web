@@ -2,3 +2,6 @@
 build/
 node_modules/
 public/env.js
+scripts/generate-local-secrets-env.sh
+scripts/generate-local-secrets-env-rm.ps1
+scripts/generate-local-secrets-env.ps1
