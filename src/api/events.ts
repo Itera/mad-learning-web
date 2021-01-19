@@ -68,12 +68,12 @@ export async function createEvent(
   }
 }
 
-export async function deleteEvent(id: string): Promise<Event> {
+export async function deleteEvent(id: string): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'DELETE',
   });
   if (response.ok) {
-    return await response.json();
+    return;
   }
   throw new Error(`Failed to delete event: ${response.statusText}.`);
 }

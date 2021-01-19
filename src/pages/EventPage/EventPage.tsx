@@ -17,17 +17,23 @@ type EventPageProps = {
   '*': string;
 } & RouteComponentProps;
 
-function EventPage({ eventId, ...rest }: EventPageProps) {
+function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const tmpEventName = rest['*'];
 
   const [resolveContentFunction, setResolveContentFunction] = useState(() => () => fetchEvent(eventId));
 
-  const handleRsvp = useCallback(async () => {
+  const handleRsvp = useCallback(() => {
     setResolveContentFunction(() => () => fetchEvent(eventId));
   }, [
     setResolveContentFunction,
     eventId
   ]); // TODO Better way to trigger rerender? :/
+
+  const handleDelete = useCallback(() => {
+    navigate!('/');
+  }, [
+    navigate
+  ]);
 
   return (
     <section id="event-page">
@@ -68,7 +74,7 @@ function EventPage({ eventId, ...rest }: EventPageProps) {
                     owner={owner}
                   />
                   <RsvpButton event={event} onRsvp={handleRsvp} />
-                  <DeleteButton event={event} />
+                  <DeleteButton event={event} onDelete={handleDelete} />
                 </HighlightedBox>
               </header>
               <SplitSection
