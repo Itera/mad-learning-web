@@ -22,6 +22,8 @@ spec:
         env:
         - name: MAD_LEARNING_API_URL
           value: 'https://learning.mad.itera.no'
+        - name: MAD_LEARNING_WEB_URL
+          value: 'https://learning.mad.itera.no'
         - name: MAD_LEARNING_API_CLIENT_ID
           valueFrom:
             secretKeyRef:
