@@ -5,6 +5,7 @@ import CreateEventPage from 'src/pages/CreateEventPage';
 import EventPage from 'src/pages/EventPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 import { ReactComponent } from 'src/utils/types';
+import HowToFagkveld from '../pages/HowToFagkveld';
 
 export type Route<P extends RouteComponentProps> = {
   path: string;
@@ -17,6 +18,11 @@ const routes: Array<Route<any>> = [
     path: '/',
     label: 'Landing Page',
     component: LandingPage,
+  },
+  {
+    path: '/how-to-fagkveld',
+    label: 'How to Fagkveld',
+    component: HowToFagkveld,
   },
   {
     path: '/create-event',
