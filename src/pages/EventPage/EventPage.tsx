@@ -11,6 +11,7 @@ import ParticipantList from './components/ParticipantList';
 import { HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
+import UpdateButton from 'src/components/inputs/UpdateButton';
 
 type EventPageProps = {
   eventId: string;
@@ -20,20 +21,22 @@ type EventPageProps = {
 function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const tmpEventName = rest['*'];
 
-  const [resolveContentFunction, setResolveContentFunction] = useState(() => () => fetchEvent(eventId));
+  const [
+    resolveContentFunction,
+    setResolveContentFunction,
+  ] = useState(() => () => fetchEvent(eventId));
 
   const handleRsvp = useCallback(() => {
     setResolveContentFunction(() => () => fetchEvent(eventId));
-  }, [
-    setResolveContentFunction,
-    eventId
-  ]); // TODO Better way to trigger rerender? :/
+  }, [setResolveContentFunction, eventId]); // TODO Better way to trigger rerender? :/
 
   const handleDelete = useCallback(() => {
     navigate!('/');
-  }, [
-    navigate
-  ]);
+  }, [navigate]);
+
+  const handleUpdate = useCallback(() => {
+    setResolveContentFunction(() => fetchEvent(eventId));
+  }, [setResolveContentFunction, eventId]);
 
   return (
     <section id="event-page">
@@ -75,6 +78,9 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   />
                   <RsvpButton event={event} onRsvp={handleRsvp} />
                   <DeleteButton event={event} onDelete={handleDelete} />
+                  <div style={{ float: 'right' }}>
+                    <UpdateButton event={event} onUpdate={handleUpdate} />
+                  </div>
                 </HighlightedBox>
               </header>
               <SplitSection

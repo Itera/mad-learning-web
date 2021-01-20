@@ -81,9 +81,19 @@ export async function deleteEvent(id: string): Promise<void> {
 export async function updateEvent(id: string): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'PUT',
+    body: JSON.stringify({
+      StartTime: (await fetchEvent(id)).startTime,
+      EndTime: (await fetchEvent(id)).endTime,
+      Name: (await fetchEvent(id)).name,
+      Description: (await fetchEvent(id)).description,
+      ImageUrl: (await fetchEvent(id)).imageUrl,
+      ImageAlt: (await fetchEvent(id)).imageAlt,
+      Location: (await fetchEvent(id)).imageAlt,
+    }),
   });
   if (response.ok) {
-    return;
+    console.log(response.body);
+    return await response.json();
   }
   throw new Error(`Failed to update event: ${response.statusText}.`);
 }
