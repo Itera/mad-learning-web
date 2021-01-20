@@ -13,33 +13,24 @@ type RsvpButtonProps = {
 function RsvpButton({ event, onRsvp }: RsvpButtonProps) {
   const account = AuthProviderInstance.account;
 
-  const [hasJoinedEvent, setHasJoinedEvent] = useState(account &&
-    (
-      event.participants
+  const [hasJoinedEvent, setHasJoinedEvent] = useState(
+    account &&
+      (event.participants
         ?.map((person) => person.id)
         ?.includes(account.localAccountId) ||
-      event.owner?.id === account.localAccountId
-    ));
+        event.owner?.id === account.localAccountId)
+  );
 
   const handleRsvp = useCallback(async () => {
     await rsvpEvent(event.id);
     setHasJoinedEvent(true); // TODO could have failed
     onRsvp();
-  }, [
-    setHasJoinedEvent,
-    event,
-    onRsvp
-  ]);
+  }, [setHasJoinedEvent, event, onRsvp]);
 
-  if (hasJoinedEvent)
-      return (null);
+  if (hasJoinedEvent) return null;
 
   return (
-    <Button
-      variant="highlight"
-      onClick={handleRsvp}
-      disabled={account == null}
-    >
+    <Button variant="highlight" onClick={handleRsvp} disabled={account == null}>
       RSVP
     </Button>
   );
