@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { RouteComponentProps } from '@reach/router';
 import { formatISO, format } from 'date-fns';
 
 import Alert from 'src/components/Alert';
@@ -12,7 +13,7 @@ import { CreateEventWrapper, Form } from './styled';
 import { createEvent } from 'src/api/events';
 import { EVENT_OPTIONS } from './constants';
 
-function CreateEvent() {
+function CreateEvent({ navigate }: RouteComponentProps) {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [imageAlt, setImageAlt] = useState('');
@@ -44,6 +45,7 @@ function CreateEvent() {
         imageAlt,
         location
       );
+      navigate!('/');
     } catch (error) {
       setError(error.message);
     } finally {
@@ -61,6 +63,7 @@ function CreateEvent() {
     location,
     setIsSubmitting,
     setError,
+    navigate,
   ]);
 
   return (
@@ -127,16 +130,13 @@ function CreateEvent() {
             Create
           </Button>
         </div>
-        {hasSubmitted &&
-          (error == null ? (
-            <div>Event created</div>
-          ) : (
-            <Alert
-              heading="Failed to create event"
-              description={<p></p>}
-              headingAs="h2"
-            />
-          ))}
+        {hasSubmitted && error != null && (
+          <Alert
+            heading="Failed to create event"
+            description={<p></p>}
+            headingAs="h2"
+          />
+        )}
       </Form>
     </CreateEventWrapper>
   );
