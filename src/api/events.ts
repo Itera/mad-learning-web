@@ -21,14 +21,26 @@ export async function fetchEvent(id: string): Promise<Event> {
   throw new Error(`Failed to fetch event: ${response.statusText}.`);
 }
 
-export async function rsvpEvent(id: string): Promise<void> {
+export async function joinEvent(id: string): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'PUT',
+    body: 'JOIN',
   });
   if (response.ok) {
     return;
   }
-  throw new Error(`Failed to fetch event: ${response.statusText}.`);
+  throw new Error(`Failed to join event: ${response.statusText}.`);
+}
+
+export async function dropEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+    method: 'PATCH',
+    body: 'DROP',
+  });
+  if (response.ok) {
+    return;
+  }
+  throw new Error(`Failed to drop event: ${response.statusText}.`);
 }
 
 export async function createEvent(
@@ -53,7 +65,8 @@ export async function createEvent(
       imageUrl: imageUrl,
       imageAlt: imageAlt,
       location: location,
-      owner: { // TODO: can be filled in API side unless you can create an event with an owner that is not current user
+      owner: {
+        // TODO: can be filled in API side unless you can create an event with an owner that is not current user
         id: account!.localAccountId,
         firstName: accountName.firstName,
         lastName: accountName.lastName,
