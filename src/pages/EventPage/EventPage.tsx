@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import FailedFetchAlert from 'src/components/FailedFetchAlert';
@@ -20,25 +20,14 @@ type EventPageProps = {
 function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const tmpEventName = rest['*'];
 
-  const [resolveContentFunction, setResolveContentFunction] = useState(() => () => fetchEvent(eventId));
-
-  const handleRsvp = useCallback(() => {
-    setResolveContentFunction(() => () => fetchEvent(eventId));
-  }, [
-    setResolveContentFunction,
-    eventId
-  ]); // TODO Better way to trigger rerender? :/
-
   const handleDelete = useCallback(() => {
     navigate!('/');
-  }, [
-    navigate
-  ]);
+  }, [navigate]);
 
   return (
     <section id="event-page">
       <LoadableContent
-        resolveContent={resolveContentFunction}
+        resolveContent={() => fetchEvent(eventId)}
         renderLoading={() => (
           <>
             <h1>{tmpEventName}</h1>
@@ -49,7 +38,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             />
           </>
         )}
-        renderSuccess={(event) => {
+        renderSuccess={(event, refreshEvent) => {
           const {
             name,
             description,
@@ -73,7 +62,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} onRsvp={handleRsvp} />
+                  <RsvpButton event={event} onRsvp={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
                 </HighlightedBox>
               </header>
