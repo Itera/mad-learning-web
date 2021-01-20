@@ -77,3 +77,13 @@ export async function deleteEvent(id: string): Promise<void> {
   }
   throw new Error(`Failed to delete event: ${response.statusText}.`);
 }
+
+export async function updateEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+    method: 'PUT',
+  });
+  if (response.ok) {
+    return;
+  }
+  throw new Error(`Failed to update event: ${response.statusText}.`);
+}
