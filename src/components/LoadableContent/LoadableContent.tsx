@@ -5,8 +5,8 @@ import { useAsyncData } from 'src/hooks/async';
 type LoadableContentProps<D> = {
   resolveContent: () => Promise<D>;
   renderLoading: () => JSX.Element;
-  renderSuccess: (data: D) => JSX.Element;
-  renderError: (e: unknown) => JSX.Element;
+  renderSuccess: (data: D, refresh: () => void) => JSX.Element;
+  renderError: (e: unknown, refresh: () => void) => JSX.Element;
   loaderDelay: number;
 };
 
@@ -17,7 +17,7 @@ function LoadableContent<D>({
   renderError,
   loaderDelay,
 }: LoadableContentProps<D>) {
-  const [data, error, isLoading] = useAsyncData(resolveContent, [
+  const [data, error, isLoading, refresh] = useAsyncData(resolveContent, [
     resolveContent,
   ]);
 
@@ -35,10 +35,10 @@ function LoadableContent<D>({
   }
 
   if (error != null) {
-    return renderError(error);
+    return renderError(error, refresh);
   }
 
-  return renderSuccess(data);
+  return data && renderSuccess(data, refresh);
 }
 LoadableContent.defaultProps = {
   loaderDelay: 300,
