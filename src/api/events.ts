@@ -22,7 +22,7 @@ export async function fetchEvent(id: string): Promise<Event> {
 }
 
 export async function rsvpEvent(id: string): Promise<void> {
-  const response = await authFetch(`${API_URL}/api/event/${id}`, {
+  const response = await authFetch(`${API_URL}/api/event/${id}/rsvp`, {
     method: 'PUT',
   });
   if (response.ok) {
@@ -78,22 +78,30 @@ export async function deleteEvent(id: string): Promise<void> {
   throw new Error(`Failed to delete event: ${response.statusText}.`);
 }
 
-export async function updateEvent(id: string): Promise<void> {
+export async function updateEvent(
+    id: string, 
+    starttime: string,
+    endtime: string,
+    name: string,
+    description: string,
+    imageUrl: string,
+    imageAlt: string,
+    location: string
+  ): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-      StartTime: (await fetchEvent(id)).startTime,
-      EndTime: (await fetchEvent(id)).endTime,
-      Name: (await fetchEvent(id)).name,
-      Description: (await fetchEvent(id)).description,
-      ImageUrl: (await fetchEvent(id)).imageUrl,
-      ImageAlt: (await fetchEvent(id)).imageAlt,
-      Location: (await fetchEvent(id)).imageAlt,
+      starttime: starttime,
+      endtime: endtime,
+      name: name,
+      description: description,
+      imageUrl: imageUrl,
+      imageAlt: imageAlt,
+      location: location,
     }),
   });
   if (response.ok) {
-    console.log(response.body);
-    return await response.json();
+    return;
   }
   throw new Error(`Failed to update event: ${response.statusText}.`);
 }

@@ -65,9 +65,9 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   />
                   <RsvpButton event={event} onRsvp={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
-                  <div style={{ float: 'right' }}>
+                  {/* <div style={{ float: 'right' }}>
                     <UpdateButton event={event} onUpdate={handleUpdate} />
-                  </div>
+                  </div> */}
                 </HighlightedBox>
               </header>
               <SplitSection

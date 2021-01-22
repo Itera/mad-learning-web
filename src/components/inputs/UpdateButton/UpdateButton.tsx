@@ -16,7 +16,7 @@ function UpdateButton({ event, onUpdate }: UpdateButtonProps) {
   const isNotOwner = account && event.owner?.id !== account.localAccountId;
 
   const handleUpdate = useCallback(async () => {
-    await updateEvent(event.id);
+    // await updateEvent(event.id);
     onUpdate();
   }, [event, onUpdate]);
   if (isNotOwner) {
