@@ -1,19 +1,25 @@
 import React, { useLayoutEffect } from 'react';
 import { Router } from '@reach/router';
+import styled from 'styled-components';
 
 import AppWrapper from './components/AppWrapper';
 import Navbar from './components/Navbar';
 import GlobalStyle from './GlobalStyle';
 import Providers from './Providers';
 import routes from './config/routes';
+import { usingTypography } from './hooks/theme';
+
+const Header = styled.header`
+  margin-bottom: ${usingTypography((t) => t.scaleSpacing(9))}px;
+`;
 
 function App() {
   return (
     <Providers>
       <GlobalStyle />
-      <header>
+      <Header>
         <Navbar />
-      </header>
+      </Header>
       <AppWrapper>
         <main>
           <Router>
