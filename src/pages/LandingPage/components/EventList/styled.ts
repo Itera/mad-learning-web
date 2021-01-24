@@ -46,7 +46,11 @@ export const EventInfoList = styled.ul`
   padding: 0;
 `;
 
-export const EventInfo = styled.li``;
+export const EventInfo = styled.li`
+  :not(:first-of-type) {
+    margin-top: ${usingTypography((t) => t.scaleSpacing(2))}px;
+  }
+`;
 
 export const DateInfo = styled.span`
   font-weight: bold;
