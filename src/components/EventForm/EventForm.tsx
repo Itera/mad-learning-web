@@ -36,21 +36,10 @@ export type EventDataOutput = {
   eventType: string;
 };
 
-// type EventDataChangeHandlers = {
-//   onNameChange: (name: string) => void,
-//   onDescriptionChange: (description: string) => void,
-//   onStartTimeChange: (startTime: Date) => void,
-//   onEndTimeChange: (endTime: Date) => void,
-//   onImageUrlChange: (imageUrl: string) => void,
-//   onImageAltChange: (location: string) => void,
-//   onLocationChange: (location: string) => void,
-//   onEventTypeChange: (eventType: string) => void,
-// };
-
 type EventFormProps = {
   headerTitle: string;
   onSubmit: (data: EventDataOutput) => Promise<void>;
-} & EventDataInput /* & EventDataChangeHandlers */;
+} & EventDataInput;
 
 function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [name, setName] = useState(rest.name || '');
