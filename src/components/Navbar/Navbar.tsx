@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from '@reach/router';
 
+import MenuLink from './MenuLink';
 import { Wrapper, Icon, Menu, MenuItem } from './styled';
 import routes from 'src/config/routes';
 import logo from 'src/assets/images/logo.png';
@@ -14,7 +14,7 @@ function Navbar() {
           ({ path, label }) =>
             label && (
               <MenuItem key={path}>
-                <Link to={path}>{label}</Link>
+                <MenuLink path={path} label={label} />
               </MenuItem>
             )
         )}

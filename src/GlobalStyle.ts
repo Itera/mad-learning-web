@@ -45,11 +45,14 @@ const GlobalStyle = createGlobalStyle`
     color: ${usingColors((c) => c.ON.PRIMARY)};
     background-color: transparent;
     text-decoration: none;
+    cursor: default;
 
-    &:hover {
-      cursor: pointer;
-      color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
-      transition: 0.3s ease-out color;
+    &:not([disabled]) {
+      &:hover {
+        cursor: pointer;
+        color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
+        transition: 0.3s ease-out color;
+      }
     }
   }
 
