@@ -7,6 +7,7 @@ export type Event = {
   location: string;
   imageUrl: string;
   imageAlt: string;
+  eventType: string;
   owner?: Person;
   participants?: Array<Person>;
 };

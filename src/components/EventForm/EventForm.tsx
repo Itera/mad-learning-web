@@ -12,28 +12,63 @@ import TimeField from 'src/components/fields/TimeField';
 import { EventFormWrapper, Form } from './styled';
 import { EVENT_OPTIONS } from './constants';
 
-type EventData = {
-  name: string,
-  description: string,
-  startTime: Date,
-  endTime: Date,
-  imageUrl: string,
-  imageAlt: string,
-  location: string,
-  eventType: string,
+export type EventDataInput = {
+  id?: string;
+  name?: string;
+  description?: string;
+  startTime?: Date;
+  endTime?: Date;
+  imageUrl?: string;
+  imageAlt?: string;
+  location?: string;
+  eventType?: string;
 };
 
-type EventFormProps = {
-  onSubmit: (data: EventData) => Promise<void>;
-} & EventData & RouteComponentProps;
+export type EventDataOutput = {
+  id?: string;
+  name: string;
+  description: string;
+  startTime: Date;
+  endTime: Date;
+  imageUrl?: string;
+  imageAlt?: string;
+  location?: string;
+  eventType: string;
+};
 
-function EventForm({ navigate, onSubmit, ...rest }: EventFormProps) {
+// type EventDataChangeHandlers = {
+//   onNameChange: (name: string) => void,
+//   onDescriptionChange: (description: string) => void,
+//   onStartTimeChange: (startTime: Date) => void,
+//   onEndTimeChange: (endTime: Date) => void,
+//   onImageUrlChange: (imageUrl: string) => void,
+//   onImageAltChange: (location: string) => void,
+//   onLocationChange: (location: string) => void,
+//   onEventTypeChange: (eventType: string) => void,
+// };
+
+type EventFormProps = {
+  headerTitle: string;
+  onSubmit: (data: EventDataOutput) => Promise<void>;
+} & EventDataInput /* & EventDataChangeHandlers */;
+
+function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [name, setName] = useState(rest.name || '');
   const [imageUrl, setImageUrl] = useState(rest.imageUrl || '');
   const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
-  const [date, setDate] = useState(format(new Date(rest.startTime.toDateString()) || Date.now(), 'yyyy-MM-dd'));
-  const [startTime, setStartTime] = useState(format(rest.startTime || Date.now(), 'HH:mm'));
-  const [endTime, setEndTime] = useState(format(rest.endTime || Date.now(), 'HH:mm'));
+  const [date, setDate] = useState(
+    format(
+      new Date((rest.startTime || new Date(Date.now())).toDateString()) ||
+        Date.now(),
+      'yyyy-MM-dd'
+    )
+  );
+  const [startTime, setStartTime] = useState(
+    format(rest.startTime || Date.now(), 'HH:mm')
+  );
+  const [endTime, setEndTime] = useState(
+    format(rest.endTime || Date.now(), 'HH:mm')
+  );
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
   const [location, setLocation] = useState(rest.location || '');
@@ -50,19 +85,17 @@ function EventForm({ navigate, onSubmit, ...rest }: EventFormProps) {
     setError(null);
 
     try {
-      await onSubmit(
-        {
-          name,
-          description,
-          startTime: new Date(date + ' ' + startTime),
-          endTime: new Date(date + ' ' + endTime),
-          imageUrl,
-          imageAlt,
-          location,
-          eventType,
-        }
-      );
-      navigate!('/');
+      await onSubmit({
+        id: rest.id,
+        name,
+        description,
+        startTime: new Date(date + ' ' + startTime),
+        endTime: new Date(date + ' ' + endTime),
+        imageUrl,
+        imageAlt,
+        location,
+        eventType,
+      });
     } catch (error) {
       setError(error.message);
     } finally {
@@ -81,13 +114,13 @@ function EventForm({ navigate, onSubmit, ...rest }: EventFormProps) {
     eventType,
     setIsSubmitting,
     setError,
-    navigate,
     onSubmit,
+    rest,
   ]);
 
   return (
     <EventFormWrapper>
-      <h1>Create new event</h1>
+      <h1>{rest.headerTitle}</h1>
       <Form>
         <TextField
           name="name"
@@ -151,7 +184,7 @@ function EventForm({ navigate, onSubmit, ...rest }: EventFormProps) {
         </div>
         {hasSubmitted && error != null && (
           <Alert
-            heading="Failed to create event"
+            heading="Failed to submit"
             description={<p></p>}
             headingAs="h2"
           />

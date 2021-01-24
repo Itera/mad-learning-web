@@ -36,9 +36,10 @@ export async function createEvent(
   endtime: string,
   name: string,
   description: string,
-  imageUrl: string,
-  imageAlt: string,
-  location: string
+  imageUrl?: string,
+  imageAlt?: string,
+  location?: string,
+  eventType?: string
 ): Promise<void> {
   const account = AuthProviderInstance.account;
   const accountName = AuthProviderInstance.accountName;
@@ -53,7 +54,9 @@ export async function createEvent(
       imageUrl: imageUrl,
       imageAlt: imageAlt,
       location: location,
-      owner: { // TODO: can be filled in API side unless you can create an event with an owner that is not current user
+      eventType: eventType,
+      owner: {
+        // TODO: can be filled in API side unless you can create an event with an owner that is not current user
         id: account!.localAccountId,
         firstName: accountName.firstName,
         lastName: accountName.lastName,
@@ -79,15 +82,16 @@ export async function deleteEvent(id: string): Promise<void> {
 }
 
 export async function updateEvent(
-    id: string, 
-    starttime: string,
-    endtime: string,
-    name: string,
-    description: string,
-    imageUrl: string,
-    imageAlt: string,
-    location: string
-  ): Promise<void> {
+  id: string,
+  starttime: string,
+  endtime: string,
+  name: string,
+  description: string,
+  eventType: string,
+  imageUrl?: string,
+  imageAlt?: string,
+  location?: string
+): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
@@ -98,6 +102,7 @@ export async function updateEvent(
       imageUrl: imageUrl,
       imageAlt: imageAlt,
       location: location,
+      eventType: eventType,
     }),
   });
   if (response.ok) {
