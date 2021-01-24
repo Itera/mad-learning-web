@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { ThemeProps } from 'src/hooks/theme';
+import { usingTypography, ThemeProps } from 'src/hooks/theme';
 
 export const Container = styled.article`
   height: 100%;
@@ -25,22 +25,16 @@ export const Image = styled.img`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding: ${({ theme }: ThemeProps) => {
-    const padding = theme.typography.scaleSpacing(5);
-    return `0 ${padding}px ${padding}px`;
-  }};
+  padding: 0 ${usingTypography((t) => t.scaleSpacing(5))}px;
+  padding-bottom: ${usingTypography((t) => t.scaleSpacing(2))}px;
 
   @media screen and (min-width: 400px) and (max-width: 620px),
     screen and (min-width: 820px) and (max-width: 1400px) {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    padding: ${({ theme }: ThemeProps) => {
-      const padding = theme.typography.scaleSpacing(5);
-      return `0 ${padding}px`;
-    }};
+    padding: 0 ${usingTypography((t) => t.scaleSpacing(5))}px;
+    padding-top: ${usingTypography((t) => t.scaleSpacing(2))}px;
   }
 `;
 
