@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import {
   Container,
@@ -16,11 +16,22 @@ type EventCardProps = {
   content: ReactNode;
 };
 
+const FALLBACK_IMAGE =
+  'https://itera-cdn.azureedge.net/globalassets/6.-newsroom/aktuelt.png?quality=60&Cache=Always&width=1148&mode=crop&scale=both';
+
 function EventCard({ heading, content, image, imageAlt }: EventCardProps) {
+  const [hasBrokenImage, setHasBrokenImage] = useState(false);
+
+  const img = hasBrokenImage ? FALLBACK_IMAGE : image;
+
   return (
     <Container>
       <ImageContainer>
-        <Image src={image} alt={imageAlt} />
+        <Image
+          src={img}
+          alt={imageAlt}
+          onError={() => setHasBrokenImage(true)}
+        />
       </ImageContainer>
       <Body>
         <Heading as="h2">{heading}</Heading>
