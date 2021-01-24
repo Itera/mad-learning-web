@@ -2,22 +2,41 @@ import styled from 'styled-components';
 
 import { usingTypography } from 'src/hooks/theme';
 
-const MAX_NUM_COL = 4;
-const MAX_COL_WIDTH = 350;
-const HOR_MARGIN_LEVEL = 7;
+const MIN_COL_WIDTH = 300;
+const MAX_COL_WIDTH = 400;
 
 export const GridList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(${MAX_COL_WIDTH}px, 1fr));
+  grid-template-columns: repeat(
+    1,
+    minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+  );
   grid-gap: ${usingTypography((t) => t.scaleSpacing(5))}px;
+  justify-content: center;
   margin: auto;
   padding: 0;
-  max-width: ${usingTypography((t) => {
-    const horMargins = t.scaleSpacing(HOR_MARGIN_LEVEL) * 2;
-    const colWidth = horMargins + MAX_COL_WIDTH;
-    return colWidth * MAX_NUM_COL;
-  })}px;
   list-style-type: none;
+
+  @media screen and (min-width: 720px) {
+    grid-template-columns: repeat(
+      2,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
+  }
+
+  @media screen and (min-width: 1080px) {
+    grid-template-columns: repeat(
+      3,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
+  }
+
+  @media screen and (min-width: 1480px) {
+    grid-template-columns: repeat(
+      4,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
+  }
 `;
 
 export const GridItem = styled.li``;
