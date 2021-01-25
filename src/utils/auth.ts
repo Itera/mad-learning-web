@@ -14,6 +14,7 @@ import {
   tokenRequest,
   silentRequest,
   msalConfig,
+  API_TOKEN_STATE,
 } from '../config/authConfig';
 
 class AuthProvider {
@@ -21,6 +22,8 @@ class AuthProvider {
 
   private _account: AccountInfo | null = null;
   private _token: AuthenticationResult | null = null;
+  private _tokenPromise: Promise<void>;
+  private _tokenPromiseResolver: () => void;
 
   private loginPromise: Promise<void> | null = null;
   private initPromise: Promise<void[]>;
@@ -58,15 +61,13 @@ class AuthProvider {
 
     const initPromises: Promise<void>[] = [];
 
+    this._tokenPromiseResolver = () => {};
+    this._tokenPromise = new Promise<void>(r => this._tokenPromiseResolver = r);
+
     initPromises.push(
-      (async (publicClient: PublicClientApplication) => {
-        try {
-          const response = await publicClient.handleRedirectPromise();
-          this.handleLoginResponse(response, null);
-        } catch (err) {
-          this.handleLoginResponse(null, err);
-        }
-      })(this.publicClient)
+      this.publicClient.handleRedirectPromise()
+        .then(r => this.handleRedirectResponse(r, null))
+        .catch(e => this.handleRedirectResponse(null, e))
     );
 
     const account = this.getActiveAccount();
@@ -87,7 +88,21 @@ class AuthProvider {
     this.initPromise = Promise.all(initPromises);
   }
 
-  private handleLoginResponse(
+  private handleRedirectResponse(
+    response: AuthenticationResult | null,
+    err: Error | null
+  ) {
+    if (response?.state === API_TOKEN_STATE)
+    {
+      this.handleApiTokenResponse(response, err);
+    }
+    else 
+    {
+      this.handleLoginTokenResponse(response, err);
+    }
+  }
+
+  private handleLoginTokenResponse(
     response: AuthenticationResult | null,
     err: Error | null
   ) {
@@ -104,6 +119,7 @@ class AuthProvider {
       // console.log('login success, has response', account);
       this._account = account;
       this._token = response;
+      this._tokenPromiseResolver();
     } else {
       if (account) {
         // console.log('has accounts', account);
@@ -155,7 +171,7 @@ class AuthProvider {
       }
 
       const response = await this.publicClient.ssoSilent(request);
-      this.handleLoginResponse(response, null);
+      this.handleRedirectResponse(response, null);
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
         try {
@@ -196,6 +212,7 @@ class AuthProvider {
   async getApiToken(): Promise<AuthenticationResult | null> {
     await this.initPromise;
     if (this.loginPromise) await this.loginPromise;
+    await this._tokenPromise;
 
     let request = this.createRequestWithActiveAccount(silentRequest);
 
@@ -221,15 +238,17 @@ class AuthProvider {
           return null;
         }
 
-        try {
-          // console.log('acquireTokenPopup');
-          response = await this.publicClient.acquireTokenPopup(request);
-          // console.log('done with acquireTokenPopup, success')
-          this.handleApiTokenResponse(response, null);
-        } catch (err) {
-          // console.log('done with acquireTokenPopup, fail', err)
-          this.handleApiTokenResponse(null, err);
-        }
+        await this.publicClient.acquireTokenRedirect(request);
+        return null;
+        // try {
+        //   // console.log('acquireTokenPopup');
+        //   response = await this.publicClient.acquireTokenPopup(request);
+        //   // console.log('done with acquireTokenPopup, success')
+        //   this.handleApiTokenResponse(response, null);
+        // } catch (err) {
+        //   // console.log('done with acquireTokenPopup, fail', err)
+        //   this.handleApiTokenResponse(null, err);
+        // }
       } else {
         console.error('unknown error getting api token', err);
       }
