@@ -56,6 +56,7 @@ function UpdateEvent({
             <EventForm
               onSubmit={handleSubmit}
               headerTitle={'Update new event'}
+              submitTitle={'Update'}
               id={event.id}
               startTime={new Date(Date.parse(event.startTime))}
               endTime={new Date(Date.parse(event.endTime))}

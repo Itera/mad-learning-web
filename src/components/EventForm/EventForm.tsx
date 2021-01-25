@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { RouteComponentProps } from '@reach/router';
-import { formatISO, format } from 'date-fns';
+import { format } from 'date-fns';
 
 import Alert from 'src/components/Alert';
 import Button from 'src/components/inputs/Button';
@@ -38,6 +37,7 @@ export type EventDataOutput = {
 
 type EventFormProps = {
   headerTitle: string;
+  submitTitle: string;
   onSubmit: (data: EventDataOutput) => Promise<void>;
 } & EventDataInput;
 
@@ -168,7 +168,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
-            Create
+            {rest.submitTitle}
           </Button>
         </div>
         {hasSubmitted && error != null && (

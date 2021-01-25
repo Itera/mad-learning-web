@@ -24,7 +24,7 @@ function CreateEvent({ navigate }: RouteComponentProps) {
 
   return (
     <CreateEventWrapper>
-      <EventForm onSubmit={handleSubmit} headerTitle={'Create new event'} />
+      <EventForm onSubmit={handleSubmit} headerTitle={'Create new event'} submitTitle={'Create'} />
     </CreateEventWrapper>
   );
 }
