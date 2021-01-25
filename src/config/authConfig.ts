@@ -24,21 +24,28 @@ export const msalConfig: Configuration = {
   },
 };
 
+export const LOGIN_STATE = 'login';
+
 export const loginRequest: RedirectRequest = {
   scopes: ['openid', 'profile', 'offline_access'],
   account: null!,
+  state: LOGIN_STATE,
 };
 
 const apiScope = `api://${apiClientId}/.default`;
 
-export const tokenRequest: SilentRequest = {
+export const API_TOKEN_STATE = 'api-token';
+
+export const tokenRequest: SilentRequest & { state?: string } = {
   scopes: [apiScope],
   forceRefresh: false,
   account: null!,
+  state: API_TOKEN_STATE,
 };
 
-export const silentRequest: SilentRequest = {
+export const silentRequest: SilentRequest & { state?: string } = {
   scopes: ['openid', 'profile', apiScope],
   forceRefresh: false,
   account: null!,
+  state: API_TOKEN_STATE,
 };

@@ -2,27 +2,44 @@ import styled from 'styled-components';
 
 import { usingTypography } from 'src/hooks/theme';
 
+const MIN_COL_WIDTH = 300;
+const MAX_COL_WIDTH = 400;
+
 export const GridList = styled.ul`
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(
+    1,
+    minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+  );
+  grid-gap: ${usingTypography((t) => t.scaleSpacing(5))}px;
+  justify-content: center;
+  margin: auto;
   padding: 0;
-  text-align: center;
-`;
+  list-style-type: none;
 
-export const GridItem = styled.li`
-  display: inline-block;
-  width: 95vw;
-  margin-bottom: ${usingTypography((t) => t.scaleSpacing(7))}px;
-  text-align: start;
-
-  @media screen and (min-width: 620px) {
-    width: 44vw;
-    margin: 0 1.25vw 2.5vw;
+  @media screen and (min-width: 720px) {
+    grid-template-columns: repeat(
+      2,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
   }
 
-  @media screen and (min-width: 1250px) {
-    width: 28vw;
+  @media screen and (min-width: 1080px) {
+    grid-template-columns: repeat(
+      3,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
+  }
+
+  @media screen and (min-width: 1480px) {
+    grid-template-columns: repeat(
+      4,
+      minmax(${MIN_COL_WIDTH}px, ${MAX_COL_WIDTH}px)
+    );
   }
 `;
+
+export const GridItem = styled.li``;
 
 export const EventInfoList = styled.ul`
   list-style-type: none;
