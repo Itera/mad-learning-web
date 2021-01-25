@@ -5,24 +5,6 @@ import { usingColors, usingStyling } from './hooks/theme';
 export const UBIQUITOUS_ANIMATION = 'fade-in 0.3s ease-in';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'ApexNew';
-    font-style: 'normal';
-    font-weight: 400;
-    src:
-      local('ApexNew-Book'),
-      url('/fonts/ApexNew-Book.otf') format('opentype');
-  }
-
-  @font-face {
-    font-family: 'ApexNew-Bold';
-    font-style: 'normal';
-    font-weight: 700;
-    src:
-      local('ApexNew-Bold'),
-      url('/fonts/ApexNew-Bold.otf') format('opentype');
-  }
-
   body {
     margin: 0;
     color: ${usingColors((c) => c.ON.PRIMARY)};
@@ -45,11 +27,14 @@ const GlobalStyle = createGlobalStyle`
     color: ${usingColors((c) => c.ON.PRIMARY)};
     background-color: transparent;
     text-decoration: none;
+    cursor: default;
 
-    &:hover {
-      cursor: pointer;
-      color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
-      transition: 0.3s ease-out color;
+    &:not([disabled]) {
+      &:hover {
+        cursor: pointer;
+        color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
+        transition: 0.3s ease-out color;
+      }
     }
   }
 
