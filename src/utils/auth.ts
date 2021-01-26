@@ -23,8 +23,6 @@ class AuthProvider {
   private _account: AccountInfo | null = null;
   private _token: AuthenticationResult | null = null;
 
-  private _apiTokenFromRedirect: AuthenticationResult | null = null;
-
   private initPromise: Promise<void[]>;
 
   isAuthenticated() {
@@ -94,13 +92,13 @@ class AuthProvider {
       // Just got back from login/token redirect
       if (response.state === API_TOKEN_STATE) {
         this.handleApiTokenResponse(response);
-        this._apiTokenFromRedirect = response;
       } else {
         this.handleLoginTokenResponse(response);
       }
     } else {
       const account = this.getActiveAccount();
       if (!account) {
+        // console.log('loginRedirect');
         await this.publicClient.loginRedirect(loginRequest);
       } else  {
         this._account = account;
@@ -108,7 +106,7 @@ class AuthProvider {
       }
     }
     
-    console.log('handleRedirectResponse');
+    // console.log('handleRedirectResponse');
   }
 
   private handleLoginTokenResponse(response: AuthenticationResult | null) {
@@ -158,11 +156,13 @@ class AuthProvider {
         throw new InteractionRequiredAuthError('cant_create_request');
       }
 
+      // console.log('ssoSilent');
       const response = await this.publicClient.ssoSilent(request);
       this.handleLoginTokenResponse(response);
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
         try {
+          // console.log('loginRedirect in sso');
           await this.publicClient.loginRedirect(loginRequest);
         } catch (err) {
           if (err instanceof BrowserAuthError && (err as BrowserAuthError).errorCode === BrowserAuthErrorMessage.interactionInProgress.code) {
@@ -200,16 +200,7 @@ class AuthProvider {
   async getApiToken(): Promise<AuthenticationResult | null> {
     await this.initPromise;
 
-    console.log('getApiToken');
-
-    if (this._apiTokenFromRedirect) {
-      if (this._apiTokenFromRedirect.expiresOn > new Date()) {
-        console.log('cached api token');
-        return this._apiTokenFromRedirect;
-      } else {
-        this._apiTokenFromRedirect = null;
-      }
-    }
+    // console.log('getApiToken');
 
     let request = this.createRequestWithActiveAccount(silentRequest);
 
@@ -220,6 +211,7 @@ class AuthProvider {
 
     let response: AuthenticationResult | null = null;
     try {
+      // console.log('acquireTokenSilent');
       response = await this.publicClient.acquireTokenSilent(request);
       this.handleApiTokenResponse(response);
     } catch (err) {
@@ -235,17 +227,9 @@ class AuthProvider {
           return null;
         }
 
+        // console.log('acquireTokenRedirect');
         await this.publicClient.acquireTokenRedirect(request);
         return null;
-        // try {
-        //   // console.log('acquireTokenPopup');
-        //   response = await this.publicClient.acquireTokenPopup(request);
-        //   // console.log('done with acquireTokenPopup, success')
-        //   this.handleApiTokenResponse(response, null);
-        // } catch (err) {
-        //   // console.log('done with acquireTokenPopup, fail', err)
-        //   this.handleApiTokenResponse(null, err);
-        // }
       } else {
         console.error('unknown error getting api token', err);
       }
