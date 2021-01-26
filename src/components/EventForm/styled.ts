@@ -8,7 +8,6 @@ export const EventFormWrapper = styled.div`
 `;
 
 export const Form = styled.form`
-  margin-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;

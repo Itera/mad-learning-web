@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
       box-sizing: border-box;
       animation: ${UBIQUITOUS_ANIMATION};
     }
+
+    padding-bottom: 20px;
   }
 
   a {

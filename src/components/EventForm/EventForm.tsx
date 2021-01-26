@@ -42,10 +42,12 @@ type EventFormProps = {
 } & EventDataInput;
 
 function EventForm({ onSubmit, ...rest }: EventFormProps) {
+  const now = new Date();
+
   const [name, setName] = useState(rest.name || '');
   const [imageUrl, setImageUrl] = useState(rest.imageUrl || '');
   const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
-  const eventDate = rest.startTime || addDays(startOfDay(new Date()), 1);
+  const eventDate = rest.startTime || addDays(startOfDay(now), 1);
   const [date, setDate] = useState(
     format(
       eventDate,
@@ -53,11 +55,13 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     )
   );
 
+  const setHours = (date: Date, hours: number) => set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 })
+
   const [startTime, setStartTime] = useState(
-    format(rest.startTime || set(eventDate, { hours: 16, minutes: 0, seconds: 0, milliseconds: 0 }), 'HH:mm')
+    format(rest.startTime || setHours(eventDate, 16), 'HH:mm')
   );
   const [endTime, setEndTime] = useState(
-    format(rest.endTime || set(eventDate, { hours: 17, minutes: 0, seconds: 0, milliseconds: 0 }), 'HH:mm')
+    format(rest.endTime || setHours(eventDate, 17), 'HH:mm')
   );
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
@@ -67,8 +71,10 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
+
   const isFormValid = name && description && eventType && startTime && endTime &&
-    new Date(date + 'T' + startTime) > new Date() && new Date(date + 'T' + endTime) > new Date();
+    parseDate(date, startTime) > now && parseDate(date, endTime) > now;
   const isSubmitDisabled = !isFormValid || isSubmitting;
 
   const handleSubmit = useCallback(async () => {
@@ -80,8 +86,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         id: rest.id,
         name,
         description,
-        startTime: new Date(date + 'T' + startTime),
-        endTime: new Date(date + 'T' + endTime),
+        startTime: parseDate(date, startTime),
+        endTime: parseDate(date, endTime),
         imageUrl,
         imageAlt,
         location,
@@ -106,7 +112,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     setIsSubmitting,
     setError,
     onSubmit,
-    rest,
+    rest.id,
   ]);
 
   return (
