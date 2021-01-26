@@ -18,10 +18,7 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
   const handleDelete = useCallback(async () => {
     await deleteEvent(event.id);
     onDelete();
-  }, [
-    event,
-    onDelete
-  ]);
+  }, [event, onDelete]);
 
   if (isNotOwner) {
     return null;

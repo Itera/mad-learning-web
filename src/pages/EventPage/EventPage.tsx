@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import FailedFetchAlert from 'src/components/FailedFetchAlert';
@@ -11,6 +11,8 @@ import ParticipantList from './components/ParticipantList';
 import { HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
+import Button from 'src/components/inputs/Button';
+import { AuthProviderInstance } from 'src/utils/auth';
 
 type EventPageProps = {
   eventId: string;
@@ -20,25 +22,14 @@ type EventPageProps = {
 function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const tmpEventName = rest['*'];
 
-  const [resolveContentFunction, setResolveContentFunction] = useState(() => () => fetchEvent(eventId));
-
-  const handleRsvp = useCallback(() => {
-    setResolveContentFunction(() => () => fetchEvent(eventId));
-  }, [
-    setResolveContentFunction,
-    eventId
-  ]); // TODO Better way to trigger rerender? :/
-
   const handleDelete = useCallback(() => {
     navigate!('/');
-  }, [
-    navigate
-  ]);
+  }, [navigate]);
 
   return (
     <section id="event-page">
       <LoadableContent
-        resolveContent={resolveContentFunction}
+        resolveContent={() => fetchEvent(eventId)}
         renderLoading={() => (
           <>
             <h1>{tmpEventName}</h1>
@@ -49,7 +40,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             />
           </>
         )}
-        renderSuccess={(event) => {
+        renderSuccess={(event, refreshEvent) => {
           const {
             name,
             description,
@@ -60,6 +51,12 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             owner,
             participants,
           } = event;
+
+          const account = AuthProviderInstance.account;
+
+          const isNotOwner =
+            !owner || !account || account.localAccountId !== owner.id;
+
           return (
             <>
               <header>
@@ -73,8 +70,17 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} onRsvp={handleRsvp} />
+                  <RsvpButton event={event} onRsvp={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
+                  <Button
+                    variant="highlight"
+                    onClick={() =>
+                      navigate!(`/update-event/${event.id}/${name}`)
+                    }
+                    disabled={isNotOwner}
+                  >
+                    Edit
+                  </Button>
                 </HighlightedBox>
               </header>
               <SplitSection
