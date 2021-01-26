@@ -72,15 +72,16 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   />
                   <RsvpButton event={event} onRsvp={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
-                  <Button
-                    variant="highlight"
-                    onClick={() =>
-                      navigate!(`/update-event/${event.id}/${name}`)
-                    }
-                    disabled={isNotOwner}
-                  >
-                    Edit
-                  </Button>
+                  {!isNotOwner && (
+                    <Button
+                      variant="highlight"
+                      onClick={() =>
+                        navigate!(`/update-event/${event.id}/${name}`)
+                      }
+                    >
+                      Edit
+                    </Button>
+                  )}
                 </HighlightedBox>
               </header>
               <SplitSection
