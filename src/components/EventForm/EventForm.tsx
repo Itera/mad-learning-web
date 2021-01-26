@@ -74,12 +74,14 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     setError(null);
 
     try {
+      console.log('H', date, startTime);
+      console.log('K', date, endTime);
       await onSubmit({
         id: rest.id,
         name,
         description,
-        startTime: new Date(date + ' ' + startTime),
-        endTime: new Date(date + ' ' + endTime),
+        startTime: new Date(date + 'T' + startTime),
+        endTime: new Date(date + 'T' + endTime),
         imageUrl,
         imageAlt,
         location,
