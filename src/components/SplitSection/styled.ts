@@ -4,6 +4,7 @@ import { usingColors, usingTypography } from 'src/hooks/theme';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 
   @media screen and (min-width: 1060px) {
     flex-direction: row;
