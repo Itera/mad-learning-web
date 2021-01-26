@@ -74,8 +74,6 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     setError(null);
 
     try {
-      console.log('H', date, startTime);
-      console.log('K', date, endTime);
       await onSubmit({
         id: rest.id,
         name,
