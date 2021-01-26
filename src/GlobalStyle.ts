@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { usingColors, usingStyling } from './hooks/theme';
+import { usingColors, usingStyling, usingTypography } from './hooks/theme';
 
 export const UBIQUITOUS_ANIMATION = 'fade-in 0.3s ease-in';
 
@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
       animation: ${UBIQUITOUS_ANIMATION};
     }
 
-    padding-bottom: 20px;
+    padding-bottom: ${usingTypography((t) => t.scaleSpacing(7))}px;
   }
 
   a {
