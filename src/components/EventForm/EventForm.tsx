@@ -47,7 +47,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
   const [date, setDate] = useState(
     format(
-        rest.startTime == null ? Date.now() : new Date(rest.startTime)
+      new Date((rest.startTime || new Date(Date.now())).toDateString()) ||
+        Date.now(),
       'yyyy-MM-dd'
     )
   );
