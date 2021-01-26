@@ -27,7 +27,7 @@ export const msalConfig: Configuration = {
 export const LOGIN_STATE = 'login';
 
 export const loginRequest: RedirectRequest = {
-  scopes: ['openid', 'profile', 'offline_access'],
+  scopes: ['openid', 'profile'],
   account: null!,
   state: LOGIN_STATE,
 };
@@ -45,7 +45,6 @@ export const tokenRequest: SilentRequest & { state?: string } = {
 
 export const silentRequest: SilentRequest & { state?: string } = {
   scopes: ['openid', 'profile', apiScope],
-  forceRefresh: false,
   account: null!,
   state: API_TOKEN_STATE,
 };
