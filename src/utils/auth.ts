@@ -22,10 +22,7 @@ class AuthProvider {
 
   private _account: AccountInfo | null = null;
   private _token: AuthenticationResult | null = null;
-  private _tokenPromise: Promise<void>;
-  private _tokenPromiseResolver: () => void;
 
-  private loginPromise: Promise<void> | null = null;
   private initPromise: Promise<void[]>;
 
   isAuthenticated() {
@@ -57,52 +54,32 @@ class AuthProvider {
   constructor(config: Configuration) {
     this.publicClient = new PublicClientApplication(config);
 
-    // console.log('starting auth provider');
-
     const initPromises: Promise<void>[] = [];
 
-    this._tokenPromiseResolver = () => {};
-    this._tokenPromise = new Promise<void>(r => this._tokenPromiseResolver = r);
-
+    // With msal-browser, everything starts with handleRedirectPromise when using a redirect flow
+    // It can resolve with the following cases (it parses the hash pushed to the url from the redirect flow):
+    // 1. AuthenticatedResult has value - this means we have been redirected back to the app from the MS login app (login, consent)
+    //   1.1 AuthenticatedResult.state contains the LOGIN constant values defined in this app,
+    //       (used to identify which flow we are inside since we use redirect flow for both login and API access token)
+    //       - in this case we can just store the account and token information in local fields and this flow is done
+    //   1.2 AuthenticatedResult.state contains the API constant
+    //       - we need to cache the token from the redirect so that we don't request a new one immediately
+    // 2. AuthenticatedResult is null
+    //   2.1 Account is null
+    //       - i.e. we are not logged in for this browser session, redirect to MS login
+    //   2.2 Account is not null
+    //       - we are logged in to the current session, try to do ssoLogin, and if that fails with InteractionRequiredAuthError,
+    //         redirect to MS login to get consent screen
     initPromises.push(
       this.publicClient.handleRedirectPromise()
         .then(r => this.handleRedirectResponse(r, null))
         .catch(e => this.handleRedirectResponse(null, e))
     );
 
-    const account = this.getActiveAccount();
-
-    if (account) {
-      // console.log('found cached account', account);
-      this._account = account;
-    }
-
-    initPromises.push(
-      (async () => {
-        if (this.loginPromise) await this.loginPromise;
-        this.loginPromise = this.login(loginRequest);
-        await this.loginPromise;
-      })()
-    );
-
     this.initPromise = Promise.all(initPromises);
   }
 
-  private handleRedirectResponse(
-    response: AuthenticationResult | null,
-    err: Error | null
-  ) {
-    if (response?.state === API_TOKEN_STATE)
-    {
-      this.handleApiTokenResponse(response, err);
-    }
-    else 
-    {
-      this.handleLoginTokenResponse(response, err);
-    }
-  }
-
-  private handleLoginTokenResponse(
+  private async handleRedirectResponse(
     response: AuthenticationResult | null,
     err: Error | null
   ) {
@@ -111,15 +88,36 @@ class AuthProvider {
       return;
     }
 
+    if (response) {
+      // Just got back from login/token redirect
+      if (response.state === API_TOKEN_STATE) {
+        this.handleApiTokenResponse(response);
+      } else {
+        this.handleLoginTokenResponse(response);
+      }
+    } else {
+      const account = this.getActiveAccount();
+      if (!account) {
+        // console.log('loginRedirect');
+        await this.publicClient.loginRedirect(loginRequest);
+      } else  {
+        this._account = account;
+        await this.loginSso(loginRequest);
+      }
+    }
+    
+    // console.log('handleRedirectResponse');
+  }
+
+  private handleLoginTokenResponse(response: AuthenticationResult | null) {
     // console.log('login result', response);
 
     const account = this.getActiveAccount();
 
     if (response) {
       // console.log('login success, has response', account);
-      this._account = account;
+      this._account = response.account;
       this._token = response;
-      this._tokenPromiseResolver();
     } else {
       if (account) {
         // console.log('has accounts', account);
@@ -128,15 +126,7 @@ class AuthProvider {
     }
   }
 
-  private handleApiTokenResponse(
-    response: AuthenticationResult | null,
-    err: Error | null
-  ) {
-    if (err) {
-      console.error('api token error', err);
-      return;
-    }
-
+  private handleApiTokenResponse(response: AuthenticationResult | null) {
     // console.log('api token result', response);
 
     if (response) {
@@ -158,11 +148,7 @@ class AuthProvider {
     return null;
   }
 
-  private async login(loginRequest: RedirectRequest) {
-    if (this.isAuthenticated()) {
-      return;
-    }
-
+  private async loginSso(loginRequest: RedirectRequest) {
     try {
       let request = this.createRequestWithLoginHint(loginRequest);
   
@@ -170,11 +156,13 @@ class AuthProvider {
         throw new InteractionRequiredAuthError('cant_create_request');
       }
 
+      // console.log('ssoSilent');
       const response = await this.publicClient.ssoSilent(request);
-      this.handleRedirectResponse(response, null);
+      this.handleLoginTokenResponse(response);
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
         try {
+          // console.log('loginRedirect in sso');
           await this.publicClient.loginRedirect(loginRequest);
         } catch (err) {
           if (err instanceof BrowserAuthError && (err as BrowserAuthError).errorCode === BrowserAuthErrorMessage.interactionInProgress.code) {
@@ -211,8 +199,8 @@ class AuthProvider {
 
   async getApiToken(): Promise<AuthenticationResult | null> {
     await this.initPromise;
-    if (this.loginPromise) await this.loginPromise;
-    await this._tokenPromise;
+
+    // console.log('getApiToken');
 
     let request = this.createRequestWithActiveAccount(silentRequest);
 
@@ -223,8 +211,9 @@ class AuthProvider {
 
     let response: AuthenticationResult | null = null;
     try {
+      // console.log('acquireTokenSilent');
       response = await this.publicClient.acquireTokenSilent(request);
-      this.handleApiTokenResponse(response, null);
+      this.handleApiTokenResponse(response);
     } catch (err) {
       if (err instanceof InteractionRequiredAuthError) {
         console.warn(
@@ -238,17 +227,9 @@ class AuthProvider {
           return null;
         }
 
+        // console.log('acquireTokenRedirect');
         await this.publicClient.acquireTokenRedirect(request);
         return null;
-        // try {
-        //   // console.log('acquireTokenPopup');
-        //   response = await this.publicClient.acquireTokenPopup(request);
-        //   // console.log('done with acquireTokenPopup, success')
-        //   this.handleApiTokenResponse(response, null);
-        // } catch (err) {
-        //   // console.log('done with acquireTokenPopup, fail', err)
-        //   this.handleApiTokenResponse(null, err);
-        // }
       } else {
         console.error('unknown error getting api token', err);
       }
