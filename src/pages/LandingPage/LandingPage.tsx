@@ -6,13 +6,14 @@ import LoadableContent from 'src/components/LoadableContent';
 import Loader from 'src/components/Loader';
 import { Heading } from './styled';
 import { fetchEvents } from 'src/api/events';
+import { subHours } from 'date-fns';
 
 function LandingPage() {
   return (
     <section id="landing-page">
       <Heading>Events near you</Heading>
       <LoadableContent
-        resolveContent={fetchEvents}
+        resolveContent={() => fetchEvents(subHours(new Date(), 12))}
         renderLoading={() => (
           <Loader
             regionId="landing-page"

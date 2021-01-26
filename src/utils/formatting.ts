@@ -21,7 +21,7 @@ export function formatDateInterval(
   if (isSameDay(parsedStartDate, parsedEndDate)) {
     return `${formatDate(parsedStartDate, 'MMMM d - HH:mm')}–${formatDate(
       parsedEndDate,
-      'HH:MM'
+      'HH:mm'
     )}`;
   }
   return `${formatDate(parsedStartDate, 'MMMM d HH:mm')}–${formatDate(
