@@ -64,10 +64,10 @@ async function joinOrDropEvent(
   hasJoinedEvent: boolean
 ): Promise<boolean> {
   if (hasJoinedEvent) {
-    await joinEvent(eventId);
+    await dropEvent(eventId);
     return true;
   } else {
-    await dropEvent(eventId);
+    await joinEvent(eventId);
     return false;
   }
 }
