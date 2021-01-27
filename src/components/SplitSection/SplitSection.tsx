@@ -1,6 +1,6 @@
 import React, { ReactNode, ComponentProps } from 'react';
 
-import { Container, Section } from './styled';
+import { Container, Section, Divider } from './styled';
 
 type SplitSectionProps = {
   left: ReactNode;
@@ -24,6 +24,7 @@ function SplitSection({
       <Section as={sectionAs} grow={leftGrow}>
         {left}
       </Section>
+      <Divider />
       <Section as={sectionAs} grow={rightGrow}>
         {right}
       </Section>

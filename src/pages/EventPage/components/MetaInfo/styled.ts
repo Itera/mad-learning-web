@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import { usingTypography } from 'src/hooks/theme';
 
 export const MetaInfoGroup = styled.dl`
-  display: flex;
-  flex-wrap: wrap;
-  line-height: ${usingTypography((t) => t.scaleSpacing(9))}px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: ${usingTypography((t) => t.scaleSpacing(7))}px;
 `;
 
 export const MetaInfoLabel = styled.dt`
-  flex: 10%;
+  margin: 0;
+  padding: 0;
   font-weight: bold;
 `;
 
 export const MetaInfoValue = styled.dl`
-  flex: 90%;
+  margin: 0;
+  padding: 0;
 `;

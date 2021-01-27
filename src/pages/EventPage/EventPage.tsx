@@ -8,9 +8,11 @@ import RsvpButton from 'src/components/inputs/RsvpButton';
 import SplitSection from 'src/components/SplitSection';
 import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
-import { HighlightedBox } from './styled';
+import { DescriptionText, HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
+import Button from 'src/components/inputs/Button';
+import { AuthProviderInstance } from 'src/utils/auth';
 
 type EventPageProps = {
   eventId: string;
@@ -49,6 +51,12 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             owner,
             participants,
           } = event;
+
+          const account = AuthProviderInstance.account;
+
+          const isNotOwner =
+            !owner || !account || account.localAccountId !== owner.id;
+
           return (
             <>
               <header>
@@ -64,6 +72,16 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   />
                   <RsvpButton event={event} onSuccess={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
+                  {!isNotOwner && (
+                    <Button
+                      variant="highlight"
+                      onClick={() =>
+                        navigate!(`/update-event/${event.id}/${name}`)
+                      }
+                    >
+                      Edit
+                    </Button>
+                  )}
                 </HighlightedBox>
               </header>
               <SplitSection
@@ -72,7 +90,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                 left={
                   <>
                     <h2>Description</h2>
-                    <p>{description}</p>
+                    <DescriptionText>{description}</DescriptionText>
                   </>
                 }
                 right={
