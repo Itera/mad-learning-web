@@ -36,6 +36,7 @@ export async function fetchEvent(id: string): Promise<Event> {
 export async function joinEvent(id: string): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}/rsvp`, {
     method: 'PUT',
+    body: 'JOIN',
   });
   if (response.ok) {
     return;
@@ -44,8 +45,8 @@ export async function joinEvent(id: string): Promise<void> {
 }
 
 export async function dropEvent(id: string): Promise<void> {
-  const response = await authFetch(`${API_URL}/api/event/${id}`, {
-    method: 'PATCH',
+  const response = await authFetch(`${API_URL}/api/event/${id}/rsvp`, {
+    method: 'PUT',
     body: 'DROP',
   });
   if (response.ok) {
