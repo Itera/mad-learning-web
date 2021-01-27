@@ -8,7 +8,7 @@ import RsvpButton from 'src/components/inputs/RsvpButton';
 import SplitSection from 'src/components/SplitSection';
 import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
-import { HighlightedBox } from './styled';
+import { DescriptionText, HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
 import Button from 'src/components/inputs/Button';
@@ -90,7 +90,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                 left={
                   <>
                     <h2>Description</h2>
-                    <p>{description}</p>
+                    <DescriptionText>{description}</DescriptionText>
                   </>
                 }
                 right={

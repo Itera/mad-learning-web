@@ -5,8 +5,17 @@ import { AuthProviderInstance } from 'src/utils/auth';
 
 const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
-export async function fetchEvents(): Promise<Array<Event>> {
-  const response = await authFetch(`${API_URL}/api/event`);
+export async function fetchEvents(from?: Date, to?: Date, limit?: number): Promise<Array<Event>> {
+  let query: any = { };
+
+  if (from)
+    query['from'] = from.toISOString();
+  if (to)
+    query['to'] = to.toISOString();
+  if (limit)
+    query['limit'] = limit.toString();
+
+  const response = await authFetch(`${API_URL}/api/event?${new URLSearchParams(query).toString()}`);
   if (response.ok) {
     return await response.json();
   }

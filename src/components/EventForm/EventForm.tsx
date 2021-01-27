@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { format } from 'date-fns';
+import { addDays, format, set, startOfDay } from 'date-fns';
 
 import Alert from 'src/components/Alert';
 import Button from 'src/components/inputs/Button';
@@ -42,21 +42,26 @@ type EventFormProps = {
 } & EventDataInput;
 
 function EventForm({ onSubmit, ...rest }: EventFormProps) {
+  const now = new Date();
+
   const [name, setName] = useState(rest.name || '');
   const [imageUrl, setImageUrl] = useState(rest.imageUrl || '');
   const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
+  const eventDate = rest.startTime || addDays(startOfDay(now), 1);
   const [date, setDate] = useState(
     format(
-      new Date((rest.startTime || new Date(Date.now())).toDateString()) ||
-        Date.now(),
+      eventDate,
       'yyyy-MM-dd'
     )
   );
+
+  const setHours = (date: Date, hours: number) => set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 })
+
   const [startTime, setStartTime] = useState(
-    format(rest.startTime || Date.now(), 'HH:mm')
+    format(rest.startTime || setHours(eventDate, 16), 'HH:mm')
   );
   const [endTime, setEndTime] = useState(
-    format(rest.endTime || Date.now(), 'HH:mm')
+    format(rest.endTime || setHours(eventDate, 17), 'HH:mm')
   );
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
@@ -66,7 +71,10 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isFormValid = name && description && eventType;
+  const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
+
+  const isFormValid = name && description && eventType && startTime && endTime &&
+    parseDate(date, startTime) > now && parseDate(date, endTime) > now;
   const isSubmitDisabled = !isFormValid || isSubmitting;
 
   const handleSubmit = useCallback(async () => {
@@ -78,8 +86,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         id: rest.id,
         name,
         description,
-        startTime: new Date(date + 'T' + startTime),
-        endTime: new Date(date + 'T' + endTime),
+        startTime: parseDate(date, startTime),
+        endTime: parseDate(date, endTime),
         imageUrl,
         imageAlt,
         location,
@@ -104,7 +112,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     setIsSubmitting,
     setError,
     onSubmit,
-    rest,
+    rest.id,
   ]);
 
   return (
@@ -113,31 +121,38 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
       <Form>
         <TextField
           name="name"
-          label="Event name"
+          label="Event name *"
           value={name}
           onChange={setName}
         />
+        <SelectField
+          name="eventType"
+          label="Event type *"
+          value={eventType}
+          onChange={setEventType}
+          options={EVENT_OPTIONS}
+        />
         <DateField
           name="date"
-          label="Date"
+          label="Date *"
           value={date}
-          onChange={(date: string) => setDate(date)}
+          onChange={setDate}
         />
         <TimeField
           name="time"
-          label="Start time"
+          label="Start time *"
           value={startTime}
           onChange={setStartTime}
         />
         <TimeField
           name="time"
-          label="End time"
+          label="End time *"
           value={endTime}
           onChange={setEndTime}
         />
         <TextAreaField
           name="description"
-          label="Description"
+          label="Description *"
           value={description}
           onChange={setDescription}
         />
@@ -145,12 +160,14 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           name="location"
           label="Location"
           value={location}
+          placeholder="Teams"
           onChange={setLocation}
         />
         <TextField
           name="image"
           label="Image link"
           value={imageUrl}
+          placeholder="https://.../img.png"
           onChange={setImageUrl}
         />
         <TextField
@@ -158,13 +175,6 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           label="Image text"
           value={imageAlt}
           onChange={setImageAlt}
-        />
-        <SelectField
-          name="eventType"
-          label="Event type"
-          value={eventType}
-          onChange={setEventType}
-          options={EVENT_OPTIONS}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>

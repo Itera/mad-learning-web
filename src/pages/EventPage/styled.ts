@@ -7,3 +7,7 @@ export const HighlightedBox = styled.div`
   color: ${usingColors((c) => c.ON.SECONDARY)};
   background-color: ${usingColors((c) => c.SURFACE.SECONDARY)};
 `;
+
+export const DescriptionText = styled.div`
+  white-space: pre-line;
+`;
