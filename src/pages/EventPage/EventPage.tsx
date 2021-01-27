@@ -70,7 +70,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} onSuccess={refreshEvent}/>
+                  <RsvpButton event={event} onSuccess={refreshEvent} />
                   <DeleteButton event={event} onDelete={handleDelete} />
                   {!isNotOwner && (
                     <Button

@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import Button from 'src/components/inputs/Button';
 import { Event } from 'src/types/domain';
 import { joinEvent, dropEvent } from 'src/api/events';
 import { AuthProviderInstance } from 'src/utils/auth';
+import { RouteComponentProps } from '@reach/router';
 
 type RsvpButtonProps = {
   event: Event;
@@ -11,21 +12,28 @@ type RsvpButtonProps = {
   onError?: (e: Error) => void;
 };
 
-function RsvpButton({ event, onSuccess, onError }: RsvpButtonProps) {
+function RsvpButton({
+  event,
+  onSuccess,
+  onError,
+}: RsvpButtonProps & RouteComponentProps) {
   const account = AuthProviderInstance.account;
 
-  const [hasJoinedEvent, setHasJoinedEvent] = useState<boolean>(
-    !!account &&
+  const isOwner = account && event.owner?.id === account.localAccountId;
+
+  const hasJoinedEvent = useMemo<boolean>(
+    () =>
+      !!account &&
       (event.participants
         ?.map((person) => person.id)
         ?.includes(account.localAccountId) ||
-        event.owner?.id === account.localAccountId)
+        event.owner?.id === account.localAccountId),
+    [account, event.owner, event.participants]
   );
 
   const handleClick = useCallback(async () => {
     try {
-      const hasJoined = await joinOrDropEvent(event.id, hasJoinedEvent);
-      setHasJoinedEvent(hasJoined);
+      await joinOrDropEvent(event.id, hasJoinedEvent);
       if (onSuccess) {
         onSuccess();
       }
@@ -34,7 +42,11 @@ function RsvpButton({ event, onSuccess, onError }: RsvpButtonProps) {
         onError(e);
       }
     }
-  }, [hasJoinedEvent, setHasJoinedEvent, event, onSuccess, onError]);
+  }, [hasJoinedEvent, event, onSuccess, onError]);
+
+  if (isOwner) {
+    return null;
+  }
 
   return (
     <Button
