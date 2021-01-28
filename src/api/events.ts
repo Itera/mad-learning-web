@@ -5,17 +5,20 @@ import { AuthProviderInstance } from 'src/utils/auth';
 
 const API_URL = getEnvironmentVariables().apiUrls.madLearning;
 
-export async function fetchEvents(from?: Date, to?: Date, limit?: number): Promise<Array<Event>> {
-  let query: any = { };
+export async function fetchEvents(
+  from?: Date,
+  to?: Date,
+  limit?: number
+): Promise<Array<Event>> {
+  let query: any = {};
 
-  if (from)
-    query['from'] = from.toISOString();
-  if (to)
-    query['to'] = to.toISOString();
-  if (limit)
-    query['limit'] = limit.toString();
+  if (from) query['from'] = from.toISOString();
+  if (to) query['to'] = to.toISOString();
+  if (limit) query['limit'] = limit.toString();
 
-  const response = await authFetch(`${API_URL}/api/event?${new URLSearchParams(query).toString()}`);
+  const response = await authFetch(
+    `${API_URL}/api/event?${new URLSearchParams(query).toString()}`
+  );
   if (response.ok) {
     return await response.json();
   }
@@ -30,14 +33,24 @@ export async function fetchEvent(id: string): Promise<Event> {
   throw new Error(`Failed to fetch event: ${response.statusText}.`);
 }
 
-export async function rsvpEvent(id: string): Promise<void> {
-  const response = await authFetch(`${API_URL}/api/event/${id}/rsvp`, {
+export async function joinEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}/join`, {
     method: 'PUT',
   });
   if (response.ok) {
     return;
   }
-  throw new Error(`Failed to fetch event: ${response.statusText}.`);
+  throw new Error(`Failed to join event: ${response.statusText}.`);
+}
+
+export async function dropEvent(id: string): Promise<void> {
+  const response = await authFetch(`${API_URL}/api/event/${id}/drop`, {
+    method: 'PUT',
+  });
+  if (response.ok) {
+    return;
+  }
+  throw new Error(`Failed to drop event: ${response.statusText}.`);
 }
 
 export async function createEvent(
