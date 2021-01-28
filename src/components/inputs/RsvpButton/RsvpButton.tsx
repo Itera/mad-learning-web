@@ -19,8 +19,6 @@ function RsvpButton({
 }: RsvpButtonProps & RouteComponentProps) {
   const account = AuthProviderInstance.account;
 
-  const isOwner = account && event.owner?.id === account.localAccountId;
-
   const hasJoinedEvent = useMemo<boolean>(
     () =>
       !!account &&
@@ -43,6 +41,8 @@ function RsvpButton({
       }
     }
   }, [hasJoinedEvent, event, onSuccess, onError]);
+
+  const isOwner = account && event.owner?.id === account.localAccountId;
 
   if (isOwner) {
     return null;
