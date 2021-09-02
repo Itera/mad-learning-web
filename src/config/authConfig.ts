@@ -9,7 +9,6 @@ const env = getEnvironmentVariables();
 
 const webClientId = env.webClientId;
 const tenantId = env.tenantId;
-const apiClientId = env.apiClientId;
 const webUrl = env.webUrl;
 
 export const msalConfig: Configuration = {
@@ -32,7 +31,8 @@ export const loginRequest: RedirectRequest = {
   state: LOGIN_STATE,
 };
 
-const apiScope = `api://${apiClientId}/.default`;
+// const apiScope = `api://${apiClientId}/.default`;
+const apiScope = 'api://mad-learning/Read';
 
 export const API_TOKEN_STATE = 'api-token';
 
