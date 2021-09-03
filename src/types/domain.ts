@@ -8,6 +8,7 @@ export type Event = {
   imageUrl: string;
   imageAlt: string;
   eventType: string;
+  teamsUrl: string;
   owner?: Person;
   participants?: Array<Person>;
 };

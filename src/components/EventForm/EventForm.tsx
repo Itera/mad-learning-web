@@ -21,6 +21,7 @@ export type EventDataInput = {
   imageAlt?: string;
   location?: string;
   eventType?: string;
+  teamsUrl?: string;
 };
 
 export type EventDataOutput = {
@@ -33,6 +34,7 @@ export type EventDataOutput = {
   imageAlt?: string;
   location?: string;
   eventType: string;
+  teamsUrl?: string;
 };
 
 type EventFormProps = {
@@ -71,9 +73,11 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [teamsUrl, setTeamsUrl] = useState(rest.teamsUrl || '');
+
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
-  const isFormValid = name && description && eventType && startTime && endTime &&
+  const isFormValid = name && description && eventType && teamsUrl && startTime && endTime &&
     parseDate(date, startTime) > now && parseDate(date, endTime) > now;
   const isSubmitDisabled = !isFormValid || isSubmitting;
 
@@ -92,6 +96,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         imageAlt,
         location,
         eventType,
+        teamsUrl,
       });
     } catch (error) {
       setError(error.message);
@@ -109,6 +114,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     imageAlt,
     location,
     eventType,
+    teamsUrl,
     setIsSubmitting,
     setError,
     onSubmit,
@@ -160,8 +166,15 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           name="location"
           label="Location"
           value={location}
-          placeholder="Teams"
+          placeholder="Jernlageret"
           onChange={setLocation}
+        />
+        <TextField
+          name="teamsUrl"
+          label="Teams URL"
+          value={teamsUrl}
+          placeholder="teams.url"
+          onChange={setTeamsUrl}
         />
         <TextField
           name="image"
