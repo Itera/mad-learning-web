@@ -77,7 +77,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
 
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
-  const isFormValid = name && description && eventType && teamsUrl && startTime && endTime &&
+  const isFormValid = name && description && eventType && startTime && endTime &&
     parseDate(date, startTime) > now && parseDate(date, endTime) > now;
   const isSubmitDisabled = !isFormValid || isSubmitting;
 
@@ -173,7 +173,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           name="teamsUrl"
           label="Teams URL"
           value={teamsUrl}
-          placeholder="teams.url"
+          placeholder="https://teams.microsoft.com/..."
           onChange={setTeamsUrl}
         />
         <TextField
