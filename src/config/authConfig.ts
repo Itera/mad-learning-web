@@ -32,13 +32,9 @@ export const loginRequest: RedirectRequest = {
   state: LOGIN_STATE,
 };
 
-let apiScope;
-
-if (apiClientId) {
-  apiScope = `api://${apiClientId}/.default`;
-} else {
-  apiScope = 'api://mad-learning/Read'
-}
+const apiScope = apiClientId
+  ? `api://${apiClientId}/.default`
+  : 'api://mad-learning/Read';
 
 export const API_TOKEN_STATE = 'api-token';
 
