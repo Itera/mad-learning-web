@@ -9,7 +9,7 @@ function CardStatusLabel({ eventStatus }: StatusLabelProps) {
   if (eventStatus === 'Draft')
     return (
       <Container>
-        <Label color="black">
+        <Label>
           Draft<HelpText>This event is only visible to you</HelpText>
         </Label>
       </Container>

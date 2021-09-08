@@ -6,4 +6,7 @@ export const EVENT_OPTIONS: string[] = [
   'Workshop',
 ];
 
-export const EVENT_STATUS_OPTIONS: string[] = ['Draft', 'Published'];
+export enum EVENT_STATUS_OPTIONS {
+  Draft = 'Draft',
+  Published = 'Published',
+}

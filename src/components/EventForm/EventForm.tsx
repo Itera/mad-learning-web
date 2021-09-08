@@ -66,7 +66,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
   const [eventStatus, setEventStatus] = useState(
-    rest.eventStatus || EVENT_STATUS_OPTIONS[0]
+    rest.eventStatus || EVENT_STATUS_OPTIONS.Draft
   );
   const [location, setLocation] = useState(rest.location || '');
 
@@ -198,7 +198,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           label="Event status *"
           value={eventStatus}
           onChange={setEventStatus}
-          options={EVENT_STATUS_OPTIONS}
+          options={Object.keys(EVENT_STATUS_OPTIONS)}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
