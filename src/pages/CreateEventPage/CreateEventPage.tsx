@@ -17,7 +17,8 @@ function CreateEvent({ navigate }: RouteComponentProps) {
       eventData.imageUrl,
       eventData.imageAlt,
       eventData.location,
-      eventData.eventType
+      eventData.eventType,
+      eventData.teamsUrl,
     );
     navigate!('/');
   };
