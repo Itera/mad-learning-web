@@ -22,6 +22,7 @@ export type EventDataInput = {
   location?: string;
   eventType?: string;
   eventStatus?: string;
+  teamsUrl?: string;
 };
 
 export type EventDataOutput = {
@@ -35,6 +36,7 @@ export type EventDataOutput = {
   location?: string;
   eventType: string;
   eventStatus: string;
+  teamsUrl?: string;
 };
 
 type EventFormProps = {
@@ -72,6 +74,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [teamsUrl, setTeamsUrl] = useState(rest.teamsUrl || '');
+
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
   const isFormValid =
@@ -100,6 +104,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         location,
         eventType,
         eventStatus,
+        teamsUrl,
       });
     } catch (error) {
       setError(error.message);
@@ -118,6 +123,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     location,
     eventType,
     eventStatus,
+    teamsUrl,
     setIsSubmitting,
     setError,
     onSubmit,
@@ -164,8 +170,15 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           name="location"
           label="Location"
           value={location}
-          placeholder="Teams"
+          placeholder="Jernlageret"
           onChange={setLocation}
+        />
+        <TextField
+          name="teamsUrl"
+          label="Teams URL"
+          value={teamsUrl}
+          placeholder="https://teams.microsoft.com/..."
+          onChange={setTeamsUrl}
         />
         <TextField
           name="image"

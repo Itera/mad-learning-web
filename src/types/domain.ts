@@ -9,6 +9,7 @@ export type Event = {
   imageAlt: string;
   eventType: string;
   eventStatus: string;
+  teamsUrl: string;
   owner?: Person;
   participants?: Array<Person>;
 };

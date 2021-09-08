@@ -9,6 +9,7 @@ export const event: Event = {
   location: 'Jernlageret',
   eventType: 'Subject matter event',
   eventStatus: 'Published',
+  teamsUrl: 'https://teams.microsoft.com',
   imageUrl:
     'https://itera-cdn.azureedge.net/contentassets/df1f34b7803045fa95ffd4529826f2b2/kristian-redi-2.jpg?quality=60&Cache=Always&width=1148&mode=crop&scale=both',
   imageAlt: 'Bilde av folk som programmerer i fellesskap.',
