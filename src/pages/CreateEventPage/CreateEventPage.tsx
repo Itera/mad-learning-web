@@ -18,6 +18,7 @@ function CreateEvent({ navigate }: RouteComponentProps) {
       eventData.imageAlt,
       eventData.location,
       eventData.eventType,
+      eventData.eventStatus,
       eventData.teamsUrl,
     );
     navigate!('/');
@@ -25,7 +26,11 @@ function CreateEvent({ navigate }: RouteComponentProps) {
 
   return (
     <CreateEventWrapper>
-      <EventForm onSubmit={handleSubmit} headerTitle={'Create new event'} submitTitle={'Create'} />
+      <EventForm
+        onSubmit={handleSubmit}
+        headerTitle={'Create new event'}
+        submitTitle={'Create'}
+      />
     </CreateEventWrapper>
   );
 }

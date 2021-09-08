@@ -62,6 +62,7 @@ export async function createEvent(
   imageAlt?: string,
   location?: string,
   eventType?: string,
+  eventStatus?: string,
   teamsUrl?: string,
 ): Promise<void> {
   const account = AuthProviderInstance.account;
@@ -78,6 +79,7 @@ export async function createEvent(
       imageAlt: imageAlt,
       location: location,
       eventType: eventType,
+      eventStatus: eventStatus,
       teamsUrl: teamsUrl,
       owner: {
         // TODO: can be filled in API side unless you can create an event with an owner that is not current user
@@ -115,6 +117,7 @@ export async function updateEvent(
   imageUrl?: string,
   imageAlt?: string,
   location?: string,
+  eventStatus?: string,
   teamsUrl?: string
 ): Promise<void> {
   const response = await authFetch(`${API_URL}/api/event/${id}`, {
@@ -128,6 +131,7 @@ export async function updateEvent(
       imageAlt: imageAlt,
       location: location,
       eventType: eventType,
+      eventStatus: eventStatus,
       teamsUrl: teamsUrl,
     }),
   });

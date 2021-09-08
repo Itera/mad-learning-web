@@ -8,6 +8,7 @@ import RsvpButton from 'src/components/inputs/RsvpButton';
 import SplitSection from 'src/components/SplitSection';
 import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
+import StatusLabel from './components/StatusLabel';
 import TeamsLink from './components/TeamsLink';
 import { DescriptionText, HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
@@ -51,6 +52,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             location,
             owner,
             participants,
+            eventStatus,
             teamsUrl,
           } = event;
 
@@ -63,6 +65,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             <>
               <header>
                 <h1>{name}</h1>
+                {!isNotOwner && <StatusLabel eventStatus={eventStatus} />}
                 <HighlightedBox>
                   <MetaInfo
                     name={name}
