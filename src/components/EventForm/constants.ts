@@ -5,3 +5,5 @@ export const EVENT_OPTIONS: string[] = [
   'Project presentation',
   'Workshop',
 ];
+
+export const EVENT_STATUS_OPTIONS: string[] = ['Draft', 'Published'];

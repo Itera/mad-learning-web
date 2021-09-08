@@ -32,7 +32,8 @@ function UpdateEvent({
       eventData.eventType,
       eventData.imageUrl,
       eventData.imageAlt,
-      eventData.location
+      eventData.location,
+      eventData.eventStatus
     );
     navigate!(`/event/${eventId}/${eventData.name}`);
   };
@@ -66,6 +67,7 @@ function UpdateEvent({
               imageUrl={event.imageUrl}
               imageAlt={event.imageAlt}
               location={event.location}
+              eventStatus={event.eventStatus}
             />
           );
         }}

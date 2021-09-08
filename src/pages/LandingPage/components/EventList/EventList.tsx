@@ -30,13 +30,14 @@ function EventList({ events }: EventListProps) {
 
   return (
     <GridList>
-      {events.map(({ id, name, startTime, location, imageUrl, imageAlt }) => (
+      {events.map(({ id, name, startTime, location, imageUrl, imageAlt, eventStatus }) => (
         <GridItem key={id}>
           <Link to={`/event/${id}/${name}`}>
             <EventCard
               heading={name}
               image={imageUrl}
               imageAlt={imageAlt}
+              eventStatus={eventStatus}
               content={
                 <EventInfoList>
                   <EventInfo>

@@ -17,14 +17,19 @@ function CreateEvent({ navigate }: RouteComponentProps) {
       eventData.imageUrl,
       eventData.imageAlt,
       eventData.location,
-      eventData.eventType
+      eventData.eventType,
+      eventData.eventStatus
     );
     navigate!('/');
   };
 
   return (
     <CreateEventWrapper>
-      <EventForm onSubmit={handleSubmit} headerTitle={'Create new event'} submitTitle={'Create'} />
+      <EventForm
+        onSubmit={handleSubmit}
+        headerTitle={'Create new event'}
+        submitTitle={'Create'}
+      />
     </CreateEventWrapper>
   );
 }

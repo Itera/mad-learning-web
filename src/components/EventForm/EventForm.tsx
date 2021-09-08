@@ -9,7 +9,7 @@ import TextAreaField from 'src/components/fields/TextAreaField';
 import TextField from 'src/components/fields/TextField';
 import TimeField from 'src/components/fields/TimeField';
 import { EventFormWrapper, Form } from './styled';
-import { EVENT_OPTIONS } from './constants';
+import { EVENT_OPTIONS, EVENT_STATUS_OPTIONS } from './constants';
 
 export type EventDataInput = {
   id?: string;
@@ -21,6 +21,7 @@ export type EventDataInput = {
   imageAlt?: string;
   location?: string;
   eventType?: string;
+  eventStatus?: string;
 };
 
 export type EventDataOutput = {
@@ -33,6 +34,7 @@ export type EventDataOutput = {
   imageAlt?: string;
   location?: string;
   eventType: string;
+  eventStatus: string;
 };
 
 type EventFormProps = {
@@ -48,14 +50,10 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [imageUrl, setImageUrl] = useState(rest.imageUrl || '');
   const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
   const eventDate = rest.startTime || addDays(startOfDay(now), 1);
-  const [date, setDate] = useState(
-    format(
-      eventDate,
-      'yyyy-MM-dd'
-    )
-  );
+  const [date, setDate] = useState(format(eventDate, 'yyyy-MM-dd'));
 
-  const setHours = (date: Date, hours: number) => set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 })
+  const setHours = (date: Date, hours: number) =>
+    set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 });
 
   const [startTime, setStartTime] = useState(
     format(rest.startTime || setHours(eventDate, 16), 'HH:mm')
@@ -65,6 +63,9 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   );
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
+  const [eventStatus, setEventStatus] = useState(
+    rest.eventStatus || EVENT_STATUS_OPTIONS[0]
+  );
   const [location, setLocation] = useState(rest.location || '');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,8 +74,14 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
 
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
-  const isFormValid = name && description && eventType && startTime && endTime &&
-    parseDate(date, startTime) > now && parseDate(date, endTime) > now;
+  const isFormValid =
+    name &&
+    description &&
+    eventType &&
+    startTime &&
+    endTime &&
+    parseDate(date, startTime) > now &&
+    parseDate(date, endTime) > now;
   const isSubmitDisabled = !isFormValid || isSubmitting;
 
   const handleSubmit = useCallback(async () => {
@@ -92,6 +99,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         imageAlt,
         location,
         eventType,
+        eventStatus,
       });
     } catch (error) {
       setError(error.message);
@@ -109,6 +117,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     imageAlt,
     location,
     eventType,
+    eventStatus,
     setIsSubmitting,
     setError,
     onSubmit,
@@ -132,12 +141,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           onChange={setEventType}
           options={EVENT_OPTIONS}
         />
-        <DateField
-          name="date"
-          label="Date *"
-          value={date}
-          onChange={setDate}
-        />
+        <DateField name="date" label="Date *" value={date} onChange={setDate} />
         <TimeField
           name="time"
           label="Start time *"
@@ -175,6 +179,13 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           label="Image text"
           value={imageAlt}
           onChange={setImageAlt}
+        />
+        <SelectField
+          name="eventStatus"
+          label="Event status *"
+          value={eventStatus}
+          onChange={setEventStatus}
+          options={EVENT_STATUS_OPTIONS}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
