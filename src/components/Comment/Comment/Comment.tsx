@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { CommentData } from 'src/types/domain';
 import {
   CommentAuthor,
   CommentContent,
@@ -17,35 +18,18 @@ type CommentProps = {
   // Collapsed or hidden from view
   collapsed?: boolean;
 
-  // Author of this comment
-  author: string;
+  commentData: CommentData;
 
-  // Comment creation date and time
-  created: string;
-
-  // Comment ID
-  commentId?: string;
-
-  // Message of the comment
-  content: string;
-
-  // Enable replies
   replyEnabled?: boolean;
 };
 
-function Comment({
-  created,
-  content,
-  children,
-  author,
-  replyEnabled = true,
-}: CommentProps) {
+function Comment({ commentData, children, replyEnabled = true }: CommentProps) {
   return (
     <CommentWrapper>
-      <CommentContent>
-        <CommentAuthor href="#">{author}</CommentAuthor>
-        <CommentCreated>{created}</CommentCreated>
-        <p>{content}</p>
+      <CommentContent key={commentData.id}>
+        <CommentAuthor href="#">{commentData.byPerson.firstName}</CommentAuthor>
+        <CommentCreated>{commentData.date}</CommentCreated>
+        <p>{commentData.body}</p>
         {replyEnabled && <CommentAction>Reply</CommentAction>}
       </CommentContent>
       {children}
