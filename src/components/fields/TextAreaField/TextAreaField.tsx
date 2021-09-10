@@ -4,14 +4,21 @@ import FieldLabel from 'src/components/fields/FieldLabel';
 import FieldWrapper from 'src/components/fields/FieldWrapper';
 import TextArea from 'src/components/inputs/TextArea';
 
-type CreateEventProps = {
+type TextAreaFieldProps = {
   name: string;
   label: string;
   value: string;
+  placeholder?: string;
   onChange: Function;
 };
 
-function TextAreaField({ name, label, value, onChange }: CreateEventProps) {
+function TextAreaField({
+  name,
+  label,
+  value,
+  onChange,
+  placeholder,
+}: TextAreaFieldProps) {
   return (
     <FieldWrapper>
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
@@ -19,6 +26,7 @@ function TextAreaField({ name, label, value, onChange }: CreateEventProps) {
         id={name}
         name={name}
         value={value}
+        placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
       />
     </FieldWrapper>
