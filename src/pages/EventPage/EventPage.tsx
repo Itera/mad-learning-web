@@ -13,8 +13,10 @@ import TeamsLink from './components/TeamsLink';
 import { DescriptionText, HighlightedBox } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
+import PublishButton from 'src/components/inputs/PublishButton';
 import Button from 'src/components/inputs/Button';
 import { AuthProviderInstance } from 'src/utils/auth';
+import { EventStatus } from 'src/utils/constants';
 
 type EventPageProps = {
   eventId: string;
@@ -27,6 +29,13 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const handleDelete = useCallback(() => {
     navigate!('/');
   }, [navigate]);
+
+  const handlePublish = useCallback(
+    (path: string) => {
+      navigate!(path);
+    },
+    [navigate]
+  );
 
   return (
     <section id="event-page">
@@ -86,6 +95,9 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     >
                       Edit
                     </Button>
+                  )}
+                  {!isNotOwner && event.eventStatus === EventStatus.DRAFT && (
+                    <PublishButton event={event} onPublish={handlePublish} />
                   )}
                 </HighlightedBox>
               </header>

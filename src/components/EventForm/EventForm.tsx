@@ -10,7 +10,7 @@ import TextField from 'src/components/fields/TextField';
 import TimeField from 'src/components/fields/TimeField';
 import { EventFormWrapper, Form } from './styled';
 import { EVENT_OPTIONS } from './constants';
-import { EventStatus } from 'src/utils/constants'
+import { EventStatus } from 'src/utils/constants';
 
 export type EventDataInput = {
   id?: string;
@@ -66,9 +66,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   );
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
-  const [eventStatus, setEventStatus] = useState(
-    rest.eventStatus || EventStatus.DRAFT
-  );
+
   const [location, setLocation] = useState(rest.location || '');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,6 +75,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
 
   const [teamsUrl, setTeamsUrl] = useState(rest.teamsUrl || '');
 
+  const eventStatus = rest.eventStatus || EventStatus.DRAFT;
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
   const isFormValid =
@@ -193,13 +192,6 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           label="Image text"
           value={imageAlt}
           onChange={setImageAlt}
-        />
-        <SelectField
-          name="eventStatus"
-          label="Event status *"
-          value={eventStatus}
-          onChange={setEventStatus}
-          options={Object.values(EventStatus)}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
