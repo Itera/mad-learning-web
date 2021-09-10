@@ -10,7 +10,7 @@ import TextField from 'src/components/fields/TextField';
 import TimeField from 'src/components/fields/TimeField';
 import { EventFormWrapper, Form } from './styled';
 import { EVENT_OPTIONS } from './constants';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants'
+import { EventStatus } from 'src/utils/constants'
 
 export type EventDataInput = {
   id?: string;
@@ -67,7 +67,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const [description, setDescription] = useState(rest.description || '');
   const [eventType, setEventType] = useState(rest.eventType || '');
   const [eventStatus, setEventStatus] = useState(
-    rest.eventStatus || EVENT_STATUS_OPTIONS.Draft
+    rest.eventStatus || EventStatus.DRAFT
   );
   const [location, setLocation] = useState(rest.location || '');
 
@@ -199,7 +199,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           label="Event status *"
           value={eventStatus}
           onChange={setEventStatus}
-          options={Object.keys(EVENT_STATUS_OPTIONS)}
+          options={Object.values(EventStatus)}
         />
         <div>
           <Button disabled={isSubmitDisabled} onClick={handleSubmit}>

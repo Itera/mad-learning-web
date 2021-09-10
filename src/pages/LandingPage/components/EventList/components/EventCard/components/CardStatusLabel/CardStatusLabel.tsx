@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container, Label, HelpText } from './styled';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants'
+import { EventStatus } from 'src/utils/constants'
 
 type StatusLabelProps = {
   eventStatus: string;
 };
 
 function CardStatusLabel({ eventStatus }: StatusLabelProps) {
-  if (eventStatus === EVENT_STATUS_OPTIONS.Draft)
+  if (eventStatus === EventStatus.DRAFT)
     return (
       <Container>
         <Label>
