@@ -13,7 +13,7 @@ function StatusLabel({ eventStatus }: StatusLabelProps) {
   return (
     <Container>
       <Label color={color}>{label}</Label>
-      {isDraft && <HelpText>This event is only visible to you</HelpText>}
+      {isDraft && <HelpText>This event is only visible to you until you publish</HelpText>}
     </Container>
   );
 }
