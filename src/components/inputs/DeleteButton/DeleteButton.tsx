@@ -4,6 +4,9 @@ import Button from 'src/components/inputs/Button';
 import { Event } from 'src/types/domain';
 import { deleteEvent } from 'src/api/events';
 import { AuthProviderInstance } from 'src/utils/auth';
+import Modal from 'src/components/Modal';
+import ConfirmationModal from 'src/components/Modal/ConfirmationModal';
+import { useModal } from 'src/hooks/useModal';
 
 type DeleteButtonProps = {
   event: Event;
@@ -15,6 +18,14 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
 
   const isNotOwner = account && event.owner?.id !== account.localAccountId;
 
+  const { isShown, toggle } = useModal();
+
+  const onConfirm = () => {
+    handleDelete();
+    toggle();
+  };
+  const onCancel = () => toggle();
+
   const handleDelete = useCallback(async () => {
     await deleteEvent(event.id);
     onDelete();
@@ -25,13 +36,23 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
   }
 
   return (
-    <Button
-      variant="highlight"
-      onClick={handleDelete}
-      disabled={account == null}
-    >
-      Delete
-    </Button>
+    <>
+      <Button variant="highlight" onClick={toggle} disabled={account == null}>
+        Delete
+      </Button>
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        headerText="Confirmation"
+        modalContent={
+          <ConfirmationModal
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            message="Are you sure you want to delete this event?"
+          />
+        }
+      />
+    </>
   );
 }
 
