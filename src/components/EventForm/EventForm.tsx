@@ -10,7 +10,7 @@ import TextField from 'src/components/fields/TextField';
 import TimeField from 'src/components/fields/TimeField';
 import { EventFormWrapper, Form } from './styled';
 import { EVENT_OPTIONS } from './constants';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants'
+import { EVENT_STATUS_OPTIONS } from 'src/utils/constants';
 
 export type EventDataInput = {
   id?: string;
