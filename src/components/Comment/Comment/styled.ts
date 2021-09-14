@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const CommentWrapper = styled.div`
-  margin-left: 40px;
+type CommentWrapperProps = {
+  isTopLevel: boolean;
+};
+
+export const CommentWrapper = styled.div<CommentWrapperProps>`
+  margin-left: ${(props) => (props.isTopLevel ? '0' : '40px')};
   margin-top: 10px;
 `;
 
