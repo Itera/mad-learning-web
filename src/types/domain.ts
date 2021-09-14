@@ -12,7 +12,7 @@ export type Event = {
   teamsUrl: string;
   owner?: Person;
   participants?: Array<Person>;
-  comments?: Array<CommentData>;
+  comments: Array<CommentData>;
 };
 
 export type CommentData = {

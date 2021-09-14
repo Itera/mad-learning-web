@@ -40,6 +40,7 @@ export const event: Event = {
       email: 'martin.othamar@itera.no',
     },
   ],
+  comments: [],
 };
 
 export const events = generateMockEvents(5);
