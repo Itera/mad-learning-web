@@ -108,7 +108,11 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     <DescriptionText>
                       Ask the organizer questions or build hype
                     </DescriptionText>
-                    <CommentSection comments={comments} />
+                    <CommentSection
+                      eventId={eventId}
+                      comments={comments}
+                      refreshEvent={refreshEvent}
+                    />
                   </>
                 }
                 right={

@@ -1,17 +1,81 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { CommentData, Person } from '../../../types/domain';
+
 import CommentGroup from '../CommentGroup';
 import Comment from '../Comment';
+import { CommentSectionWrapper, NewCommentWrapper } from './styled';
+import TextAreaField from 'src/components/fields/TextAreaField';
+import Button from 'src/components/inputs/Button';
+import ScrollableContainer from 'src/components/ScrollableContainer';
+import ReplyingToIndicator from 'src/components/Comment/ReplyingToIndicator';
+
+import { createComment } from 'src/api/comments';
 
 type CommentSectionProps = {
-  comments?: Array<CommentData>;
+  eventId: string;
+  comments: Array<CommentData>;
+  refreshEvent: Function;
 };
 
-export default function CommentSection({ comments }: CommentSectionProps) {
-  const topLevelComments = getTopLevelComments(comments);
-  const commentNodes = generateCommentNodes(topLevelComments);
+export default function CommentSection({
+  eventId,
+  comments,
+  refreshEvent,
+}: CommentSectionProps) {
+  const [commentBody, setCommentBody] = useState('');
+  const [replyToCommentId, setReplyToCommentId] = useState<string | undefined>(
+    undefined
+  );
+  const [replyToCommentAuthor, setReplyToCommentAuthor] = useState<
+    string | undefined
+  >(undefined);
 
-  return <div>{commentNodes}</div>;
+  const topLevelComments = getTopLevelComments(comments);
+  const commentNodes = generateCommentNodes(
+    topLevelComments,
+    setReplyToCommentId,
+    setReplyToCommentAuthor
+  );
+
+  const handleSubmitComment = async (
+    eventId: string,
+    commentBody: string,
+    replyToCommentId: string | undefined
+  ) => {
+    await createComment(eventId, commentBody, replyToCommentId);
+    refreshEvent();
+  };
+
+  return (
+    <CommentSectionWrapper>
+      {comments.length > 0 && (
+        <ScrollableContainer>{commentNodes}</ScrollableContainer>
+      )}
+
+      <NewCommentWrapper>
+        {replyToCommentId && (
+          <ReplyingToIndicator
+            replyingToAuthor={replyToCommentAuthor}
+            setReplyToCommentId={setReplyToCommentId}
+            setReplyToCommentAuthor={setReplyToCommentAuthor}
+          />
+        )}
+        <TextAreaField
+          name="newComment"
+          placeholder="Your comment goes here"
+          value={commentBody}
+          onChange={setCommentBody}
+        />
+        <Button
+          onClick={() =>
+            handleSubmitComment(eventId, commentBody, replyToCommentId)
+          }
+        >
+          Submit
+        </Button>
+      </NewCommentWrapper>
+    </CommentSectionWrapper>
+  );
 }
 
 function getTopLevelComments(
@@ -33,7 +97,10 @@ function getTopLevelComments(
 }
 
 function generateCommentNodes(
-  comments: Array<CommentData> | undefined
+  comments: Array<CommentData> | undefined,
+  setReplyToCommentId: Function,
+  setReplyToCommentAuthor: Function,
+  isTopLevel = true
 ): ReactNode {
   if (comments === undefined) {
     return undefined;
@@ -42,9 +109,23 @@ function generateCommentNodes(
   return (
     <CommentGroup>
       {comments.map((comment) => {
-        let commentChildrenNodes = generateCommentNodes(comment.children);
+        let commentChildrenNodes = generateCommentNodes(
+          comment.children,
+          setReplyToCommentId,
+          setReplyToCommentAuthor,
+          false
+        );
 
-        return <Comment commentData={comment}>{commentChildrenNodes}</Comment>;
+        return (
+          <Comment
+            commentData={comment}
+            setReplyToCommentId={setReplyToCommentId}
+            setReplyToCommentAuthor={setReplyToCommentAuthor}
+            isTopLevel={isTopLevel}
+          >
+            {commentChildrenNodes}
+          </Comment>
+        );
       })}
     </CommentGroup>
   );

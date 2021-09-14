@@ -20,17 +20,36 @@ type CommentProps = {
 
   commentData: CommentData;
 
-  replyEnabled?: boolean;
+  setReplyToCommentId: Function;
+
+  setReplyToCommentAuthor: Function;
+
+  isTopLevel?: boolean;
 };
 
-function Comment({ commentData, children, replyEnabled = true }: CommentProps) {
+function Comment({
+  commentData,
+  children,
+  setReplyToCommentId,
+  setReplyToCommentAuthor,
+  isTopLevel = true,
+}: CommentProps) {
+  const handleClickReply = function () {
+    setReplyToCommentAuthor(commentData.byPerson.firstName);
+    setReplyToCommentId(commentData.id);
+  };
+
   return (
-    <CommentWrapper>
+    <CommentWrapper isTopLevel={isTopLevel}>
       <CommentContent key={commentData.id}>
-        <CommentAuthor href="#">{commentData.byPerson.firstName}</CommentAuthor>
+        <CommentAuthor href="#">
+          {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
+        </CommentAuthor>
         <CommentCreated>{commentData.date}</CommentCreated>
         <p>{commentData.body}</p>
-        {replyEnabled && <CommentAction>Reply</CommentAction>}
+        {isTopLevel && (
+          <CommentAction onClick={handleClickReply}>Reply</CommentAction>
+        )}
       </CommentContent>
       {children}
     </CommentWrapper>
