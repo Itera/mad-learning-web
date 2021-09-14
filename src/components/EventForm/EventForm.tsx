@@ -107,7 +107,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         eventStatus,
         teamsUrl,
       });
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     } finally {
       setIsSubmitting(false);
