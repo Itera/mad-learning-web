@@ -46,6 +46,8 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
         headerText="Confirmation"
         modalContent={
           <ConfirmationModal
+            confirmText="DELETE"
+            cancelText="CANCEL"
             onConfirm={onConfirm}
             onCancel={onCancel}
             message="Are you sure you want to delete this event?"

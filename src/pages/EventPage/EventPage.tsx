@@ -10,7 +10,7 @@ import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
 import StatusLabel from './components/StatusLabel';
 import TeamsLink from './components/TeamsLink';
-import { DescriptionText, HighlightedBox } from './styled';
+import { DescriptionText, HighlightedBox, ButtonContainer } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
 import PublishButton from 'src/components/inputs/PublishButton';
@@ -84,21 +84,23 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} onSuccess={refreshEvent} />
-                  <DeleteButton event={event} onDelete={handleDelete} />
-                  {!isNotOwner && (
-                    <Button
-                      variant="highlight"
-                      onClick={() =>
-                        navigate!(`/update-event/${event.id}/${name}`)
-                      }
-                    >
-                      Edit
-                    </Button>
-                  )}
-                  {!isNotOwner && event.eventStatus === EventStatus.DRAFT && (
-                    <PublishButton event={event} onPublish={handlePublish} />
-                  )}
+                  <ButtonContainer>
+                    <RsvpButton event={event} onSuccess={refreshEvent} />
+                    <DeleteButton event={event} onDelete={handleDelete} />
+                    {!isNotOwner && (
+                      <Button
+                        variant="highlight"
+                        onClick={() =>
+                          navigate!(`/update-event/${event.id}/${name}`)
+                        }
+                      >
+                        Edit
+                      </Button>
+                    )}
+                    {!isNotOwner && event.eventStatus === EventStatus.DRAFT && (
+                      <PublishButton event={event} onPublish={handlePublish} />
+                    )}
+                  </ButtonContainer>
                 </HighlightedBox>
               </header>
               <SplitSection
