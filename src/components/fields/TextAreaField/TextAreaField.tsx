@@ -6,7 +6,7 @@ import TextArea from 'src/components/inputs/TextArea';
 
 type TextAreaFieldProps = {
   name: string;
-  label: string;
+  label?: string;
   value: string;
   placeholder?: string;
   onChange: Function;
@@ -21,7 +21,7 @@ function TextAreaField({
 }: TextAreaFieldProps) {
   return (
     <FieldWrapper>
-      <FieldLabel htmlFor={name}>{label}</FieldLabel>
+      {label && <FieldLabel htmlFor={name}>{label}</FieldLabel>}
       <TextArea
         id={name}
         name={name}
