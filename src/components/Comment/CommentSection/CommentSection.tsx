@@ -1,5 +1,5 @@
-import React, { ReactNode, useState } from 'react';
-import { CommentData } from '../../../types/domain';
+import React, { ReactNode, useRef, useState } from 'react';
+import { CommentData } from 'src/types/domain';
 
 import CommentGroup from '../CommentGroup';
 import Comment from '../Comment';
@@ -30,11 +30,18 @@ export default function CommentSection({
     string | undefined
   >(undefined);
 
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const setTextAreaFocus = () => {
+    textAreaRef.current?.focus();
+  };
+
   const topLevelComments = getTopLevelComments(comments);
   const commentNodes = generateCommentNodes(
     topLevelComments,
     setReplyToCommentId,
-    setReplyToCommentAuthor
+    setReplyToCommentAuthor,
+    setTextAreaFocus
   );
 
   const handleSubmitComment = async (
@@ -69,6 +76,7 @@ export default function CommentSection({
           value={commentBody}
           onChange={setCommentBody}
           resize={false}
+          ref={textAreaRef}
         />
         <Button
           onClick={() =>
@@ -104,6 +112,7 @@ function generateCommentNodes(
   comments: Array<CommentData> | undefined,
   setReplyToCommentId: Function,
   setReplyToCommentAuthor: Function,
+  setTextAreaFocus: () => void,
   isTopLevel = true
 ): ReactNode {
   if (comments === undefined) {
@@ -117,6 +126,7 @@ function generateCommentNodes(
           comment.children,
           setReplyToCommentId,
           setReplyToCommentAuthor,
+          setTextAreaFocus,
           false
         );
 
@@ -126,6 +136,7 @@ function generateCommentNodes(
             setReplyToCommentId={setReplyToCommentId}
             setReplyToCommentAuthor={setReplyToCommentAuthor}
             isTopLevel={isTopLevel}
+            setFocus={setTextAreaFocus}
           >
             {commentChildrenNodes}
           </Comment>

@@ -29,6 +29,8 @@ type CommentProps = {
   setReplyToCommentAuthor: Function;
 
   isTopLevel?: boolean;
+
+  setFocus: () => void;
 };
 
 function Comment({
@@ -37,10 +39,12 @@ function Comment({
   setReplyToCommentId,
   setReplyToCommentAuthor,
   isTopLevel = true,
+  setFocus,
 }: CommentProps) {
   const handleClickReply = function () {
     setReplyToCommentAuthor(commentData.byPerson.firstName);
     setReplyToCommentId(commentData.id);
+    setFocus();
   };
 
   return (
