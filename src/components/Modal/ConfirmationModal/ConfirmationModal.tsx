@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'src/components/inputs/Button';
-import { ConfirmationButtons, Message } from './styled';
+import { Controls, Message } from './styled';
 
 type ConfirmationModalProps = {
   confirmText: string;
@@ -20,10 +20,10 @@ function ConfirmationModal({
   return (
     <>
       <Message>{message}</Message>
-      <ConfirmationButtons>
+      <Controls>
         <Button onClick={onConfirm}>{confirmText}</Button>
         <Button onClick={onCancel}>{cancelText}</Button>
-      </ConfirmationButtons>
+      </Controls>
     </>
   );
 }

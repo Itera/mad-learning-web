@@ -24,7 +24,7 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
     handleDelete();
     toggle();
   };
-  const onCancel = () => toggle();
+  const onCancel = toggle;
 
   const handleDelete = useCallback(async () => {
     await deleteEvent(event.id);

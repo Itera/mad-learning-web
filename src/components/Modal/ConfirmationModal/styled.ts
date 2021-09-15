@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { usingTypography } from 'src/hooks/theme';
 
-export const ConfirmationButtons = styled.div`
+export const Controls = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;

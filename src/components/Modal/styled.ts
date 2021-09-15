@@ -20,7 +20,6 @@ export const Backdrop = styled.div`
   z-index: 500;
 `;
 export const StyledModal = styled.div`
-  z-index: 100;
   background: white;
   position: relative;
   margin: auto;
@@ -44,7 +43,7 @@ export const CloseButton = styled.button`
   border-radius: 3px;
   margin-left: 0.5rem;
   background: none;
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;

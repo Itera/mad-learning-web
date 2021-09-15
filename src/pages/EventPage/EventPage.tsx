@@ -67,14 +67,14 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
 
           const account = AuthProviderInstance.account;
 
-          const isNotOwner =
-            !owner || !account || account.localAccountId !== owner.id;
+          const isOwner =
+            owner && account && account.localAccountId === owner.id;
 
           return (
             <>
               <header>
                 <h1>{name}</h1>
-                {!isNotOwner && <StatusLabel eventStatus={eventStatus} />}
+                {isOwner && <StatusLabel eventStatus={eventStatus} />}
                 <HighlightedBox>
                   <MetaInfo
                     name={name}
@@ -87,7 +87,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   <ButtonContainer>
                     <RsvpButton event={event} onSuccess={refreshEvent} />
                     <DeleteButton event={event} onDelete={handleDelete} />
-                    {!isNotOwner && (
+                    {isOwner && (
                       <Button
                         variant="highlight"
                         onClick={() =>
@@ -97,7 +97,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                         Edit
                       </Button>
                     )}
-                    {!isNotOwner && event.eventStatus === EventStatus.DRAFT && (
+                    {isOwner && event.eventStatus === EventStatus.DRAFT && (
                       <PublishButton event={event} onPublish={handlePublish} />
                     )}
                   </ButtonContainer>
