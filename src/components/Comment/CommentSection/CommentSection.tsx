@@ -132,6 +132,7 @@ function generateCommentNodes(
 
         return (
           <Comment
+            key={comment.id}
             commentData={comment}
             setReplyToCommentId={setReplyToCommentId}
             setReplyToCommentAuthor={setReplyToCommentAuthor}
