@@ -44,6 +44,9 @@ export default function CommentSection({
   ) => {
     await createComment(eventId, commentBody, replyToCommentId);
     refreshEvent();
+    setCommentBody('');
+    setReplyToCommentAuthor(undefined);
+    setReplyToCommentId(undefined);
   };
 
   return (
@@ -65,6 +68,7 @@ export default function CommentSection({
           placeholder="Your comment goes here"
           value={commentBody}
           onChange={setCommentBody}
+          resize={false}
         />
         <Button
           onClick={() =>
