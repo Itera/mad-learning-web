@@ -2,7 +2,9 @@ import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const IndicatorWrapper = styled.span`
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: ${usingTypography((t) => t.scaleSpacing(18))}px;
   padding: 20px;
@@ -14,10 +16,14 @@ export const IndicatorWrapper = styled.span`
     display: inline-block;
     margin: 0;
   }
+`;
 
-  & > a {
-    display: block;
-    float: right;
-    margin-right: 20px;
+export const AbortButton = styled.button`
+  padding: 5px;
+  border: none;
+  font-size: large;
+
+  &:hover {
+    cursor: pointer;
   }
 `;

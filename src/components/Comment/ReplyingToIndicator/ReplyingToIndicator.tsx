@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndicatorWrapper } from './styled';
+import { IndicatorWrapper, AbortButton } from './styled';
 type ReplyingToIndicatorProps = {
   replyingToAuthor: string | undefined;
   setReplyToCommentId: Function;
@@ -18,10 +18,8 @@ function ReplyingToIndicator({
 
   return (
     <IndicatorWrapper>
-      <p>Replying to {replyingToAuthor}</p>
-      <a href="#" onClick={handleClick}>
-        X
-      </a>
+      <p>Replying in {replyingToAuthor}'s thread</p>
+      <AbortButton onClick={handleClick}>X</AbortButton>
     </IndicatorWrapper>
   );
 }
