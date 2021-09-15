@@ -6,18 +6,20 @@ import TextArea from 'src/components/inputs/TextArea';
 
 type TextAreaFieldProps = {
   name: string;
-  label?: string;
   value: string;
+  label?: string;
   placeholder?: string;
+  resize?: boolean;
   onChange: Function;
 };
 
 function TextAreaField({
   name,
-  label,
   value,
-  onChange,
+  label,
   placeholder,
+  resize = true,
+  onChange,
 }: TextAreaFieldProps) {
   return (
     <FieldWrapper>
@@ -27,6 +29,7 @@ function TextAreaField({
         name={name}
         value={value}
         placeholder={placeholder}
+        resize={resize}
         onChange={(e) => onChange(e.target.value)}
       />
     </FieldWrapper>
