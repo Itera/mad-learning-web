@@ -75,7 +75,7 @@ export default function CommentSection({
             handleSubmitComment(eventId, commentBody, replyToCommentId)
           }
         >
-          Submit
+          Add comment
         </Button>
       </NewCommentWrapper>
     </CommentSectionWrapper>

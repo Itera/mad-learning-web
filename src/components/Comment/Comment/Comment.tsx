@@ -1,6 +1,10 @@
 import React, { ReactNode } from 'react';
 import { CommentData } from 'src/types/domain';
 import {
+  formatLongPublishDateString,
+  formatPublishDateString,
+} from 'src/utils/formatting';
+import {
   CommentAuthor,
   CommentContent,
   CommentCreated,
@@ -45,7 +49,9 @@ function Comment({
         <CommentAuthor href="#">
           {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
         </CommentAuthor>
-        <CommentCreated>{commentData.date}</CommentCreated>
+        <CommentCreated title={formatLongPublishDateString(commentData.date)}>
+          {formatPublishDateString(commentData.date)}
+        </CommentCreated>
         <p>{commentData.body}</p>
         {isTopLevel && (
           <CommentAction onClick={handleClickReply}>Reply</CommentAction>
