@@ -62,6 +62,21 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
   const eventEndTime = format(setHours(tomorrow, 17), 'HH:mm');
 
 
+  // Initiation of values
+  const InitialValues = { 
+    name: rest.name || "",
+    eventType: rest.eventType || "",
+    date: eventDate,
+    startTime: eventStartTime,
+    endTime: eventEndTime,
+    description: rest.description || "",
+    location: rest.location || "", 
+    teamsUrl: rest.teamsUrl || "",
+    imageUrl: rest.imageUrl || "",
+    imageAlt: rest.imageAlt || "",
+    eventStatus: rest.eventStatus || EVENT_STATUS_OPTIONS.Draft
+  };
+  
   // Validation
   const EventFormSchema = Yup.object().shape({
     name: Yup
@@ -78,7 +93,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
     startTime: Yup
       .string()
       .required("Start time is required")
-      .test("Start Time", "Start time cannot be before end time", function(startTime) {
+      .test("Start Time", "Start time cannot be later than end time", function(startTime) {
         const startTimeHour = parseInt(this.parent.startTime.toString().substring(0,2));
         const endTimeHour = parseInt(this.parent.endTime.toString().substring(0,2));
         return startTimeHour < endTimeHour;
@@ -86,11 +101,12 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
     endTime: Yup
       .string()
       .required("End time is required")
-      .test("End Time", "End time cannot be before start time", function(endTime) {
+      /*
+      .test("End Time", "End time cannot be earlier than start time", function(endTime) {
         const startTimeHour = parseInt(this.parent.startTime.toString().substring(0,2));
         const endTimeHour = parseInt(this.parent.endTime.toString().substring(0,2));
         return endTimeHour > startTimeHour;
-      }),
+      }) */,
     description: Yup
       .string()
       .max(5000, "Description text is too long")
@@ -110,19 +126,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
   return (
     <div>
       <Formik
-        initialValues={{ 
-          name: rest.name || "",
-          eventType: rest.eventType || "",
-          date: eventDate,
-          startTime: eventStartTime,
-          endTime: eventEndTime,
-          description: rest.description || "",
-          location: rest.location || "", 
-          teamsUrl: rest.teamsUrl || "",
-          imageUrl: rest.imageUrl || "",
-          imageAlt: rest.imageAlt || "",
-          eventStatus: rest.eventStatus || EVENT_STATUS_OPTIONS.Draft
-        }}
+        initialValues={InitialValues}
         validationSchema = {EventFormSchema}
         onSubmit={async (values, { setSubmitting }) => {
           await new Promise(r => {
