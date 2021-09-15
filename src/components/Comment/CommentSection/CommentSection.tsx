@@ -1,5 +1,5 @@
-import React, { ReactNode, useCallback, useState } from 'react';
-import { CommentData, Person } from '../../../types/domain';
+import React, { ReactNode, useState } from 'react';
+import { CommentData } from '../../../types/domain';
 
 import CommentGroup from '../CommentGroup';
 import Comment from '../Comment';
