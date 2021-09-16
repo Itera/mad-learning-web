@@ -38,7 +38,7 @@ function Comment({
   return (
     <CommentWrapper isTopLevel={isTopLevel}>
       <CommentContent key={commentData.id}>
-        <CommentAuthor href="#">
+        <CommentAuthor>
           {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
         </CommentAuthor>
         <CommentMetadata title={formatLongPublishDateString(commentData.date)}>
