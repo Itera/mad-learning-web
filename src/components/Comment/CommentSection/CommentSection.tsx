@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { CommentData } from 'src/types/domain';
 import { useModal } from 'src/hooks/useModal';
 
@@ -40,13 +40,22 @@ export default function CommentSection({
     textAreaRef.current?.focus();
   };
 
-  const topLevelComments = getTopLevelComments(comments);
-  const commentNodes = generateCommentNodes(
-    topLevelComments,
-    setReplyToCommentId,
-    setReplyToCommentAuthor,
-    setTextAreaFocus
-  );
+  const [commentNodes, setCommentNodes] = useState<ReactNode | undefined>();
+
+  useEffect(() => {
+    const topLevelComments = comments?.filter(
+      (comment) => !comment.replyToCommentId
+    );
+
+    const nodes = generateCommentNodes(
+      topLevelComments,
+      setReplyToCommentId,
+      setReplyToCommentAuthor,
+      setTextAreaFocus
+    );
+
+    setCommentNodes(nodes);
+  }, [comments]);
 
   const handleSubmitComment = async (
     eventId: string,
@@ -104,24 +113,6 @@ export default function CommentSection({
   );
 }
 
-function getTopLevelComments(
-  comments: Array<CommentData> | undefined
-): Array<CommentData> | undefined {
-  if (comments === undefined) {
-    return undefined;
-  }
-
-  let topLevelComments = Array<CommentData>();
-
-  for (let comment of comments) {
-    if (!comment.replyToCommentId) {
-      topLevelComments.push(comment);
-    }
-  }
-
-  return topLevelComments;
-}
-
 function generateCommentNodes(
   comments: Array<CommentData> | undefined,
   setReplyToCommentId: Function,
@@ -129,7 +120,7 @@ function generateCommentNodes(
   setTextAreaFocus: () => void,
   isTopLevel = true
 ): ReactNode {
-  if (comments === undefined) {
+  if (!comments) {
     return undefined;
   }
 
