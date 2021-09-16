@@ -13,23 +13,11 @@ import {
 } from './styled';
 
 type CommentProps = {
-  // Additional classes
-  className?: string;
-
-  // Primary content
   children?: ReactNode;
-
-  // Collapsed or hidden from view
-  collapsed?: boolean;
-
   commentData: CommentData;
-
-  setReplyToCommentId: Function;
-
-  setReplyToCommentAuthor: Function;
-
   isTopLevel?: boolean;
-
+  setReplyToCommentId: Function;
+  setReplyToCommentAuthor: Function;
   setFocus: () => void;
 };
 
