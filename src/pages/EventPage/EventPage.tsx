@@ -11,11 +11,13 @@ import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
 import StatusLabel from './components/StatusLabel';
 import TeamsLink from './components/TeamsLink';
-import { DescriptionText, HighlightedBox } from './styled';
+import { DescriptionText, HighlightedBox, ButtonContainer } from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
+import PublishButton from 'src/components/inputs/PublishButton';
 import Button from 'src/components/inputs/Button';
 import { AuthProviderInstance } from 'src/utils/auth';
+import { EventStatus } from 'src/utils/constants';
 
 type EventPageProps = {
   eventId: string;
@@ -28,6 +30,13 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
   const handleDelete = useCallback(() => {
     navigate!('/');
   }, [navigate]);
+
+  const handlePublish = useCallback(
+    (path: string) => {
+      navigate!(path);
+    },
+    [navigate]
+  );
 
   return (
     <section id="event-page">
@@ -60,14 +69,14 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
 
           const account = AuthProviderInstance.account;
 
-          const isNotOwner =
-            !owner || !account || account.localAccountId !== owner.id;
+          const isOwner =
+            owner && account && account.localAccountId === owner.id;
 
           return (
             <>
               <header>
                 <h1>{name}</h1>
-                {!isNotOwner && <StatusLabel eventStatus={eventStatus} />}
+                {isOwner && <StatusLabel eventStatus={eventStatus} />}
                 <HighlightedBox>
                   <MetaInfo
                     name={name}
@@ -77,18 +86,23 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     location={location}
                     owner={owner}
                   />
-                  <RsvpButton event={event} onSuccess={refreshEvent} />
-                  <DeleteButton event={event} onDelete={handleDelete} />
-                  {!isNotOwner && (
-                    <Button
-                      variant="highlight"
-                      onClick={() =>
-                        navigate!(`/update-event/${event.id}/${name}`)
-                      }
-                    >
-                      Edit
-                    </Button>
-                  )}
+                  <ButtonContainer>
+                    <RsvpButton event={event} onSuccess={refreshEvent} />
+                    <DeleteButton event={event} onDelete={handleDelete} />
+                    {isOwner && (
+                      <Button
+                        variant="highlight"
+                        onClick={() =>
+                          navigate!(`/update-event/${event.id}/${name}`)
+                        }
+                      >
+                        Edit
+                      </Button>
+                    )}
+                    {isOwner && event.eventStatus === EventStatus.DRAFT && (
+                      <PublishButton event={event} onPublish={handlePublish} />
+                    )}
+                  </ButtonContainer>
                 </HighlightedBox>
               </header>
               <SplitSection

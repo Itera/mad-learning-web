@@ -1,5 +1,5 @@
 import { Event } from 'src/types/domain';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants';
+import { EventStatus } from 'src/utils/constants';
 
 export const event: Event = {
   id: '0',
@@ -9,7 +9,7 @@ export const event: Event = {
   endTime: '2020-09-22T17:30:00+01',
   location: 'Jernlageret',
   eventType: 'Subject matter event',
-  eventStatus: EVENT_STATUS_OPTIONS.Published,
+  eventStatus: EventStatus.PUBLISHED,
   teamsUrl: 'https://teams.microsoft.com',
   imageUrl:
     'https://itera-cdn.azureedge.net/contentassets/df1f34b7803045fa95ffd4529826f2b2/kristian-redi-2.jpg?quality=60&Cache=Always&width=1148&mode=crop&scale=both',

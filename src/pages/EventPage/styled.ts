@@ -11,3 +11,8 @@ export const HighlightedBox = styled.div`
 export const DescriptionText = styled.div`
   white-space: pre-line;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
