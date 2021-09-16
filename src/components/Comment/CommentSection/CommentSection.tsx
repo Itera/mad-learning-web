@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef, useState } from 'react';
 import { CommentData } from 'src/types/domain';
+import { useModal } from 'src/hooks/useModal';
 
 import CommentGroup from '../CommentGroup';
 import Comment from '../Comment';
@@ -8,6 +9,7 @@ import TextAreaField from 'src/components/fields/TextAreaField';
 import Button from 'src/components/inputs/Button';
 import ScrollableContainer from 'src/components/ScrollableContainer';
 import ReplyingToIndicator from 'src/components/Comment/ReplyingToIndicator';
+import Modal from 'src/components/Modal';
 
 import { createComment } from 'src/api/comments';
 
@@ -32,6 +34,8 @@ export default function CommentSection({
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  const [isModalShown, toggleModal] = useModal();
+
   const setTextAreaFocus = () => {
     textAreaRef.current?.focus();
   };
@@ -49,11 +53,15 @@ export default function CommentSection({
     commentBody: string,
     replyToCommentId: string | undefined
   ) => {
-    await createComment(eventId, commentBody, replyToCommentId);
-    refreshEvent();
-    setCommentBody('');
-    setReplyToCommentAuthor(undefined);
-    setReplyToCommentId(undefined);
+    if (!commentBody.trim()) {
+      toggleModal();
+    } else {
+      await createComment(eventId, commentBody, replyToCommentId);
+      refreshEvent();
+      setCommentBody('');
+      setReplyToCommentAuthor(undefined);
+      setReplyToCommentId(undefined);
+    }
   };
 
   return (
@@ -85,6 +93,12 @@ export default function CommentSection({
         >
           Add comment
         </Button>
+        <Modal
+          isShown={isModalShown}
+          hide={toggleModal}
+          headerText="Confirmation"
+          modalContent={<>You can't submit an empty comment</>}
+        />
       </NewCommentWrapper>
     </CommentSectionWrapper>
   );
