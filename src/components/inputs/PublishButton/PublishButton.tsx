@@ -53,7 +53,7 @@ function PublishButton({ event, onPublish }: PublishButtonProps) {
             cancelText="CANCEL"
             onConfirm={onConfirm}
             onCancel={onCancel}
-            message="Are you sure you want to publish this event? This action is not reversible and a slack message will be posted in #fagkvelder-norge"
+            message="Are you sure you want to publish this event? This action is not reversible."
           />
         }
       />
