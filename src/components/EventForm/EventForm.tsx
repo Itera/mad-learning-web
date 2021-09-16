@@ -109,6 +109,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
+      } else if (typeof error === 'string') {
+        setError(error);
       }
     } finally {
       setIsSubmitting(false);
