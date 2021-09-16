@@ -2,7 +2,7 @@ import React from "react";
 import { useField, ErrorMessage } from 'formik';
 import FieldLabel from 'src/components/fields/FieldLabel';
 import Select from "src/components/inputs/Select";
-import { EventError, FormikContainer } from "../FormikInputField/styled";
+import { FormikContainer , EventError} from 'src/components/FormikFields/styled';
 
 function FormikSelectorField(props : any) {
   const [field, meta] = useField(props);

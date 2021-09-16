@@ -1,6 +1,6 @@
 import React from 'react';
 import { useField, ErrorMessage } from 'formik'
-import { EventError, FormikContainer } from './styled';
+import { FormikContainer , EventError} from 'src/components/FormikFields/styled';
 import Input from 'src/components/inputs/Input';
 import FieldLabel from 'src/components/fields/FieldLabel';
 

@@ -15,3 +15,11 @@ export const ItemWrapper = styled.div`
   flex-direction: column;
   align-items: left;
 `;
+
+export const ButtonWrapper = styled.div`
+  justifyContent: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  marginTop: 1rem;
+`;
