@@ -7,7 +7,7 @@ import {
 import {
   CommentAuthor,
   CommentContent,
-  CommentCreated,
+  CommentMetadata,
   CommentWrapper,
   CommentAction,
 } from './styled';
@@ -41,9 +41,9 @@ function Comment({
         <CommentAuthor href="#">
           {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
         </CommentAuthor>
-        <CommentCreated title={formatLongPublishDateString(commentData.date)}>
+        <CommentMetadata title={formatLongPublishDateString(commentData.date)}>
           {formatPublishDateString(commentData.date)}
-        </CommentCreated>
+        </CommentMetadata>
         <p>{commentData.body}</p>
         {isTopLevel && (
           <CommentAction onClick={handleClickReply}>Reply</CommentAction>

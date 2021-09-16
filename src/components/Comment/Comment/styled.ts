@@ -22,7 +22,7 @@ export const CommentAuthor = styled.a`
   font-weight: bold;
 `;
 
-export const CommentCreated = styled.p`
+export const CommentMetadata = styled.p`
   display: inline-block;
   margin: 0;
 
