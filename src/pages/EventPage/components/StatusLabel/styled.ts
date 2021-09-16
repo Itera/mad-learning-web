@@ -20,5 +20,5 @@ export const Label = styled.ul`
 
 export const HelpText = styled.ul`
   color: grey;
-  text-decoration: underline;
+  padding-left: 0;
 `;
