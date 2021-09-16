@@ -145,7 +145,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
                 eventType : values.eventType,
                 eventStatus : values.eventStatus,
                 teamsUrl : values.teamsUrl,    
-              });    
+              });
             } catch (error) {}
           });
           setSubmitting(false);

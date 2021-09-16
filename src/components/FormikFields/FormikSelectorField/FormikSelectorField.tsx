@@ -1,5 +1,5 @@
 import React from "react";
-import {useField} from 'formik';
+import { useField, ErrorMessage } from 'formik';
 import FieldLabel from 'src/components/fields/FieldLabel';
 import Select from "src/components/inputs/Select";
 import { EventError, FormikContainer } from "../FormikInputField/styled";
@@ -17,7 +17,9 @@ function FormikSelectorField(props : any) {
         ))}
       </Select>
       {meta.touched && meta.error ? (
-       <EventError className="error" style={{color: "red"}}>{meta.error}</EventError>
+        <EventError>
+          <ErrorMessage name={props.name} />
+        </EventError>
       ) : null}
     </FormikContainer>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useField } from 'formik'
+import { useField, ErrorMessage } from 'formik'
 import FieldLabel from 'src/components/fields/FieldLabel';
 import TextArea from 'src/components/inputs/TextArea';
 import { EventError, FormikContainer } from '../FormikInputField/styled';
@@ -11,7 +11,9 @@ function FormikTextAreaField (props : any) {
       <FieldLabel htmlFor={props.name}>{props.label}</FieldLabel>
       <TextArea {...field} {...props} />
       {meta.touched && meta.error ? (
-        <EventError className="error" style={{color: "red"}}>{meta.error}</EventError>
+        <EventError>
+          <ErrorMessage name={props.name} />
+        </EventError>
       ) : null}
     </FormikContainer>
   );
