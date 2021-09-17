@@ -15,9 +15,10 @@ export const CommentContent = styled.div`
   background-color: #f0f0f0;
 `;
 
-export const CommentAuthor = styled.b`
+export const CommentAuthor = styled.p`
   margin-right: 5px;
   font-size: small;
+  font-weight: bold;
 `;
 
 export const CommentMetadata = styled.p`
