@@ -18,7 +18,7 @@ function DeleteButton({ event, onDelete }: DeleteButtonProps) {
 
   const isNotOwner = account && event.owner?.id !== account.localAccountId;
 
-  const [isShown, toggle] = useModal();
+  const { isShown, toggle } = useModal();
 
   const onConfirm = () => {
     handleDelete();
