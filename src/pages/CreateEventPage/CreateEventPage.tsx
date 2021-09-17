@@ -5,7 +5,7 @@ import { formatISO } from 'date-fns';
 import { CreateEventWrapper } from './styled';
 import { createEvent } from 'src/api/events';
 import { EventDataOutput } from 'src/components/EventForm/EventForm';
-import NewEventForm from 'src/components/NewEventForm';
+import EventForm from 'src/components/EventForm';
 
 function CreateEvent({ navigate }: RouteComponentProps) {
 
@@ -27,7 +27,7 @@ function CreateEvent({ navigate }: RouteComponentProps) {
 
   return (
     <CreateEventWrapper>
-      <NewEventForm
+      <EventForm
         onSubmit = {handleSubmit}
         headerTitle = "Create new event"
         submitTitle = "Create"

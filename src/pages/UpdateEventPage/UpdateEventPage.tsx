@@ -8,7 +8,7 @@ import Loader from 'src/components/Loader';
 import { UpdateEventWrapper } from './styled';
 import { fetchEvent, updateEvent } from 'src/api/events';
 import { EventDataOutput } from 'src/components/EventForm/EventForm';
-import NewEventForm from 'src/components/NewEventForm/NewEventForm';
+import EventForm from 'src/components/EventForm';
 
 type UpdateEventPageProps = {
   eventId: string;
@@ -55,7 +55,7 @@ function UpdateEvent({
         )}
         renderSuccess={(event, refreshEvent) => {
           return (
-            <NewEventForm
+            <EventForm
               onSubmit={handleSubmit}
               headerTitle={'Update new event'}
               submitTitle={'Update'}
