@@ -81,8 +81,8 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
         id: rest.id,
         name: values.name,
         description: values.description,
-        startTime: parseDate(eventDate, values.startTime),
-        endTime: parseDate(eventDate, values.endTime),
+        startTime: parseDate(values.date, values.startTime),
+        endTime: parseDate(values.date, values.endTime),
         imageUrl: values.imageUrl,
         imageAlt: values.imageAlt,
         location: values.location,
@@ -99,7 +99,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     <Formik
       initialValues={initialValues}
       validationSchema={EventFormSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={ async (values, { setSubmitting }) => {
         await submitEventData(values, setSubmitting);
       }}
     >

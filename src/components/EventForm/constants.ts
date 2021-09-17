@@ -24,15 +24,30 @@ export const EventFormSchema = Yup.object().shape({
       'Start Time',
       'Start time cannot be later than end time',
       function (startTime) {
-        const startTimeHour = parseInt(
-          this.parent.startTime.toString().substring(0, 2)
-        );
-        const endTimeHour = parseInt(
-          this.parent.endTime.toString().substring(0, 2)
-        );
-        return startTimeHour < endTimeHour;
-      }
-    ),
+        const startTimeHour = parseInt(this.parent.startTime.toString().substring(0, 2));
+        const endTimeHour = parseInt(this.parent.endTime.toString().substring(0, 2));
+        const startTimeMinute = parseInt(this.parent.startTime.toString().substring(3, 5));
+        const endTimeMinute = parseInt(this.parent.startTime.toString().substring(3, 5));
+        /*
+        if (startTimeHour === endTimeHour) {
+          if (startTimeMinute < endTimeMinute) {
+            console.log("Hour equal, startTime > endtime!");
+            return false;
+          }
+          if (startTimeMinute >= endTimeMinute) {
+            console.log("Hour equal, startTime <= endtime!");
+            return false;
+          }
+        }
+        if (startTimeHour < endTimeHour) {
+          console.log("Start hour is more than end hour!!");
+          return true;
+        }
+        console.log("All checks passed!");
+        return false;
+      }*/
+      return startTimeHour < endTimeHour;
+    }),
   endTime: Yup.string().required('End time is required'),
   description: Yup.string()
     .max(5000, 'Description text is too long')
