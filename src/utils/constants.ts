@@ -1,4 +1,4 @@
-export enum EVENT_STATUS_OPTIONS {
-  Draft = 'Draft',
-  Published = 'Published',
+export enum EventStatus {
+  DRAFT = 'Draft',
+  PUBLISHED = 'Published',
 }
