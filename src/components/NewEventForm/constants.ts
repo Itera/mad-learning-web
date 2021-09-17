@@ -3,7 +3,7 @@ import { EventStatus } from 'src/utils/constants';
 import { EVENT_OPTIONS } from '../EventForm/constants';
 
 // Validation for event form
-export const eventFormSchema = Yup.object().shape({
+export const EventFormSchema = Yup.object().shape({
   name: Yup.string()
     .max(100, 'Event name is too long')
     .required('Event name is required'),
@@ -36,3 +36,11 @@ export const eventFormSchema = Yup.object().shape({
     .oneOf([EventStatus.DRAFT, EventStatus.PUBLISHED])
     .required('Event status is required'),
 });
+
+export const EventOptions: string[] = [
+  '',
+  'Subject matter event',
+  'Coding event',
+  'Project presentation',
+  'Workshop',
+];

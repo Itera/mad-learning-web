@@ -2,14 +2,13 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { addDays, format, set, startOfDay } from 'date-fns';
 
-import { eventFormSchema } from './constants';
+import { EventFormSchema, EventOptions } from './constants';
 import Button from '../inputs/Button';
 import FormikInputField from '../FormikFields/FormikInputField/FormikInputField';
 import FormikTextAreaField from '../FormikFields/FormikTextAreaField/FormikTextAreaField';
 import FormikSelectorField from '../FormikFields/FormikSelectorField/FormikSelectorField';
 import { ButtonWrapper, EventFormWrapper } from './styled';
 import { EventStatus } from 'src/utils/constants';
-import { EVENT_OPTIONS } from '../EventForm/constants';
 
 export type EventDataInput = {
   id?: string;
@@ -99,7 +98,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={eventFormSchema}
+      validationSchema={EventFormSchema}
       onSubmit={async (values, { setSubmitting }) => {
         await submitEventData(values, setSubmitting);
       }}
@@ -111,7 +110,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
           <FormikSelectorField
             label="Event type *"
             name="eventType"
-            options={EVENT_OPTIONS}
+            options={EventOptions}
           />
           <FormikInputField label="Date *" name="date" type="date" />
           <FormikInputField
