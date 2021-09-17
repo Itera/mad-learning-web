@@ -64,7 +64,7 @@ export async function createEvent(
   eventType?: string,
   eventStatus?: string,
   teamsUrl?: string,
-): Promise<void> {
+): Promise<Event> {
   const account = AuthProviderInstance.account;
   const accountName = AuthProviderInstance.accountName;
 
@@ -91,8 +91,10 @@ export async function createEvent(
       participants: [],
     }),
   });
-
-  if (!response.ok) {
+  if (response.ok) {
+    return await response.json();
+  }
+  else {
     throw new Error(`Failed to create event: ${response.statusText}.`);
   }
 }
