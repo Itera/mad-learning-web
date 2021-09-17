@@ -36,26 +36,7 @@ export default function CommentSection({
 
   const [isModalShown, toggleModal] = useModal();
 
-  const setTextAreaFocus = () => {
-    textAreaRef.current?.focus();
-  };
-
   const [commentNodes, setCommentNodes] = useState<ReactNode | undefined>();
-
-  useEffect(() => {
-    const topLevelComments = comments?.filter(
-      (comment) => !comment.replyToCommentId
-    );
-
-    const nodes = generateCommentNodes(
-      topLevelComments,
-      setReplyToCommentId,
-      setReplyToCommentAuthor,
-      setTextAreaFocus
-    );
-
-    setCommentNodes(nodes);
-  }, [comments]);
 
   const handleSubmitComment = async (
     eventId: string,
@@ -68,10 +49,67 @@ export default function CommentSection({
       await createComment(eventId, commentBody, replyToCommentId);
       refreshEvent();
       setCommentBody('');
-      setReplyToCommentAuthor(undefined);
-      setReplyToCommentId(undefined);
+      handleAbortReply();
     }
   };
+
+  const setTextAreaFocus = () => {
+    textAreaRef.current?.focus();
+  };
+
+  const handleAbortReply = () => {
+    setReplyToCommentId(undefined);
+    setReplyToCommentAuthor(undefined);
+  };
+
+  useEffect(() => {
+    const topLevelComments = comments?.filter(
+      (comment) => !comment.replyToCommentId
+    );
+
+    const handleClickReply = (commentData: CommentData) => {
+      setReplyToCommentAuthor(commentData.byPerson.firstName);
+      setReplyToCommentId(commentData.id);
+      setTextAreaFocus();
+    };
+
+    const generateCommentNodes = (
+      comments: Array<CommentData> | undefined,
+      handleClickReply: (commentData: CommentData) => void,
+      isTopLevel = true
+    ): ReactNode => {
+      if (!comments) {
+        return undefined;
+      }
+
+      return (
+        <CommentGroup>
+          {comments.map((comment) => {
+            let commentChildrenNodes = generateCommentNodes(
+              comment.children,
+              handleClickReply,
+              false
+            );
+
+            return (
+              <Comment
+                key={comment.id}
+                commentData={comment}
+                isTopLevel={isTopLevel}
+                onReply={handleClickReply}
+              >
+                {commentChildrenNodes}
+              </Comment>
+            );
+          })}
+        </CommentGroup>
+      );
+    };
+
+    const nodes = generateCommentNodes(topLevelComments, handleClickReply);
+
+    setCommentNodes(nodes);
+  }, [comments]);
 
   return (
     <CommentSectionWrapper>
@@ -83,8 +121,7 @@ export default function CommentSection({
         {replyToCommentId && (
           <ReplyingToIndicator
             replyingToAuthor={replyToCommentAuthor}
-            setReplyToCommentId={setReplyToCommentId}
-            setReplyToCommentAuthor={setReplyToCommentAuthor}
+            onAbort={handleAbortReply}
           />
         )}
         <TextAreaField
@@ -110,44 +147,5 @@ export default function CommentSection({
         />
       </NewCommentWrapper>
     </CommentSectionWrapper>
-  );
-}
-
-function generateCommentNodes(
-  comments: Array<CommentData> | undefined,
-  setReplyToCommentId: Function,
-  setReplyToCommentAuthor: Function,
-  setTextAreaFocus: () => void,
-  isTopLevel = true
-): ReactNode {
-  if (!comments) {
-    return undefined;
-  }
-
-  return (
-    <CommentGroup>
-      {comments.map((comment) => {
-        let commentChildrenNodes = generateCommentNodes(
-          comment.children,
-          setReplyToCommentId,
-          setReplyToCommentAuthor,
-          setTextAreaFocus,
-          false
-        );
-
-        return (
-          <Comment
-            key={comment.id}
-            commentData={comment}
-            setReplyToCommentId={setReplyToCommentId}
-            setReplyToCommentAuthor={setReplyToCommentAuthor}
-            isTopLevel={isTopLevel}
-            setFocus={setTextAreaFocus}
-          >
-            {commentChildrenNodes}
-          </Comment>
-        );
-      })}
-    </CommentGroup>
   );
 }
