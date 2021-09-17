@@ -17,7 +17,7 @@ function CommentThread({
   isTopLevel = true,
 }: CommentThreadProps) {
   if (!comments) {
-    return <></>;
+    return null;
   }
 
   return (
