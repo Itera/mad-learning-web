@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const CommentGroupWrapper = styled.div`
+export const CommentThreadWrapper = styled.div`
   width: 100%;
 `;

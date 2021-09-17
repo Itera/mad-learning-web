@@ -1,17 +1,17 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+
 import { CommentData } from 'src/types/domain';
 import { useModal } from 'src/hooks/useModal';
 
-import CommentGroup from '../CommentGroup';
-import Comment from '../Comment';
-import { CommentSectionWrapper, NewCommentWrapper } from './styled';
-import TextAreaField from 'src/components/fields/TextAreaField';
-import Button from 'src/components/inputs/Button';
-import ScrollableContainer from 'src/components/ScrollableContainer';
-import ReplyingToIndicator from 'src/components/Comment/ReplyingToIndicator';
-import Modal from 'src/components/Modal';
-
 import { createComment } from 'src/api/comments';
+
+import Button from 'src/components/inputs/Button';
+import CommentThread from '../CommentThread';
+import Modal from 'src/components/Modal';
+import ReplyingToIndicator from 'src/components/Comment/ReplyingToIndicator';
+import ScrollableContainer from 'src/components/ScrollableContainer';
+import TextAreaField from 'src/components/fields/TextAreaField';
+import { CommentSectionWrapper, NewCommentWrapper } from './styled';
 
 type CommentSectionProps = {
   eventId: string;
@@ -36,7 +36,9 @@ export default function CommentSection({
 
   const [isModalShown, toggleModal] = useModal();
 
-  const [commentNodes, setCommentNodes] = useState<ReactNode | undefined>();
+  const topLevelComments = comments?.filter(
+    (comment) => !comment.replyToCommentId
+  );
 
   const handleSubmitComment = async (
     eventId: string,
@@ -62,59 +64,21 @@ export default function CommentSection({
     setReplyToCommentAuthor(undefined);
   };
 
-  useEffect(() => {
-    const topLevelComments = comments?.filter(
-      (comment) => !comment.replyToCommentId
-    );
-
-    const handleClickReply = (commentData: CommentData) => {
-      setReplyToCommentAuthor(commentData.byPerson.firstName);
-      setReplyToCommentId(commentData.id);
-      setTextAreaFocus();
-    };
-
-    const generateCommentNodes = (
-      comments: Array<CommentData> | undefined,
-      handleClickReply: (commentData: CommentData) => void,
-      isTopLevel = true
-    ): ReactNode => {
-      if (!comments) {
-        return undefined;
-      }
-
-      return (
-        <CommentGroup>
-          {comments.map((comment) => {
-            let commentChildrenNodes = generateCommentNodes(
-              comment.children,
-              handleClickReply,
-              false
-            );
-
-            return (
-              <Comment
-                key={comment.id}
-                commentData={comment}
-                isTopLevel={isTopLevel}
-                onReply={handleClickReply}
-              >
-                {commentChildrenNodes}
-              </Comment>
-            );
-          })}
-        </CommentGroup>
-      );
-    };
-
-    const nodes = generateCommentNodes(topLevelComments, handleClickReply);
-
-    setCommentNodes(nodes);
-  }, [comments]);
+  const handleClickReply = (commentData: CommentData) => {
+    setReplyToCommentAuthor(commentData.byPerson.firstName);
+    setReplyToCommentId(commentData.id);
+    setTextAreaFocus();
+  };
 
   return (
     <CommentSectionWrapper>
       {comments.length > 0 && (
-        <ScrollableContainer>{commentNodes}</ScrollableContainer>
+        <ScrollableContainer>
+          <CommentThread
+            comments={topLevelComments}
+            onReply={handleClickReply}
+          />
+        </ScrollableContainer>
       )}
 
       <NewCommentWrapper>
