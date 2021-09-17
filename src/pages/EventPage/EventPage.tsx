@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { RouteComponentProps } from '@reach/router';
 
-import CommentSection from 'src/components/Comment/CommentSection';
 import FailedFetchAlert from 'src/components/FailedFetchAlert';
 import LoadableContent from 'src/components/LoadableContent';
 import Loader from 'src/components/Loader';
@@ -64,7 +63,6 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             participants,
             eventStatus,
             teamsUrl,
-            comments,
           } = event;
 
           const account = AuthProviderInstance.account;
@@ -118,15 +116,6 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                         <TeamsLink teamsUrl={teamsUrl}></TeamsLink>
                       </>
                     )}
-                    <h2>Comments</h2>
-                    <DescriptionText>
-                      Ask the organizer questions or build hype
-                    </DescriptionText>
-                    <CommentSection
-                      eventId={eventId}
-                      comments={comments}
-                      refreshEvent={refreshEvent}
-                    />
                   </>
                 }
                 right={
