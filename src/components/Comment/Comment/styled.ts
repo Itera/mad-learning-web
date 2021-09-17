@@ -16,6 +16,7 @@ export const CommentContent = styled.div`
 `;
 
 export const CommentAuthor = styled.p`
+  display: inline-block;
   margin-right: 5px;
   font-size: small;
   font-weight: bold;
