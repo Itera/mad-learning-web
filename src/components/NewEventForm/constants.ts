@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { EVENT_STATUS_OPTIONS } from 'src/utils/constants';
 import { EVENT_OPTIONS } from '../EventForm/constants';
 
-// Validation
+// Validation for event form
 export const eventFormSchema = Yup.object().shape({
   name: Yup.string()
     .max(100, 'Event name is too long')
