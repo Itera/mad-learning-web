@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants';
+import { EventStatus } from 'src/utils/constants';
 import { EVENT_OPTIONS } from '../EventForm/constants';
 
 // Validation for event form
@@ -33,6 +33,6 @@ export const eventFormSchema = Yup.object().shape({
   location: Yup.string().max(200, 'Location text is too long'),
   imageUrl: Yup.string().url('URL not valid'),
   eventStatus: Yup.string()
-    .oneOf([EVENT_STATUS_OPTIONS.Draft, EVENT_STATUS_OPTIONS.Published])
+    .oneOf([EventStatus.DRAFT, EventStatus.PUBLISHED])
     .required('Event status is required'),
 });

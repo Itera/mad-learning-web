@@ -8,7 +8,7 @@ import FormikInputField from '../FormikFields/FormikInputField/FormikInputField'
 import FormikTextAreaField from '../FormikFields/FormikTextAreaField/FormikTextAreaField';
 import FormikSelectorField from '../FormikFields/FormikSelectorField/FormikSelectorField';
 import { ButtonWrapper, EventFormWrapper } from './styled';
-import { EVENT_STATUS_OPTIONS } from 'src/utils/constants';
+import { EventStatus } from 'src/utils/constants';
 import { EVENT_OPTIONS } from '../EventForm/constants';
 
 export type EventDataInput = {
@@ -70,7 +70,7 @@ function NewEventForm({ onSubmit, ...rest }: EventFormProps) {
     teamsUrl: rest.teamsUrl || '',
     imageUrl: rest.imageUrl || '',
     imageAlt: rest.imageAlt || '',
-    eventStatus: rest.eventStatus || EVENT_STATUS_OPTIONS.Draft,
+    eventStatus: rest.eventStatus || EventStatus.DRAFT,
   };
 
   // Helper function for Formik --> onSubmit
