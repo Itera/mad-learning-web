@@ -16,28 +16,18 @@ type CommentProps = {
   children?: ReactNode;
   commentData: CommentData;
   isTopLevel?: boolean;
-  setReplyToCommentId: Function;
-  setReplyToCommentAuthor: Function;
-  setFocus: () => void;
+  onReply: (commentData: CommentData) => void;
 };
 
 function Comment({
   commentData,
   children,
-  setReplyToCommentId,
-  setReplyToCommentAuthor,
   isTopLevel = true,
-  setFocus,
+  onReply,
 }: CommentProps) {
-  const handleClickReply = function () {
-    setReplyToCommentAuthor(commentData.byPerson.firstName);
-    setReplyToCommentId(commentData.id);
-    setFocus();
-  };
-
   return (
     <CommentWrapper isTopLevel={isTopLevel}>
-      <CommentContent key={commentData.id}>
+      <CommentContent>
         <CommentAuthor>
           {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
         </CommentAuthor>
@@ -46,7 +36,9 @@ function Comment({
         </CommentMetadata>
         <p>{commentData.body}</p>
         {isTopLevel && (
-          <CommentAction onClick={handleClickReply}>Reply</CommentAction>
+          <CommentAction onClick={() => onReply(commentData)}>
+            Reply
+          </CommentAction>
         )}
       </CommentContent>
       {children}
