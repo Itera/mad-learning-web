@@ -10,7 +10,7 @@ import EventForm from 'src/components/EventForm';
 function CreateEvent({ navigate }: RouteComponentProps) {
 
   const handleSubmit = async (eventData: EventDataOutput) => {
-    await createEvent(
+    const response = await createEvent(
       formatISO(eventData.startTime),
       formatISO(eventData.endTime),
       eventData.name,
@@ -22,7 +22,7 @@ function CreateEvent({ navigate }: RouteComponentProps) {
       eventData.eventStatus,
       eventData.teamsUrl,
     );
-    navigate!('/');
+    navigate!(`/event/${response.id}/${response.name}`);
   };
 
   return (

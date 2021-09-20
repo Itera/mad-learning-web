@@ -12,6 +12,18 @@ export type Event = {
   teamsUrl: string;
   owner?: Person;
   participants?: Array<Person>;
+  comments: Array<CommentData>;
+};
+
+export type CommentData = {
+  id: string;
+  body: string;
+  date: string;
+  changedDate: string;
+  byPerson: Person;
+  replyToCommentId?: string;
+  replyToPerson?: Person;
+  children?: Array<CommentData>;
 };
 
 export type Person = {

@@ -13,7 +13,7 @@ type PublishButtonProps = {
 };
 
 function PublishButton({ event, onPublish }: PublishButtonProps) {
-  const { isShown, toggle } = useModal();
+  const [isShown, toggle] = useModal();
 
   const onConfirm = () => {
     handlePublish(event);
