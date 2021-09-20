@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { EventStatus } from 'src/utils/constants';
+import { format, isAfter, isEqual, isBefore } from 'date-fns';
 
 export const EventOptions: string[] = [
   '',
@@ -8,6 +9,9 @@ export const EventOptions: string[] = [
   'Project presentation',
   'Workshop',
 ];
+
+const parseDate = (date: Date, time: string) =>
+  new Date(format(date, 'yyyy-MM-dd') + 'T' + time);
 
 // Validation for event form
 export const EventFormSchema = Yup.object().shape({
@@ -20,41 +24,38 @@ export const EventFormSchema = Yup.object().shape({
   date: Yup.date().required('Event date is required'),
   startTime: Yup.string()
     .required('Start time is required')
-    .test("Start Time", "Start time cannot be equal, or later than End time", async (value, context) => {
-      const startTimeHour = parseInt(context.parent.startTime.substring(0, 2));
-      const endTimeHour = parseInt(context.parent.endTime.substring(0, 2));
-      const startTimeMinute = parseInt(context.parent.startTime.substring(3, 5));
-      const endTimeMinute = parseInt(context.parent.endTime.toString().substring(3, 5));
-      if (startTimeHour == endTimeHour && endTimeMinute < startTimeMinute) {
-        return false;
-      }
-      if (startTimeHour > endTimeHour) {
-        return false;
-      }
-      if (startTimeHour == endTimeHour && startTimeMinute == endTimeMinute) {
-        return false;
-      }
+    .test(
+      'Start Time',
+      'Start time cannot be equal, or later than End time',
+      async (value, context) => {
+        const startTime = parseDate(
+          context.parent.date,
+          context.parent.startTime
+        );
+        const endTime = parseDate(context.parent.date, context.parent.endTime);
 
-      return true;
-    }),
+        if (isAfter(startTime, endTime)) return false;
+        if (isEqual(startTime, endTime)) return false;
+        return true;
+      }
+    ),
   endTime: Yup.string()
     .required('End time is required')
-    .test("End Time", "End time cannot be equal, or earlier than Start time", async (value, context) => {
-      const startTimeHour = parseInt(context.parent.startTime.substring(0, 2));
-      const endTimeHour = parseInt(context.parent.endTime.substring(0, 2));
-      const startTimeMinute = parseInt(context.parent.startTime.substring(3, 5));
-      const endTimeMinute = parseInt(context.parent.endTime.toString().substring(3, 5));
-      if (startTimeHour == endTimeHour && endTimeMinute < startTimeMinute) {
-        return false;
+    .test(
+      'End Time',
+      'End time cannot be equal, or earlier than Start time',
+      async (value, context) => {
+        const startTime = parseDate(
+          context.parent.date,
+          context.parent.startTime
+        );
+        const endTime = parseDate(context.parent.date, context.parent.endTime);
+
+        if (isBefore(endTime, startTime)) return false;
+        if (isEqual(startTime, endTime)) return false;
+        return true;
       }
-      if (startTimeHour > endTimeHour) {
-        return false;
-      }
-      if (startTimeHour == endTimeHour && startTimeMinute == endTimeMinute) {
-        return false;
-      }
-      return true;
-    }),
+    ),
   description: Yup.string()
     .max(5000, 'Description text is too long')
     .required('Description of event is required'),
@@ -64,4 +65,3 @@ export const EventFormSchema = Yup.object().shape({
     .oneOf([EventStatus.DRAFT, EventStatus.PUBLISHED])
     .required('Event status is required'),
 });
-

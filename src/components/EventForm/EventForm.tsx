@@ -73,7 +73,10 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   };
 
   // Helper function for Formik --> onSubmit
-  async function submitEventData(values: any, setSubmitting : any): Promise<void> {
+  async function submitEventData(
+    values: any,
+    setSubmitting: any
+  ): Promise<void> {
     var promise;
     setSubmitting(true);
     try {
@@ -99,7 +102,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     <Formik
       initialValues={initialValues}
       validationSchema={EventFormSchema}
-      onSubmit={ async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         await submitEventData(values, setSubmitting);
       }}
     >
@@ -113,11 +116,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
             options={EventOptions}
           />
           <FormikInputField label="Date *" name="date" type="date" />
-          <FormikInputField
-            label="Start time *"
-            name="startTime"
-            type="time"
-          />
+          <FormikInputField label="Start time *" name="startTime" type="time" />
           <FormikInputField label="End time *" name="endTime" type="time" />
           <FormikTextAreaField
             label="Description *"
@@ -138,7 +137,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
           </ButtonWrapper>
         </Form>
       </EventFormWrapper>
-    </Formik> 
+    </Formik>
   );
 }
 
