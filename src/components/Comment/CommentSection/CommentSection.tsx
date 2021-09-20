@@ -15,7 +15,7 @@ import { CommentSectionWrapper, NewCommentWrapper } from './styled';
 
 type CommentSectionProps = {
   eventId: string;
-  comments: Array<CommentData>;
+  comments?: Array<CommentData>;
   refreshEvent: Function;
 };
 
@@ -72,7 +72,7 @@ export default function CommentSection({
 
   return (
     <CommentSectionWrapper>
-      {comments.length > 0 && (
+      {comments && comments.length > 0 && (
         <ScrollableContainer>
           <CommentThread
             comments={topLevelComments}
