@@ -50,6 +50,12 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 });
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
+  // Inspect EventDataInput when updating the event
+  function parseTimeInput(time: Date | undefined, formatting: string): string {
+    if (time) return format(time as Date, formatting);
+    return '';
+  }
+
   // Declartions used in form
   const now = new Date();
   const tomorrow = addDays(startOfDay(now), 1);
@@ -61,9 +67,9 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
   const initialValues = {
     name: rest.name || '',
     eventType: rest.eventType || '',
-    date: eventDate,
-    startTime: eventStartTime,
-    endTime: eventEndTime,
+    date: parseTimeInput(rest.startTime, 'yyyy-MM-dd') || eventDate,
+    startTime: parseTimeInput(rest.startTime, 'HH:mm') || eventStartTime,
+    endTime: parseTimeInput(rest.endTime, 'HH:mm') || eventEndTime,
     description: rest.description || '',
     location: rest.location || '',
     teamsUrl: rest.teamsUrl || '',

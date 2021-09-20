@@ -60,7 +60,8 @@ export const EventFormSchema = Yup.object().shape({
     .max(5000, 'Description text is too long')
     .required('Description of event is required'),
   location: Yup.string().max(200, 'Location text is too long'),
-  imageUrl: Yup.string().url('URL not valid'),
+  teamsUrl: Yup.string().url('Teams URL not valid'),
+  imageUrl: Yup.string().url('Image URL not valid'),
   eventStatus: Yup.string()
     .oneOf([EventStatus.DRAFT, EventStatus.PUBLISHED])
     .required('Event status is required'),
