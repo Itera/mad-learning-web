@@ -9,6 +9,7 @@ import RsvpButton from 'src/components/inputs/RsvpButton';
 import SplitSection from 'src/components/SplitSection';
 import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
+import ResourceLinkList from './components/ResourceLinkList';
 import StatusLabel from './components/StatusLabel';
 import TeamsLink from './components/TeamsLink';
 import { DescriptionText, HighlightedBox, ButtonContainer } from './styled';
@@ -65,6 +66,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             eventStatus,
             teamsUrl,
             comments,
+            resourceLinks,
           } = event;
 
           const account = AuthProviderInstance.account;
@@ -130,12 +132,17 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                   </>
                 }
                 right={
-                  participants && (
-                    <ParticipantList
-                      participants={participants}
-                      collapseAt={3}
-                    />
-                  )
+                  <>
+                    {resourceLinks && (
+                      <ResourceLinkList resourceLinks={resourceLinks} />
+                    )}
+                    {participants && (
+                      <ParticipantList
+                        participants={participants}
+                        collapseAt={3}
+                      />
+                    )}
+                  </>
                 }
               />
             </>
