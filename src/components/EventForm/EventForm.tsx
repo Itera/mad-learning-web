@@ -1,15 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import { Formik, Form } from 'formik';
 import { addDays, format, set, startOfDay } from 'date-fns';
 
-import Alert from 'src/components/Alert';
-import Button from 'src/components/inputs/Button';
-import DateField from 'src/components/fields/DateField';
-import SelectField from 'src/components/fields/SelectField';
-import TextAreaField from 'src/components/fields/TextAreaField';
-import TextField from 'src/components/fields/TextField';
-import TimeField from 'src/components/fields/TimeField';
-import { EventFormWrapper, Form } from './styled';
-import { EVENT_OPTIONS } from './constants';
+import Button from '../inputs/Button';
+import FormikInputField from '../FormikFields/FormikInputField/FormikInputField';
+import FormikTextAreaField from '../FormikFields/FormikTextAreaField/FormikTextAreaField';
+import FormikSelectorField from '../FormikFields/FormikSelectorField/FormikSelectorField';
+import { EventFormSchema, EventOptions } from './constants';
+import { ButtonWrapper, EventFormWrapper } from './styled';
 import { EventStatus } from 'src/utils/constants';
 
 export type EventDataInput = {
@@ -47,170 +45,105 @@ type EventFormProps = {
 } & EventDataInput;
 
 function EventForm({ onSubmit, ...rest }: EventFormProps) {
-  const now = new Date();
-
-  const [name, setName] = useState(rest.name || '');
-  const [imageUrl, setImageUrl] = useState(rest.imageUrl || '');
-  const [imageAlt, setImageAlt] = useState(rest.imageAlt || '');
-  const eventDate = rest.startTime || addDays(startOfDay(now), 1);
-  const [date, setDate] = useState(format(eventDate, 'yyyy-MM-dd'));
-
+  // Utilities
   const setHours = (date: Date, hours: number) =>
     set(date, { hours: hours, minutes: 0, seconds: 0, milliseconds: 0 });
-
-  const [startTime, setStartTime] = useState(
-    format(rest.startTime || setHours(eventDate, 16), 'HH:mm')
-  );
-  const [endTime, setEndTime] = useState(
-    format(rest.endTime || setHours(eventDate, 17), 'HH:mm')
-  );
-  const [description, setDescription] = useState(rest.description || '');
-  const [eventType, setEventType] = useState(rest.eventType || '');
-
-  const [location, setLocation] = useState(rest.location || '');
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const [teamsUrl, setTeamsUrl] = useState(rest.teamsUrl || '');
-
-  const eventStatus = rest.eventStatus || EventStatus.DRAFT;
   const parseDate = (date: string, time: string) => new Date(date + 'T' + time);
 
-  const isFormValid =
-    name &&
-    description &&
-    eventType &&
-    startTime &&
-    endTime &&
-    parseDate(date, startTime) > now &&
-    parseDate(date, endTime) > now;
-  const isSubmitDisabled = !isFormValid || isSubmitting;
+  // Inspect EventDataInput when updating the event
+  function parseTimeInput(time: Date | undefined, formatting: string): string {
+    if (time) return format(time as Date, formatting);
+    return '';
+  }
 
-  const handleSubmit = useCallback(async () => {
-    setIsSubmitting(true);
-    setError(null);
+  // Declartions used in form
+  const now = new Date();
+  const tomorrow = addDays(startOfDay(now), 1);
+  const eventDate = format(tomorrow, 'yyyy-MM-dd');
+  const eventStartTime = format(setHours(tomorrow, 16), 'HH:mm');
+  const eventEndTime = format(setHours(tomorrow, 17), 'HH:mm');
 
+  // Initiation of form values
+  const initialValues = {
+    name: rest.name || '',
+    eventType: rest.eventType || '',
+    date: parseTimeInput(rest.startTime, 'yyyy-MM-dd') || eventDate,
+    startTime: parseTimeInput(rest.startTime, 'HH:mm') || eventStartTime,
+    endTime: parseTimeInput(rest.endTime, 'HH:mm') || eventEndTime,
+    description: rest.description || '',
+    location: rest.location || '',
+    teamsUrl: rest.teamsUrl || '',
+    imageUrl: rest.imageUrl || '',
+    imageAlt: rest.imageAlt || '',
+    eventStatus: rest.eventStatus || EventStatus.DRAFT,
+  };
+
+  // Helper function for Formik --> onSubmit
+  async function submitEventData(
+    values: any,
+    setSubmitting: any
+  ): Promise<void> {
+    var promise;
+    setSubmitting(true);
     try {
-      await onSubmit({
+      promise = onSubmit({
         id: rest.id,
-        name,
-        description,
-        startTime: parseDate(date, startTime),
-        endTime: parseDate(date, endTime),
-        imageUrl,
-        imageAlt,
-        location,
-        eventType,
-        eventStatus,
-        teamsUrl,
+        name: values.name,
+        description: values.description,
+        startTime: parseDate(values.date, values.startTime),
+        endTime: parseDate(values.date, values.endTime),
+        imageUrl: values.imageUrl,
+        imageAlt: values.imageAlt,
+        location: values.location,
+        eventType: values.eventType,
+        eventStatus: values.eventStatus,
+        teamsUrl: values.teamsUrl,
       });
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else if (typeof error === 'string') {
-        setError(error);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-    setHasSubmitted(true);
-  }, [
-    name,
-    description,
-    date,
-    startTime,
-    endTime,
-    imageUrl,
-    imageAlt,
-    location,
-    eventType,
-    eventStatus,
-    teamsUrl,
-    setIsSubmitting,
-    setError,
-    onSubmit,
-    rest.id,
-  ]);
+    } catch (error) {}
+    setSubmitting(false);
+    return promise;
+  }
 
   return (
-    <EventFormWrapper>
-      <h1>{rest.headerTitle}</h1>
-      <Form>
-        <TextField
-          name="name"
-          label="Event name *"
-          value={name}
-          onChange={setName}
-        />
-        <SelectField
-          name="eventType"
-          label="Event type *"
-          value={eventType}
-          onChange={setEventType}
-          options={EVENT_OPTIONS}
-        />
-        <DateField name="date" label="Date *" value={date} onChange={setDate} />
-        <TimeField
-          name="time"
-          label="Start time *"
-          value={startTime}
-          onChange={setStartTime}
-        />
-        <TimeField
-          name="time"
-          label="End time *"
-          value={endTime}
-          onChange={setEndTime}
-        />
-        <TextAreaField
-          name="description"
-          label="Description *"
-          value={description}
-          onChange={setDescription}
-        />
-        <TextField
-          name="location"
-          label="Location"
-          value={location}
-          placeholder="Jernlageret"
-          onChange={setLocation}
-        />
-        <TextField
-          name="teamsUrl"
-          label="Teams URL"
-          value={teamsUrl}
-          placeholder="https://teams.microsoft.com/..."
-          onChange={setTeamsUrl}
-        />
-        <TextField
-          name="image"
-          label="Image link"
-          value={imageUrl}
-          placeholder="https://.../img.png"
-          onChange={setImageUrl}
-        />
-        <TextField
-          name="imageAlt"
-          label="Image text"
-          value={imageAlt}
-          onChange={setImageAlt}
-        />
-        <div>
-          <Button disabled={isSubmitDisabled} onClick={handleSubmit}>
-            {rest.submitTitle}
-          </Button>
-        </div>
-        {hasSubmitted && error != null && (
-          <Alert
-            heading="Failed to submit"
-            description={<p></p>}
-            headingAs="h2"
+    <Formik
+      initialValues={initialValues}
+      validationSchema={EventFormSchema}
+      onSubmit={async (values, { setSubmitting }) => {
+        await submitEventData(values, setSubmitting);
+      }}
+    >
+      <EventFormWrapper>
+        <h1>{rest.headerTitle}</h1>
+        <Form>
+          <FormikInputField label="Event name *" name="name" type="text" />
+          <FormikSelectorField
+            label="Event type *"
+            name="eventType"
+            options={EventOptions}
           />
-        )}
-      </Form>
-    </EventFormWrapper>
+          <FormikInputField label="Date *" name="date" type="date" />
+          <FormikInputField label="Start time *" name="startTime" type="time" />
+          <FormikInputField label="End time *" name="endTime" type="time" />
+          <FormikTextAreaField
+            label="Description *"
+            name="description"
+            type="text"
+          />
+          <FormikInputField label="Location" name="location" type="text" />
+          <FormikInputField
+            label="Teams URL"
+            name="teamsUrl"
+            type="text"
+            placeholder="https://teams.microsoft.com/..."
+          />
+          <FormikInputField label="Image Link" name="imageUrl" type="text" />
+          <FormikInputField label="Image Text" name="imageAlt" type="text" />
+          <ButtonWrapper>
+            <Button type="submit">{rest.submitTitle}</Button>
+          </ButtonWrapper>
+        </Form>
+      </EventFormWrapper>
+    </Formik>
   );
 }
 

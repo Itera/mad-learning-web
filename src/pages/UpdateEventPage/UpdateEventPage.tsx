@@ -7,8 +7,8 @@ import LoadableContent from 'src/components/LoadableContent';
 import Loader from 'src/components/Loader';
 import { UpdateEventWrapper } from './styled';
 import { fetchEvent, updateEvent } from 'src/api/events';
-import EventForm from 'src/components/EventForm';
 import { EventDataOutput } from 'src/components/EventForm/EventForm';
+import EventForm from 'src/components/EventForm';
 
 type UpdateEventPageProps = {
   eventId: string;

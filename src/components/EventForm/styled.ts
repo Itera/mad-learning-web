@@ -4,12 +4,22 @@ export const EventFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 2.5vw;
+& > * {
+  width:50%;
+}
 `;
 
-export const Form = styled.form`
+export const ItemWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: left;
+`;
+
+export const ButtonWrapper = styled.div`
+  justifyContent: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  marginTop: 1rem;
 `;
