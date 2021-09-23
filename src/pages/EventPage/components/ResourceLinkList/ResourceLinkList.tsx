@@ -5,19 +5,10 @@ import { Container, AttributionLink } from './styled';
 import ResourceLinkImage from './ResourceLinkImage/ResourceLinkImage';
 
 type ResourceLinkListProps = {
-  resourceLinks?: Array<ResourceLink>;
+  resourceLinks: Array<ResourceLink>;
 };
 
 function ResourceLinkList({ resourceLinks }: ResourceLinkListProps) {
-  if (!resourceLinks) {
-    return (
-      <>
-        <h2>Links</h2>
-        <p>There are no provided links for this event.</p>
-      </>
-    );
-  }
-
   return (
     <>
       <h2>Links</h2>

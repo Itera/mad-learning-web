@@ -6,14 +6,22 @@ function ResourceLinkImage({ name, url }: ResourceLink) {
   const [imageUrl, setImageUrl] = useState(defaultLink);
 
   const getLinkLogo = async (url: string) => {
-    const hostName = new URL(url).hostname;
-    const imgUrl = '//logo.clearbit.com/' + hostName + '?size=32';
-    await fetch(imgUrl);
-    setImageUrl(imgUrl)
+    try {
+      const hostName = new URL(url).hostname;
+      const imgUrl = '//logo.clearbit.com/' + hostName + '?size=32';
+      await fetch(imgUrl);
+      setImageUrl(imgUrl);
+    } catch (e) {
+      if (e instanceof TypeError) {
+        console.warn('URL seems to be invalid.');
+      } else {
+        console.error(e);
+      }
+    }
   };
 
   useEffect(() => {
-    getLinkLogo(url)
+    getLinkLogo(url);
   }, [url]);
 
   return <img src={imageUrl} alt={name} />;

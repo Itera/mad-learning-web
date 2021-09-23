@@ -9,15 +9,15 @@ export const Container = styled.ul`
   list-style-type: none;
   line-height: ${usingTypography((t) => t.scaleSpacing(9))}px;
   text-decoration: underline;
-& > * {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid grey;
-  gap: 10px;
-}
+  & > * {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid grey;
+    gap: 10px;
+  }
 `;
 
 export const AttributionLink = styled.a`
   font-size: 12px;
-  color: lightgrey;
-`
+  color: grey;
+`;
