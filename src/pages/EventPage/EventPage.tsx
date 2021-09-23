@@ -67,6 +67,8 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
             comments,
           } = event;
 
+          const tags = ['Development', 'Tools', 'Presentation'];
+
           const account = AuthProviderInstance.account;
 
           const isOwner =
@@ -85,6 +87,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                     imageUrl={imageUrl}
                     location={location}
                     owner={owner}
+                    tags={tags}
                   />
                   <ButtonContainer>
                     <RsvpButton event={event} onSuccess={refreshEvent} />

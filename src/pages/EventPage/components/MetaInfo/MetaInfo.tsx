@@ -3,10 +3,11 @@ import React from 'react';
 import { MetaInfoGroup, MetaInfoLabel, MetaInfoValue } from './styled';
 import { formatDateInterval, formatPersonName } from 'src/utils/formatting';
 import { Event } from 'src/types/domain';
+import TagLayout from 'src/components/Tag';
 
 type MetaInfoProps = Pick<
   Event,
-  'name' | 'startTime' | 'endTime' | 'location' | 'owner' | 'imageUrl'
+  'name' | 'startTime' | 'endTime' | 'location' | 'owner' | 'imageUrl' | 'tags'
 >;
 
 function MetaInfo({
@@ -16,6 +17,7 @@ function MetaInfo({
   imageUrl,
   location,
   owner,
+  tags,
 }: MetaInfoProps) {
   return (
     <MetaInfoGroup>
@@ -27,6 +29,14 @@ function MetaInfo({
         <>
           <MetaInfoLabel>Organizer</MetaInfoLabel>
           <MetaInfoValue>{formatPersonName(owner)}</MetaInfoValue>
+        </>
+      )}
+      {tags && (
+        <>
+          <MetaInfoLabel>Tags</MetaInfoLabel>
+          <MetaInfoValue>
+            <TagLayout tags={tags} />
+          </MetaInfoValue>
         </>
       )}
     </MetaInfoGroup>
