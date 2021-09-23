@@ -3,7 +3,7 @@ import React from 'react';
 import { MetaInfoGroup, MetaInfoLabel, MetaInfoValue } from './styled';
 import { formatDateInterval, formatPersonName } from 'src/utils/formatting';
 import { Event } from 'src/types/domain';
-import TagLayout from 'src/components/Tag';
+import Tag from 'src/components/Tag';
 
 type MetaInfoProps = Pick<
   Event,
@@ -35,7 +35,9 @@ function MetaInfo({
         <>
           <MetaInfoLabel>Tags</MetaInfoLabel>
           <MetaInfoValue>
-            <TagLayout tags={tags} />
+            {tags.map((tag) => (
+              <Tag>{tag}</Tag>
+            ))}
           </MetaInfoValue>
         </>
       )}

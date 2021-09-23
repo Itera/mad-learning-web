@@ -1,3 +1,3 @@
-import TagLayout from './TagLayout';
+import Tag from './Tag';
 
-export default TagLayout;
+export default Tag;
