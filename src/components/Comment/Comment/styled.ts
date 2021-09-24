@@ -1,3 +1,4 @@
+import { usingColors } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 type CommentWrapperProps = {
@@ -17,7 +18,7 @@ export const CommentContent = styled.div`
 
 export const CommentAuthor = styled.p`
   display: inline-block;
-  margin-right: 5px;
+  margin: 10px 10px 0 0;
   font-size: small;
   font-weight: bold;
 `;
@@ -32,4 +33,7 @@ export const CommentMetadata = styled.p`
 
 export const CommentAction = styled.a`
   font-size: small;
+  margin-right: 0.5em;
+  padding: 0.5em;
+  border: 1px solid ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
 `;
