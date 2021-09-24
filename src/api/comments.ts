@@ -20,3 +20,19 @@ export async function createComment(
     throw new Error(`Failed to create comment: ${response.statusText}.`);
   }
 }
+
+export async function deleteComment(
+  eventId: string,
+  commentId: string
+): Promise<void> {
+  const response = await authFetch(
+    `${API_URL}/api/Event/${eventId}/Comment?commentId=${commentId}`,
+    {
+      method: 'DELETE',
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to create comment: ${response.statusText}.`);
+  }
+}
