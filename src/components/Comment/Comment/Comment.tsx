@@ -1,9 +1,8 @@
 import React, { ReactNode } from 'react';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+
 import { CommentData } from 'src/types/domain';
-import {
-  formatLongPublishDateString,
-  formatPublishDateString,
-} from 'src/utils/formatting';
+import { formatDate } from 'src/utils/formatting';
 import {
   CommentAuthor,
   CommentContent,
@@ -25,14 +24,16 @@ function Comment({
   isTopLevel = true,
   onReply,
 }: CommentProps) {
+  const commentDate = parseISO(commentData.date);
+
   return (
     <CommentWrapper isTopLevel={isTopLevel}>
       <CommentContent>
         <CommentAuthor>
           {commentData.byPerson.firstName + ' ' + commentData.byPerson.lastName}
         </CommentAuthor>
-        <CommentMetadata title={formatLongPublishDateString(commentData.date)}>
-          {formatPublishDateString(commentData.date)}
+        <CommentMetadata title={formatDate(commentDate)}>
+          {formatDistanceToNow(commentDate) + ' ago'}
         </CommentMetadata>
         <p>{commentData.body}</p>
         {isTopLevel && (
