@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { CommentData } from 'src/types/domain';
 import { useModal } from 'src/hooks/useModal';
 
-import { createComment } from 'src/api/comments';
+import { createComment, deleteComment } from 'src/api/comments';
 
 import Button from 'src/components/inputs/Button';
 import CommentThread from '../CommentThread';
@@ -55,6 +55,11 @@ export default function CommentSection({
     }
   };
 
+  const handleDeleteComment = async (commentData: CommentData) => {
+    await deleteComment(eventId, commentData.id);
+    refreshEvent();
+  };
+
   const setTextAreaFocus = () => {
     textAreaRef.current?.focus();
   };
@@ -77,6 +82,7 @@ export default function CommentSection({
           <CommentThread
             comments={topLevelComments}
             onReply={handleClickReply}
+            onDelete={handleDeleteComment}
           />
         </ScrollableContainer>
       )}

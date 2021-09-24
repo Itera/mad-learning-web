@@ -16,14 +16,18 @@ type CommentProps = {
   children?: ReactNode;
   commentData: CommentData;
   isTopLevel?: boolean;
+  isAuthor: boolean;
   onReply: (commentData: CommentData) => void;
+  onDelete: (commentData: CommentData) => void;
 };
 
 function Comment({
   commentData,
   children,
   isTopLevel = true,
+  isAuthor,
   onReply,
+  onDelete,
 }: CommentProps) {
   return (
     <CommentWrapper isTopLevel={isTopLevel}>
@@ -38,6 +42,11 @@ function Comment({
         {isTopLevel && (
           <CommentAction onClick={() => onReply(commentData)}>
             Reply
+          </CommentAction>
+        )}
+        {isAuthor && (
+          <CommentAction onClick={() => onDelete(commentData)}>
+            Delete
           </CommentAction>
         )}
       </CommentContent>
