@@ -4,6 +4,8 @@ import { usingTypography, usingColors } from 'src/hooks/theme';
 
 export const Wrapper = styled.nav`
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   padding: 0 ${usingTypography((t) => t.scaleSpacing(7))}px;
   padding-top: ${usingTypography((t) => t.scaleSpacing(3))}px;
   padding-bottom: ${usingTypography((t) => t.scaleSpacing(1))}px;
@@ -11,9 +13,8 @@ export const Wrapper = styled.nav`
 `;
 
 export const Icon = styled.img`
-  padding: ${usingTypography((t) => t.scaleSpacing(4))}px 0 0;
-  width: 100px;
-  height: 60px;
+  width: 150px;
+  max-height: 80px;
 `;
 
 export const Menu = styled.ul`

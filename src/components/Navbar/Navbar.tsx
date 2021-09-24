@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import MenuLink from './MenuLink';
 import { Wrapper, Icon, Menu, MenuItem } from './styled';
 import routes from 'src/config/routes';
-import logo from 'src/assets/images/logo.png';
+import logo from 'src/assets/images/logo.svg';
 
 function Navbar() {
   return (
