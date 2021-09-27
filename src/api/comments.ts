@@ -33,6 +33,6 @@ export async function deleteComment(
   );
 
   if (!response.ok) {
-    throw new Error(`Failed to create comment: ${response.statusText}.`);
+    throw new Error(`Failed to delete comment: ${response.statusText}.`);
   }
 }
