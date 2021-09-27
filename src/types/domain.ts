@@ -13,6 +13,7 @@ export type Event = {
   owner?: Person;
   participants?: Array<Person>;
   comments: Array<CommentData>;
+  tags?: Array<string>;
 };
 
 export type CommentData = {

@@ -9,20 +9,25 @@ import {
   CommentMetadata,
   CommentWrapper,
   CommentAction,
+  CommentActionsContainer,
 } from './styled';
 
 type CommentProps = {
   children?: ReactNode;
   commentData: CommentData;
   isTopLevel?: boolean;
+  isAuthor: boolean;
   onReply: (commentData: CommentData) => void;
+  onDelete: (commentData: CommentData) => void;
 };
 
 function Comment({
   commentData,
   children,
   isTopLevel = true,
+  isAuthor,
   onReply,
+  onDelete,
 }: CommentProps) {
   const commentDate = parseISO(commentData.date);
 
@@ -36,11 +41,18 @@ function Comment({
           {formatDistanceToNow(commentDate) + ' ago'}
         </CommentMetadata>
         <p>{commentData.body}</p>
-        {isTopLevel && (
-          <CommentAction onClick={() => onReply(commentData)}>
-            Reply
-          </CommentAction>
-        )}
+        <CommentActionsContainer>
+          {isTopLevel && (
+            <CommentAction onClick={() => onReply(commentData)}>
+              Reply
+            </CommentAction>
+          )}
+          {isAuthor && (
+            <CommentAction onClick={() => onDelete(commentData)}>
+              Delete
+            </CommentAction>
+          )}
+        </CommentActionsContainer>
       </CommentContent>
       {children}
     </CommentWrapper>
