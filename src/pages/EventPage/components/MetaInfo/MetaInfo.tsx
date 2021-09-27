@@ -36,7 +36,7 @@ function MetaInfo({
           <MetaInfoLabel>Tags</MetaInfoLabel>
           <MetaInfoValue>
             {tags.map((tag) => (
-              <Tag>{tag}</Tag>
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </MetaInfoValue>
         </>
