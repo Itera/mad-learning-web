@@ -10,6 +10,7 @@ import {
   CommentMetadata,
   CommentWrapper,
   CommentAction,
+  CommentActionsContainer,
 } from './styled';
 
 type CommentProps = {
@@ -39,16 +40,18 @@ function Comment({
           {formatPublishDateString(commentData.date)}
         </CommentMetadata>
         <p>{commentData.body}</p>
-        {isTopLevel && (
-          <CommentAction onClick={() => onReply(commentData)}>
-            Reply
-          </CommentAction>
-        )}
-        {isAuthor && (
-          <CommentAction onClick={() => onDelete(commentData)}>
-            Delete
-          </CommentAction>
-        )}
+        <CommentActionsContainer>
+          {isTopLevel && (
+            <CommentAction onClick={() => onReply(commentData)}>
+              Reply
+            </CommentAction>
+          )}
+          {isAuthor && (
+            <CommentAction onClick={() => onDelete(commentData)}>
+              Delete
+            </CommentAction>
+          )}
+        </CommentActionsContainer>
       </CommentContent>
       {children}
     </CommentWrapper>
