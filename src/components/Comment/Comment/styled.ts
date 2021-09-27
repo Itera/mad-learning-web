@@ -13,6 +13,10 @@ export const CommentContent = styled.div`
   padding: 20px;
   font-size: medium;
   background-color: #f0f0f0;
+
+  & > p {
+    overflow-wrap: anywhere;
+  }
 `;
 
 export const CommentAuthor = styled.p`

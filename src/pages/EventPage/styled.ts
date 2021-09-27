@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 import { usingTypography, usingColors } from 'src/hooks/theme';
 
+export const EventHeader = styled.h1`
+  overflow-wrap: break-word;
+`;
+
 export const HighlightedBox = styled.div`
   padding: ${usingTypography((t) => t.scaleSpacing(6))}px;
   color: ${usingColors((c) => c.ON.SECONDARY)};
@@ -10,6 +14,7 @@ export const HighlightedBox = styled.div`
 
 export const DescriptionText = styled.div`
   white-space: pre-line;
+  overflow-wrap: anywhere;
 `;
 
 export const ButtonContainer = styled.div`
