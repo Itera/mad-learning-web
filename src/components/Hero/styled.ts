@@ -1,4 +1,4 @@
-import { usingTypography, usingStyling } from 'src/hooks/theme';
+import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const Section = styled.section`
