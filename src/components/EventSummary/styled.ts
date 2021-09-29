@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { usingTypography, usingColors } from 'src/hooks/theme';
+import { usingTypography } from 'src/hooks/theme';
 
 export const Container = styled.article`
   width: 250px;
