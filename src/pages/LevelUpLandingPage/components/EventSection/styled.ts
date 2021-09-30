@@ -13,7 +13,7 @@ export const EventContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: ${usingTypography((t) => t.scaleSpacing(5))}px;
+  gap: ${usingTypography((t) => t.scaleSpacing(10))}px;
 `;
 
 export const Link = styled.a`
