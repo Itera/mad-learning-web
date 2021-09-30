@@ -2,7 +2,7 @@ import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  margin-top: ${usingTypography((t) => t.scaleSpacing(12))}px;
+  margin-top: ${usingTypography((t) => t.scaleSpacing(15))}px;
 
   & > h2 {
     text-align: center;
@@ -22,13 +22,13 @@ export const LinkContainer = styled.div`
   max-width: 1300px;
 
   @media screen and (min-width: 450px) {
-    max-height: 40vh;
+    max-height: 400px;
   }
   @media screen and (min-width: 700px) {
-    max-height: 25vh;
+    max-height: 250px;
   }
   @media screen and (min-width: 1100px) {
-    max-height: 15vh;
+    max-height: 150px;
   }
 `;
 
