@@ -18,7 +18,7 @@ function CutoutImageContainer({imageText, imageSrc, cutoffMode, navigate} : Cuto
                     <MainImage src={imageSrc}></MainImage>
                     <CutoutImage mode={cutoffMode}/>
                     <CutoutImageText>{imageText}</CutoutImageText>
-                </OuterDiv>   
+                </OuterDiv>
             </TempColumn>
         </a>
     )

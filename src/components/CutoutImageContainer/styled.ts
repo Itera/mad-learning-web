@@ -5,17 +5,18 @@ import { usingTypography } from 'src/hooks/theme';
 export const TempColumn = styled.div`
   display: flex;
   justify-content: center;
+  padding: 50px;
 `;
 
 export const OuterDiv = styled.div`
   position: relative;
-  width: 80%;
-  height: 100%;
+  width: 400px;
+  height: 400px;
 `;
 
 export const MainImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
 `;
 
