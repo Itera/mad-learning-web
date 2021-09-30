@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { usingTypography, usingColors } from 'src/hooks/theme';
 
 export const EventHeader = styled.h1`
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 `;
 
 export const HighlightedBox = styled.div`
