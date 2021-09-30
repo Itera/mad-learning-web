@@ -25,6 +25,7 @@ export const Image = styled.img`
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-wrap: anywhere;
   padding: 0 ${usingTypography((t) => t.scaleSpacing(5))}px;
   padding-bottom: ${usingTypography((t) => t.scaleSpacing(2))}px;
 
