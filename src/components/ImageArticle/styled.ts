@@ -7,7 +7,7 @@ export const CenteredWrapper = styled.div`
 `;
 
 export const ArticleContainer = styled.a`
-  width: 70%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -16,31 +16,27 @@ export const ArticleContainer = styled.a`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 30px;
-
+  padding-right: 25px;
 `;
 
 export const ArticleTitle = styled.h3`
-  font-size: ${usingTypography((t) => t.scaleFont(2))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(3))}px;
   font-family: 'IBMPlexSans';
 `;
 
 export const ArticleText = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(0.5))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
   font-family: 'IBMPlexSans';
-
 `;
 
 export const ArticleLink = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(0.5))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
   font-family: 'IBMPlexSans';
   text-decoration: underline;
-
+  color: blue;
 `;
 
 export const ArticleImage = styled.img`
-  width: 400px;
+  width: 500px;
   height: 300px;
 `;
-
-
