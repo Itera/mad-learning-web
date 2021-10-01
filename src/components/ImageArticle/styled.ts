@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { usingTypography } from 'src/hooks/theme';
 
 export const CenteredWrapper = styled.div`
+  margin-top: ${usingTypography((t) => t.scaleSpacing(12))}px;
   display: flex;
   justify-content: center;
 `;
 
 export const ArticleContainer = styled.a`
-  width: 70%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -39,7 +40,7 @@ export const ArticleLink = styled.p`
 `;
 
 export const ArticleImage = styled.img`
-  width: 400px;
+  width: 600px;
   height: 300px;
 `;
 

@@ -2,6 +2,7 @@ import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const PageFooter = styled.footer`
+  margin-top: ${usingTypography((t) => t.scaleSpacing(12))}px;
   width: 100%;
   height: 300px;
   background-color: lightgray;

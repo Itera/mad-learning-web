@@ -16,10 +16,10 @@ export const ShortcutContainer = styled.div`
   gap: ${usingTypography((t) => t.scaleSpacing(12))}px
     ${usingTypography((t) => t.scaleSpacing(10))}px;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 80%;
 `;
 
 export const ShortcutItem = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 `;
