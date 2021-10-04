@@ -1,5 +1,6 @@
 import React from 'react';
 import CutoutImage from '../CutoutImage';
+import { CutoffMode } from '../CutoutImage/CutoutImage';
 import { CutoutImageText, OuterDiv, TempColumn } from './styled';
 
 type CutoutImageContainerProps = {
@@ -19,7 +20,7 @@ function CutoutImageContainer({
     <a href={navigate}>
       <TempColumn>
         <OuterDiv>
-          <CutoutImage mode={cutoffMode} image={imageSrc} />
+          <CutoutImage mode={cutoffMode as CutoffMode} image={imageSrc} />
           <CutoutImageText>{imageText}</CutoutImageText>
         </OuterDiv>
       </TempColumn>

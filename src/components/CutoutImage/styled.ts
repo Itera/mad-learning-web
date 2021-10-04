@@ -9,13 +9,13 @@ export const ImageContainer = styled.div`
 `;
 
 export const CutoutTopLeft = styled.img`
-  webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 32%, 35% 32%, 35% 0);
-  clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 32%, 35% 32%, 35% 0);
+  webkit-clip-path: polygon(0 35%, 35% 35%, 35% 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 35%, 35% 35%, 35% 0, 100% 0, 100% 100%, 0 100%);
 `;
 
 export const CutoutTopRight = styled.img`
-  webkit-clip-path: polygon(0 0, 65% 0, 65% 34%, 100% 34%, 100% 100%, 0 100%);
-  clip-path: polygon(0 0, 65% 0, 65% 34%, 100% 34%, 100% 100%, 0 100%);
+  webkit-clip-path: polygon(0 0, 65% 0, 65% 35%, 100% 35%, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 65% 0, 65% 35%, 100% 35%, 100% 100%, 0 100%);
 `;
 
 export const CutoutBottomLeft = styled.img`

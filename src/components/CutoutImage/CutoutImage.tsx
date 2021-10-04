@@ -15,8 +15,22 @@ import {
   ImageContainer,
 } from './styled';
 
+export type CutoffMode =
+  | 'TopLeft'
+  | 'TopRight'
+  | 'BottomLeft'
+  | 'BottomRight'
+  | 'WideTopLeft'
+  | 'WideTopRight'
+  | 'WideBottomLeft'
+  | 'WideBottomRight'
+  | 'HighTopLeft'
+  | 'HighTopRight'
+  | 'HighBottomLeft'
+  | 'HighBottomRight';
+
 type CutoutImageProps = {
-  mode: string;
+  mode: CutoffMode;
   image: string;
 };
 
