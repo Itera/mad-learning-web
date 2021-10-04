@@ -15,6 +15,7 @@ export const MetaInfoLabel = styled.dt`
 `;
 
 export const MetaInfoValue = styled.dl`
+  overflow-wrap: anywhere;
   margin: 0;
   padding: 0;
 `;

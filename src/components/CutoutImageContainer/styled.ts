@@ -14,12 +14,6 @@ export const OuterDiv = styled.div`
   height: 400px;
 `;
 
-export const MainImage = styled.img`
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
-`;
-
 export const CutoutImageText = styled.h3`
   margin-top: ${usingTypography((t) => t.scaleSpacing(5))}px;
   margin-bottom: 0;

@@ -27,21 +27,18 @@ export const ArticleTitle = styled.h3`
 `;
 
 export const ArticleText = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(0.5))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
   font-family: 'IBMPlexSans';
-
 `;
 
 export const ArticleLink = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(0.5))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
   font-family: 'IBMPlexSans';
   text-decoration: underline;
-
+  color: blue;
 `;
 
 export const ArticleImage = styled.img`
-  width: 600px;
+  width: 500px;
   height: 300px;
 `;
-
-
