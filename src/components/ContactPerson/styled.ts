@@ -10,7 +10,7 @@ export const ContactPersonContainer = styled.div`
 `;
 
 export const FieldsContainer = styled.div`
-  margin-left: 15px;
+  margin-left: ${usingTypography((t) => t.scaleSpacing(4))}px;
   justify-content: center;
   vertical-align: left;
 `;
@@ -18,14 +18,11 @@ export const FieldsContainer = styled.div`
 export const ContactPersonImage = styled.img`
   width: 100px;
   height: 100px;
-  border-top-left-radius: 50% 50%;
-  border-top-right-radius: 50% 50%;
-  border-bottom-right-radius: 50% 50%;
-  border-bottom-left-radius: 50% 50%;
+  border-radius: 50%;
 `;
 
 export const ContactPersonField = styled.p`
   width: 0 auto;
-  font-size: 15px;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
   font-family: 'IBMPlexSans';
 `;
