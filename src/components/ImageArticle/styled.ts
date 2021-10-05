@@ -30,7 +30,7 @@ export const ArticleText = styled.p`
 `;
 
 export const ArticleLink = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
+  font-size: 20px;
   font-family: 'IBMPlexSans';
   text-decoration: underline;
   color: blue;

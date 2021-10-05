@@ -10,7 +10,7 @@ export const ContactPersonContainer = styled.div`
 `;
 
 export const FieldsContainer = styled.div`
-  margin-left: ${usingTypography((t) => t.scaleSpacing(4))}px;
+  margin-left: 20px;
   justify-content: center;
   vertical-align: left;
 `;
@@ -23,6 +23,6 @@ export const ContactPersonImage = styled.img`
 
 export const ContactPersonField = styled.p`
   width: 0 auto;
-  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
+  font-size: 20px;
   font-family: 'IBMPlexSans';
 `;

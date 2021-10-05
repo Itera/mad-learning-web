@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
+import { usingColors, usingTypography } from 'src/hooks/theme';
+
 
 /*
 export const decorators = [
