@@ -20,12 +20,12 @@ export const TextContainer = styled.div`
 `;
 
 export const ArticleTitle = styled.h3`
-  font-size: ${usingTypography((t) => t.scaleFont(3))}px;
+  font-size: 30px;
   font-family: 'IBMPlexSans';
 `;
 
 export const ArticleText = styled.p`
-  font-size: ${usingTypography((t) => t.scaleFont(1))}px;
+  font-size: 20px;
   font-family: 'IBMPlexSans';
 `;
 
