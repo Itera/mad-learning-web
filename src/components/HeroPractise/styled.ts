@@ -1,15 +1,10 @@
+import { usingColors, usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
-
-export const HeroWrapper = styled.section`
-  margin: 2.5vw;
-  margin-right: -2.5vw;
-  margin-left: -2.5vw;
-`;
 
 export const HeroContainer = styled.div`
   width: 80%;
-  max-height: auto;
   margin: 0 auto;
+  justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -17,29 +12,28 @@ export const HeroContainer = styled.div`
 
 export const TextContainer = styled.div`
   display: flex;
-  height: 300px;
   width: 500px;
   flex-direction: column;
   justify-content: space-evenly;
-  margin-right: 15px;
+  margin-right: ${usingTypography((t) => t.scaleSpacing(3))}px;
   & > * {
-    margin-top: 5px;
-    margin-bottom: 5  px;
+    margin-top: ${usingTypography((t) => t.scaleSpacing(1))}px;
+    margin-bottom: ${usingTypography((t) => t.scaleSpacing(1))}px;
   }
 `;
 
 export const HeroLink = styled.a`
-  font-size: 15px;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
   text-decoration: underline;
-  color: blue;
+  color: ${usingColors((c) => c.SURFACE.TERTIARY)};
 `;
 
 export const HeroTitle = styled.h2`
-  font-size: 30px;
+  font-size:  ${usingTypography((t) => t.scaleSpacing(8))}px;
 `;
 
 export const HeroText = styled.p`
-  font-size: 15px;
+  font-size:  ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;
 
 export const HeroButtonContainer = styled.div`
@@ -51,10 +45,9 @@ export const HeroButton = styled.a`
   height: 40px;
   position: relative;
   justify-content: center;
-  background-color: blue;
-  margin-bottm: 0px;
+  background-color: ${usingColors((c) => c.SURFACE.TERTIARY)};
   &:hover {
-    background-color: purple;
+    background-color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
   }
 `;
 
@@ -67,8 +60,7 @@ export const HeroButtonText = styled.p`
   text-align: center;
   justify-content: center;
   color: white;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;
 
 export const HeroImage = styled.img`
