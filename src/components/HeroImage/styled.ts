@@ -1,3 +1,4 @@
+import { usingTypography } from "src/hooks/theme";
 import styled from "styled-components";
 
 export const WideWrapper = styled.section`
@@ -23,5 +24,5 @@ export const MainText = styled.h1`
   position: absolute;
   color: white;
   font-family: 'IBMPlexSans';
-  font-size: 70px;
+  font-size: ${usingTypography((t) => t.scaleSpacing(10))}px;
 `;

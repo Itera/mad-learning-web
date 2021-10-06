@@ -25,4 +25,5 @@ export const LinkContainer = styled.div`
 export const Link = styled.a`
   color: blue;
   text-decoration: underline;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;

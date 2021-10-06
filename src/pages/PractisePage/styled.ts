@@ -1,3 +1,4 @@
+import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const PractiseWrapper = styled.section`
@@ -18,5 +19,5 @@ export const PractiseTextWrapper = styled.section`
 export const PractiseText = styled.p`
   width: 60%;
   font: 'IBMPlexSans';
-  font-size: 25px;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;
