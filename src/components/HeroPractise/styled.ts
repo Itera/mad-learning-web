@@ -7,21 +7,24 @@ export const HeroWrapper = styled.section`
 `;
 
 export const HeroContainer = styled.div`
-  width: 70%;
+  width: 80%;
+  max-height: auto;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   height: 300px;
+  width: 500px;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-right: 15px;
   & > * {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5  px;
   }
 `;
 
@@ -69,6 +72,6 @@ export const HeroButtonText = styled.p`
 `;
 
 export const HeroImage = styled.img`
-  width: 500px;
+  width: 400px;
   height: 300px;
 `;
