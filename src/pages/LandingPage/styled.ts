@@ -18,3 +18,10 @@ export const ShortcutLinkContainer = styled.div`
   margin-right: 100px;
 `;
 
+export const LinkBoxContainer = styled.section`
+  width: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+`;
+
