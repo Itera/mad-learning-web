@@ -7,6 +7,7 @@ import UpdateEventPage from 'src/pages/UpdateEventPage';
 import EventPage from 'src/pages/EventPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 import { ReactComponent } from 'src/utils/types';
+import SinglePractisePage from 'src/pages/SinglePractisePage';
 
 export type Route<P extends RouteComponentProps> = {
   path: string;
@@ -33,6 +34,10 @@ const routes: Array<Route<any>> = [
   {
     path: '/event/:eventId/*',
     component: EventPage,
+  },
+  {
+    path: '/single-practise',
+    component: SinglePractisePage,
   },
   {
     path: '/*',
