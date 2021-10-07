@@ -1,9 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const WideWrapper = styled.section`
-  margin: 2.5vw;
-  margin-left: -2.5vw;
-  margin-right: -2.5vw;
+  margin: 0 -2.5vw;
 `;
 
 export const CenteredWrapper = styled.div`
@@ -23,5 +21,5 @@ export const MainText = styled.h1`
   position: absolute;
   color: white;
   font-family: 'IBMPlexSans';
-  font-size: 70px;
+  font-size: 4.375rem;
 `;
