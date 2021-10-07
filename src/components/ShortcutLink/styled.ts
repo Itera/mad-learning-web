@@ -11,7 +11,8 @@ export const ShortcutLinkContainer = styled.section`
 `;
 
 export const ShortcutLinkWrapper = styled.a`
-  display: grid;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ShortcutLinkField = styled.section`
