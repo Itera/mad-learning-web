@@ -2,12 +2,12 @@ import { usingColors } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const ShortcutLinkWrapper = styled.a`
-  margin: 30px;
+  margin: 16px 32px;
   display: flex;
   flex-direction: column;
   & > * {
     color: ${usingColors((t) => t.ON.SECONDARY_ACCENT)};
-    width: 350px;
+    width: 320px;
     height: 50px;
 
     &: hover {
@@ -23,10 +23,14 @@ export const ShortcutLinkField = styled.section`
 `;
 
 export const ShortcutLinkText = styled.p`
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 20px;
-  text-align: center;
+  margin: 0 5px;
+  padding-right: 10px;
+
+  font-size: 1.2rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ShortcutBorder = styled.div`
