@@ -9,11 +9,3 @@ export const CutoffImageContainerWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
-
-export const LinkBoxContainer = styled.section`
-  width: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
-`;
-

@@ -1,32 +1,47 @@
-import { usingColors, usingTypography } from "src/hooks/theme";
-import styled from "styled-components";
+import { usingColors } from 'src/hooks/theme';
+import styled from 'styled-components';
+
+export const LinkBoxContainer = styled.section`
+  width: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 20px;
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
 
 export const LinkBoxWrapper = styled.a`
-  width: 350px;
   height: 140px;
-  margin: 20px;
   display: flex;
+  padding: 12px;
   background-color: ${usingColors((c) => c.SURFACE.PRIMARY_VARIANT)};
 `;
 
 export const TextWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  margin-top: ${usingTypography((t) => t.scaleSpacing(1))}px;
   & > * {
-    margin-top: ${usingTypography((t) => t.scaleSpacing(3))}px;
-    margin-bottom: ${usingTypography((t) => t.scaleSpacing(1))}px;
-    margin-left: ${usingTypography((t) => t.scaleSpacing(1))}px;
-    margin-right: ${usingTypography((t) => t.scaleSpacing(5))}px;
+    padding: 0 6px;
+    margin: 0 0 5px;
   }
 `;
 
 export const LinkBoxTitle = styled.h2`
-  font-size: ${usingTypography((t) => t.scaleSpacing(7))}px;
-
+  font-size: 1.4rem;
 `;
 
 export const LinkBoxText = styled.p`
-  font-size: ${usingTypography((t) => t.scaleSpacing(5))}px;
-
+  font-size: 0.9rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 `;
