@@ -2,9 +2,9 @@ import { usingColors, usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const HeroContainer = styled.div`
-  width: 80%;
   margin: 0 auto;
-  justify-content: space-around;
+  gap: 30px;
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -29,38 +29,30 @@ export const HeroLink = styled.a`
 `;
 
 export const HeroTitle = styled.h2`
-  font-size:  ${usingTypography((t) => t.scaleSpacing(8))}px;
+  font-size: ${usingTypography((t) => t.scaleSpacing(8))}px;
 `;
 
 export const HeroText = styled.p`
-  font-size:  ${usingTypography((t) => t.scaleSpacing(6))}px;
-`;
-
-export const HeroButtonContainer = styled.div`
-  display: flex;
+  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;
 
 export const HeroButton = styled.a`
   width: 120px;
   height: 40px;
-  position: relative;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  line-height: 1;
+  transition: 500ms ease-in-out;
   background-color: ${usingColors((c) => c.SURFACE.TERTIARY)};
   &:hover {
+    color: ${usingColors((c) => c.SURFACE.PRIMARY)} !important;
     background-color: ${usingColors((c) => c.ON.PRIMARY_ACCENT)};
   }
-`;
-
-export const HeroButtonText = styled.p`
-  height: 20px;
-  width: 120px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  position: absolute;
-  text-align: center;
-  justify-content: center;
-  color: white;
-  font-size: ${usingTypography((t) => t.scaleSpacing(6))}px;
 `;
 
 export const HeroImage = styled.img`

@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   HeroButton,
-  HeroButtonContainer,
-  HeroButtonText,
   HeroContainer,
   HeroImage,
   HeroLink,
@@ -11,8 +9,8 @@ import {
   TextContainer,
 } from './styled';
 
-type HeroPractiseProps = {
-  link: string;
+type HeroPracticeProps = {
+  linkText: string;
   navigate: string;
   title: string;
   text: string;
@@ -21,26 +19,22 @@ type HeroPractiseProps = {
   imageSrc: string;
 };
 
-function HeroPractise({
-  link,
+function HeroPractice({
+  linkText,
   navigate,
   title,
   text,
   buttonText,
   buttonNav,
   imageSrc,
-}: HeroPractiseProps) {
+}: HeroPracticeProps) {
   return (
     <HeroContainer>
       <TextContainer>
-        <HeroLink href={navigate}>{link}</HeroLink>
+        <HeroLink href={navigate}>{linkText}</HeroLink>
         <HeroTitle>{title}</HeroTitle>
         <HeroText>{text}</HeroText>
-        <HeroButtonContainer>
-          <HeroButton href={buttonNav}>
-            <HeroButtonText>{buttonText}</HeroButtonText>
-          </HeroButton>
-        </HeroButtonContainer>
+        <HeroButton href={buttonNav}>{buttonText}</HeroButton>
       </TextContainer>
 
       <HeroImage src={imageSrc} />
@@ -48,4 +42,4 @@ function HeroPractise({
   );
 }
 
-export default HeroPractise;
+export default HeroPractice;
