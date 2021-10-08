@@ -1,6 +1,7 @@
 import { RouteComponentProps } from '@reach/router';
 
 import LandingPage from 'src/pages/LandingPage';
+import LevelUpLandingPage from 'src/pages/LevelUpLandingPage';
 import CreateEventPage from 'src/pages/CreateEventPage';
 import UpdateEventPage from 'src/pages/UpdateEventPage';
 
@@ -20,6 +21,11 @@ const routes: Array<Route<any>> = [
     path: '/',
     label: 'Landing Page',
     component: LandingPage,
+  },
+  {
+    path: '/level-up',
+    label: 'Level Up',
+    component: LevelUpLandingPage,
   },
   {
     path: '/create-event',

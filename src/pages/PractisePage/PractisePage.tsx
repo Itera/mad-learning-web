@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from 'src/components/Footer';
 import HeroImage from 'src/components/HeroImage';
-import PracticesSection from './Components/PracticesSection';
+import PracticesSection from '../LevelUpLandingPage/components/PracticesSection';
 import {
   PractiseText,
   PractiseTextWrapper,
@@ -14,7 +14,7 @@ function PractisePage() {
     <PractiseWrapper>
       <HeroImage
         imageSrc="https://fotophono.no/wp-content/uploads/2016/04/oslopanorama.jpg"
-        heroTitle="Practises"
+        heroTitle="Practices"
       />
       <PractiseTextWrapper>
         <PractiseText>
