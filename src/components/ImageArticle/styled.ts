@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { usingTypography } from 'src/hooks/theme';
 
 export const CenteredWrapper = styled.div`
+  margin-top: ${usingTypography((t) => t.scaleSpacing(12))}px;
   display: flex;
   justify-content: center;
 `;
@@ -16,11 +17,12 @@ export const ArticleContainer = styled.a`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 25px;
+  padding-right: 30px;
+
 `;
 
 export const ArticleTitle = styled.h3`
-  font-size: ${usingTypography((t) => t.scaleFont(3))}px;
+  font-size: ${usingTypography((t) => t.scaleFont(2))}px;
   font-family: 'IBMPlexSans';
 `;
 
