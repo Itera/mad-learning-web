@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SinglePractiseWrapper = styled.section``;
+export const SinglePracticeWrapper = styled.section``;
 
 export const Heading = styled.h2`
   margin-left: 100px;

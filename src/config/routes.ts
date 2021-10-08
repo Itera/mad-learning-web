@@ -7,13 +7,12 @@ import UpdateEventPage from 'src/pages/UpdateEventPage';
 import EventPage from 'src/pages/EventPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 import { ReactComponent } from 'src/utils/types';
-import SinglePractisePage from 'src/pages/SinglePractisePage';
+import SinglePracticePage from 'src/pages/SinglePracticePage';
 
 export type Route<P extends RouteComponentProps> = {
   path: string;
   label?: string;
   component: ReactComponent<P>;
-
 };
 
 const routes: Array<Route<any>> = [
@@ -36,8 +35,8 @@ const routes: Array<Route<any>> = [
     component: EventPage,
   },
   {
-    path: '/single-practise',
-    component: SinglePractisePage,
+    path: '/single-practice',
+    component: SinglePracticePage,
   },
   {
     path: '/*',

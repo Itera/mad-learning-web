@@ -8,22 +8,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import Footer from 'src/components/Footer';
-import HeroPractise from 'src/components/HeroPractise';
+import HeroPractice from 'src/components/HeroPractise';
 import LinkBox from 'src/components/LinkBox';
 import ShortcutLink from 'src/components/ShortcutLink';
 import { LinkBoxContainer } from '../LandingPage/styled';
 import {
   Heading,
   ShortcutLinkContainer,
-  SinglePractiseWrapper,
+  SinglePracticeWrapper,
   Space,
 } from './styled';
 
-function SinglePractisePage() {
+function SinglePracticePage() {
   return (
-    <SinglePractiseWrapper>
-      <HeroPractise
-        link={'Link to practises'}
+    <SinglePracticeWrapper>
+      <HeroPractice
+        link={'Link to practices'}
         navigate={'#'}
         title={'Cloud and Software Engineering'}
         text={
@@ -36,8 +36,8 @@ function SinglePractisePage() {
         }
       />
 
-      <Space/>
-      <Space/>
+      <Space />
+      <Space />
 
       <LinkBoxContainer>
         <LinkBox
@@ -90,13 +90,13 @@ function SinglePractisePage() {
         />
       </LinkBoxContainer>
 
-      <Space/>
+      <Space />
 
       <Heading> Relevant Links </Heading>
 
       <ShortcutLinkContainer>
         <ShortcutLink linkText={'Relevant Links'} navigate={'#'} />
-        <ShortcutLink linkText={'Practise Resources'} navigate={'#'} />
+        <ShortcutLink linkText={'Practice Resources'} navigate={'#'} />
         <ShortcutLink linkText={'Graphical material'} navigate={'#'} />
         <ShortcutLink linkText={'Our GitHub repo'} navigate={'#'} />
         <ShortcutLink linkText={'Start meeting'} navigate={'#'} />
@@ -106,11 +106,11 @@ function SinglePractisePage() {
         <ShortcutLink linkText={'Book room'} navigate={'#'} />
       </ShortcutLinkContainer>
 
-      <Space/>
+      <Space />
 
-      <Footer pageText="If you have any feedback to this page or its content, please contact:"/>
-    </SinglePractiseWrapper>
+      <Footer pageText="If you have any feedback to this page or its content, please contact:" />
+    </SinglePracticeWrapper>
   );
 }
 
-export default SinglePractisePage;
+export default SinglePracticePage;
