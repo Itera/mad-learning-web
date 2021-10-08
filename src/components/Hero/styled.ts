@@ -1,4 +1,4 @@
-import { usingTypography } from 'src/hooks/theme';
+import { usingColors, usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const Section = styled.section`
@@ -12,7 +12,7 @@ export const Section = styled.section`
 
   height: 30vh;
 
-  background-color: lightgray;
+  background-color: ${usingColors((t) => t.SURFACE.PRIMARY_VARIANT)};
 `;
 
 export const Header = styled.h1`

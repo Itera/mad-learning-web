@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { usingTypography } from 'src/hooks/theme';
 
 export const CenteredWrapper = styled.div`
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 `;
@@ -16,7 +17,7 @@ export const ArticleContainer = styled.a`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-right: 25px;
+  padding-right: 30px;
 `;
 
 export const ArticleTitle = styled.h3`
