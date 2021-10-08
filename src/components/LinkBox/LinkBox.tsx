@@ -19,7 +19,7 @@ type LinkBoxProps = {
 
 function LinkBox({ title, text, icon, navigate }: LinkBoxProps) {
   return (
-    <LinkBoxWrapper>
+    <LinkBoxWrapper href={navigate}>
       <FontAwesomeIcon icon={icon} size={'2x'} />
       <TextWrapper>
         <LinkBoxTitle>{title}</LinkBoxTitle>

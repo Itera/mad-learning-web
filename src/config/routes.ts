@@ -12,7 +12,6 @@ export type Route<P extends RouteComponentProps> = {
   path: string;
   label?: string;
   component: ReactComponent<P>;
-
 };
 
 const routes: Array<Route<any>> = [
