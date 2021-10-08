@@ -2,34 +2,30 @@ import React from 'react';
 import Footer from 'src/components/Footer';
 import HeroImage from 'src/components/HeroImage';
 import PracticesSection from '../LevelUpLandingPage/components/PracticesSection';
-import {
-  PractiseText,
-  PractiseTextWrapper,
-  PractiseWrapper,
-  Space,
-} from './styled';
+import { PracticeText, PracticeTextWrapper, PracticeWrapper } from './styled';
 
-function PractisePage() {
+function PracticePage() {
   return (
-    <PractiseWrapper>
+    <PracticeWrapper>
       <HeroImage
         imageSrc="https://fotophono.no/wp-content/uploads/2016/04/oslopanorama.jpg"
         heroTitle="Practices"
       />
-      <PractiseTextWrapper>
-        <PractiseText>
-          Our concept around practises is an important tool to achieve
+      <PracticeTextWrapper>
+        <PracticeText>
+          Our concept around practices is an important tool to achieve
           competence development across the borders and across departments. To
           be a winning team we need to develop our expertise and to be visible
           as experts from Itera externally in customer relations and other
           events.
-        </PractiseText>
-      </PractiseTextWrapper>
+        </PracticeText>
+      </PracticeTextWrapper>
+
       <PracticesSection />
-      <Space />
+
       <Footer pageText="Please get in touch if you have any input" />
-    </PractiseWrapper>
+    </PracticeWrapper>
   );
 }
 
-export default PractisePage;
+export default PracticePage;

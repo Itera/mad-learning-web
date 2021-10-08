@@ -8,7 +8,7 @@ import UpdateEventPage from 'src/pages/UpdateEventPage';
 import EventPage from 'src/pages/EventPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
 import { ReactComponent } from 'src/utils/types';
-import PractisePage from 'src/pages/PractisePage';
+import PracticePage from 'src/pages/PracticePage';
 
 export type Route<P extends RouteComponentProps> = {
   path: string;
@@ -41,8 +41,8 @@ const routes: Array<Route<any>> = [
     component: EventPage,
   },
   {
-    path: '/practises',
-    component: PractisePage,
+    path: '/practices',
+    component: PracticePage,
   },
   {
     path: '/*',
