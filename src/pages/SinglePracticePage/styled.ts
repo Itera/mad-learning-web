@@ -9,11 +9,3 @@ export const Heading = styled.h2`
 export const Space = styled.div`
   height: 80px;
 `;
-
-export const ShortcutLinkContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-left: 100px;
-  margin-right: 100px;
-`;

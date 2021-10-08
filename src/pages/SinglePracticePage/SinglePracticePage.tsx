@@ -1,3 +1,12 @@
+import React from 'react';
+import Footer from 'src/components/Footer';
+import HeroPractice from 'src/components/HeroPractice';
+import LinkBox from 'src/components/LinkBox';
+import { LinkBoxContainer } from 'src/components/LinkBox/styled';
+import ShortcutLink from 'src/components/ShortcutLink';
+import { ShortcutLinkContainer } from 'src/components/ShortcutLink/styled';
+import { Heading, SinglePracticeWrapper, Space } from './styled';
+
 import {
   faBook,
   faCalendar,
@@ -6,24 +15,12 @@ import {
   faGraduationCap,
   faTools,
 } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
-import Footer from 'src/components/Footer';
-import HeroPractice from 'src/components/HeroPractise';
-import LinkBox from 'src/components/LinkBox';
-import ShortcutLink from 'src/components/ShortcutLink';
-import { LinkBoxContainer } from '../LandingPage/styled';
-import {
-  Heading,
-  ShortcutLinkContainer,
-  SinglePracticeWrapper,
-  Space,
-} from './styled';
 
 function SinglePracticePage() {
   return (
     <SinglePracticeWrapper>
       <HeroPractice
-        link={'Link to practices'}
+        linkText={'Link to practices'}
         navigate={'#'}
         title={'Cloud and Software Engineering'}
         text={
