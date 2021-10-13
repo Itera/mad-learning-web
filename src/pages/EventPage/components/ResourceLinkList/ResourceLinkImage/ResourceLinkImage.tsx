@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ResourceLink } from 'src/types/domain';
+import { fetchLogo } from 'src/api/logo';
 import defaultLink from 'src/assets/images/link.png';
 
 function ResourceLinkImage({ name, url }: ResourceLink) {
   const [imageUrl, setImageUrl] = useState(defaultLink);
 
-  const getLinkLogo = async (url: string) => {
-    try {
-      const hostName = new URL(url).hostname;
-      const imgUrl = '//logo.clearbit.com/' + hostName + '?size=32';
-      await fetch(imgUrl);
-      setImageUrl(imgUrl);
-    } catch (e) {
-      if (e instanceof TypeError) {
-        console.warn('URL seems to be invalid.');
-      } else {
-        console.error(e);
-      }
-    }
+  const getLinkLogo = async () => {
+    const logoUrl = await fetchLogo(url);
+    setImageUrl(logoUrl);
   };
 
   useEffect(() => {
-    getLinkLogo(url);
+    getLinkLogo();
   }, [url]);
 
   return <img src={imageUrl} alt={name} />;
