@@ -1,23 +1,25 @@
-const BLACK = '#424041';
-const BLUE = '#4FC3E7';
+const MIDNIGHT = '#000000';
+const WHITE = '#FFFFFF';
+const LOBSTER = '#FF4B33';
+const SEA = '#0029FF';
 const GRAY_LIGHT = '#E6E6E6';
 const GRAY_DARK = '#424041';
-const RED = '#D20A10';
-const WHITE = 'white';
+const RED = '#FF0000';
 
 const COLORS = {
   ON: {
-    PRIMARY: BLACK,
-    PRIMARY_ACCENT: RED,
+    PRIMARY: MIDNIGHT,
+    PRIMARY_ACCENT: LOBSTER,
     SECONDARY: WHITE,
-    SECONDARY_ACCENT: BLUE,
+    SECONDARY_ACCENT: SEA,
     TERTIARY: WHITE,
+    ERROR: RED,
   },
   SURFACE: {
     PRIMARY: WHITE,
     PRIMARY_VARIANT: GRAY_LIGHT,
     SECONDARY: GRAY_DARK,
-    TERTIARY: BLUE,
+    TERTIARY: SEA,
   },
   BACKGROUND: WHITE,
 };

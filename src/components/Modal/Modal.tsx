@@ -13,7 +13,7 @@ import {
 type ModalProps = {
   isShown: boolean;
   hide: () => void;
-  modalContent: JSX.Element;
+  modalContent: JSX.Element | string;
   headerText: string;
 };
 

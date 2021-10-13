@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     color: ${usingColors((c) => c.ON.PRIMARY)};
     background-color: ${usingColors((c) => c.BACKGROUND)};
-    font-family: 'ApexNew', 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: 'IBMPlexSans', 'Arial', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
     font-size: ${({ theme }) => theme.typography.scaleFont(1)}px;

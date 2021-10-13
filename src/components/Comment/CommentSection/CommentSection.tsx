@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { CommentData } from 'src/types/domain';
 import { useModal } from 'src/hooks/useModal';
 
-import { createComment } from 'src/api/comments';
+import { createComment, deleteComment } from 'src/api/comments';
 
 import Button from 'src/components/inputs/Button';
 import CommentThread from '../CommentThread';
@@ -12,6 +12,7 @@ import ReplyingToIndicator from 'src/components/Comment/ReplyingToIndicator';
 import ScrollableContainer from 'src/components/ScrollableContainer';
 import TextAreaField from 'src/components/fields/TextAreaField';
 import { CommentSectionWrapper, NewCommentWrapper } from './styled';
+import ConfirmationModal from 'src/components/Modal/ConfirmationModal';
 
 type CommentSectionProps = {
   eventId: string;
@@ -31,10 +32,16 @@ export default function CommentSection({
   const [replyToCommentAuthor, setReplyToCommentAuthor] = useState<
     string | undefined
   >(undefined);
+  const [commentIdToDelete, setCommentIdToDelete] = useState<
+    string | undefined
+  >(undefined);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [isModalShown, toggleModal] = useModal();
+  const [commentFormatErrorModalShown, toggleCommentFormatErrorModal] =
+    useModal();
+  const [confirmCommentDeletionModalShown, toggleConfirmCommentDeletionModal] =
+    useModal();
 
   const topLevelComments = comments?.filter(
     (comment) => !comment.replyToCommentId
@@ -46,13 +53,30 @@ export default function CommentSection({
     replyToCommentId: string | undefined
   ) => {
     if (!commentBody.trim()) {
-      toggleModal();
+      toggleCommentFormatErrorModal();
     } else {
       await createComment(eventId, commentBody, replyToCommentId);
       refreshEvent();
       setCommentBody('');
       handleAbortReply();
     }
+  };
+
+  const handleClickDeleteComment = (commentData: CommentData) => {
+    setCommentIdToDelete(commentData.id);
+    toggleConfirmCommentDeletionModal();
+  };
+
+  const handleDeleteComment = async () => {
+    toggleConfirmCommentDeletionModal();
+
+    if (!commentIdToDelete) {
+      console.error("Can't delete comment, no Id has been set for deletion.");
+      return;
+    }
+
+    await deleteComment(eventId, commentIdToDelete);
+    refreshEvent();
   };
 
   const setTextAreaFocus = () => {
@@ -77,9 +101,24 @@ export default function CommentSection({
           <CommentThread
             comments={topLevelComments}
             onReply={handleClickReply}
+            onDelete={handleClickDeleteComment}
           />
         </ScrollableContainer>
       )}
+      <Modal
+        isShown={confirmCommentDeletionModalShown}
+        hide={toggleConfirmCommentDeletionModal}
+        headerText="Delete comment"
+        modalContent={
+          <ConfirmationModal
+            confirmText="DELETE"
+            cancelText="CANCEL"
+            onConfirm={handleDeleteComment}
+            onCancel={toggleConfirmCommentDeletionModal}
+            message="Are you sure you want to delete your comment?"
+          />
+        }
+      />
 
       <NewCommentWrapper>
         {replyToCommentId && (
@@ -104,10 +143,10 @@ export default function CommentSection({
           Add comment
         </Button>
         <Modal
-          isShown={isModalShown}
-          hide={toggleModal}
+          isShown={commentFormatErrorModalShown}
+          hide={toggleCommentFormatErrorModal}
           headerText="Confirmation"
-          modalContent={<>You can't submit an empty comment</>}
+          modalContent="You can't submit an empty comment"
         />
       </NewCommentWrapper>
     </CommentSectionWrapper>
