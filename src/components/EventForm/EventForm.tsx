@@ -6,7 +6,11 @@ import Button from '../inputs/Button';
 import FormikInputField from '../FormikFields/FormikInputField/FormikInputField';
 import FormikTextAreaField from '../FormikFields/FormikTextAreaField/FormikTextAreaField';
 import FormikSelectorField from '../FormikFields/FormikSelectorField/FormikSelectorField';
-import { EventFormSchema, EventOptions } from './constants';
+import {
+  EventFormSchema,
+  EventOptions,
+  EVENT_FORM_CHAR_LIMITS,
+} from './constants';
 import { ButtonWrapper, EventFormWrapper } from './styled';
 import { EventStatus } from 'src/utils/constants';
 
@@ -56,7 +60,7 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
     return '';
   }
 
-  // Declartions used in form
+  // Declarations used in form
   const now = new Date();
   const tomorrow = addDays(startOfDay(now), 1);
   const eventDate = format(tomorrow, 'yyyy-MM-dd');
@@ -115,7 +119,12 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
       <EventFormWrapper>
         <h1>{rest.headerTitle}</h1>
         <Form>
-          <FormikInputField label="Event name *" name="name" type="text" />
+          <FormikInputField
+            label="Event name *"
+            name="name"
+            type="text"
+            maxLength={EVENT_FORM_CHAR_LIMITS.NAME}
+          />
           <FormikSelectorField
             label="Event type *"
             name="eventType"
@@ -128,8 +137,14 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
             label="Description *"
             name="description"
             type="text"
+            maxLength={EVENT_FORM_CHAR_LIMITS.DESCRIPTION}
           />
-          <FormikInputField label="Location" name="location" type="text" />
+          <FormikInputField
+            label="Location"
+            name="location"
+            type="text"
+            maxLength={EVENT_FORM_CHAR_LIMITS.LOCATION}
+          />
           <FormikInputField
             label="Teams URL"
             name="teamsUrl"
@@ -137,7 +152,12 @@ function EventForm({ onSubmit, ...rest }: EventFormProps) {
             placeholder="https://teams.microsoft.com/..."
           />
           <FormikInputField label="Image Link" name="imageUrl" type="text" />
-          <FormikInputField label="Image Text" name="imageAlt" type="text" />
+          <FormikInputField
+            label="Image Text"
+            name="imageAlt"
+            type="text"
+            maxLength={EVENT_FORM_CHAR_LIMITS.IMAGE_ALT}
+          />
           <ButtonWrapper>
             <Button type="submit">{rest.submitTitle}</Button>
           </ButtonWrapper>
