@@ -11,7 +11,12 @@ import MetaInfo from './components/MetaInfo';
 import ParticipantList from './components/ParticipantList';
 import StatusLabel from './components/StatusLabel';
 import TeamsLink from './components/TeamsLink';
-import { DescriptionText, HighlightedBox, ButtonContainer } from './styled';
+import {
+  DescriptionText,
+  HighlightedBox,
+  ButtonContainer,
+  EventHeader,
+} from './styled';
 import { fetchEvent } from 'src/api/events';
 import DeleteButton from 'src/components/inputs/DeleteButton';
 import PublishButton from 'src/components/inputs/PublishButton';
@@ -75,7 +80,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
           return (
             <>
               <header>
-                <h1>{name}</h1>
+                <EventHeader>{name}</EventHeader>
                 {isOwner && <StatusLabel eventStatus={eventStatus} />}
                 <HighlightedBox>
                   <MetaInfo

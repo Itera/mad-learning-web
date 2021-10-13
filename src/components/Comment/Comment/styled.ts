@@ -16,6 +16,7 @@ export const CommentContent = styled.div`
   background-color: #f0f0f0;
 
   & > p {
+    overflow-wrap: anywhere;
     margin-top: ${usingTypography((t) => t.scaleSpacing(4))}px;
     margin-bottom: ${usingTypography((t) => t.scaleSpacing(4))}px;
   }
