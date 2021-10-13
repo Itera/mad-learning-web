@@ -13,10 +13,10 @@ function ResourceLinkList({ resourceLinks }: ResourceLinkListProps) {
     <>
       <h2>Links</h2>
       <Container>
-        {resourceLinks.map((link) => (
-          <li key={link.name}>
-            <ResourceLinkImage name={link.name} url={link.url} />
-            <a href={link.url}>{link.name}</a>
+        {resourceLinks.map(({ name, url }) => (
+          <li key={name}>
+            <ResourceLinkImage name={name} url={url} />
+            <a href={url}>{name}</a>
           </li>
         ))}
       </Container>
