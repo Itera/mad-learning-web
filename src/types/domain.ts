@@ -13,6 +13,7 @@ export type Event = {
   owner?: Person;
   participants?: Array<Person>;
   comments: Array<CommentData>;
+  resourceLinks?: Array<ResourceLink>;
   tags?: Array<string>;
 };
 
@@ -32,4 +33,9 @@ export type Person = {
   firstName: string;
   lastName: string;
   email: string;
+};
+
+export type ResourceLink = {
+  name: string;
+  url: string;
 };
