@@ -2,7 +2,7 @@ import { usingColors, usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const FooterContainer = styled.section`
-  padding: 2, 5vw;
+  padding: 2.5vw;
   margin-left: -2.5vw;
   margin-right: -2.5vw;
 `;
