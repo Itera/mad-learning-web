@@ -17,6 +17,7 @@ type HeroPracticeProps = {
   buttonText: string;
   buttonNav: string;
   imageSrc: string;
+  className?: string;
 };
 
 function HeroPractice({
@@ -27,9 +28,10 @@ function HeroPractice({
   buttonText,
   buttonNav,
   imageSrc,
+  className,
 }: HeroPracticeProps) {
   return (
-    <HeroContainer>
+    <HeroContainer className={className ?? ''}>
       <TextContainer>
         <HeroLink href={navigate}>{linkText}</HeroLink>
         <HeroTitle>{title}</HeroTitle>

@@ -23,7 +23,7 @@ export const ShortcutLinkField = styled.section`
   justify-content: space-between;
   color: ${usingColors((t) => t.ON.SECONDARY_ACCENT)};
 
-  &: hover {
+  &:hover {
     color: ${usingColors((t) => t.ON.PRIMARY_ACCENT)};
   }
 `;

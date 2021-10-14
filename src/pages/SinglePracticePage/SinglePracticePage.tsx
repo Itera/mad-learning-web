@@ -5,7 +5,7 @@ import LinkBox from 'src/components/LinkBox';
 import { LinkBoxContainer } from 'src/components/LinkBox/styled';
 import ShortcutLink from 'src/components/ShortcutLink';
 import { ShortcutLinkContainer } from 'src/components/ShortcutLink/styled';
-import { Heading, SinglePracticeWrapper, Space } from './styled';
+import { Heading, SinglePracticeWrapper } from './styled';
 
 import {
   faBook,
@@ -20,6 +20,7 @@ function SinglePracticePage() {
   return (
     <SinglePracticeWrapper>
       <HeroPractice
+        className="single-practice-page__hero-practice"
         linkText={'Link to practices'}
         navigate={'#'}
         title={'Cloud and Software Engineering'}
@@ -33,10 +34,7 @@ function SinglePracticePage() {
         }
       />
 
-      <Space />
-      <Space />
-
-      <LinkBoxContainer>
+      <LinkBoxContainer className="single-practice-page__link-box-container">
         <LinkBox
           title={'Tools we use'}
           text={
@@ -87,11 +85,9 @@ function SinglePracticePage() {
         />
       </LinkBoxContainer>
 
-      <Space />
-
       <Heading> Relevant Links </Heading>
 
-      <ShortcutLinkContainer>
+      <ShortcutLinkContainer className="single-practice-page__shortcut-link-container">
         <ShortcutLink linkText={'Relevant Links'} navigate={'#'} />
         <ShortcutLink linkText={'Practice Resources'} navigate={'#'} />
         <ShortcutLink linkText={'Graphical material'} navigate={'#'} />
@@ -102,8 +98,6 @@ function SinglePracticePage() {
         <ShortcutLink linkText={'Guidelines'} navigate={'#'} />
         <ShortcutLink linkText={'Book room'} navigate={'#'} />
       </ShortcutLinkContainer>
-
-      <Space />
 
       <Footer pageText="If you have any feedback to this page or its content, please contact:" />
     </SinglePracticeWrapper>
