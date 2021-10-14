@@ -14,9 +14,16 @@ const parseDate = (date: Date, time: string) =>
   new Date(format(date, 'yyyy-MM-dd') + 'T' + time);
 
 // Validation for event form
+export const EVENT_FORM_CHAR_LIMITS = {
+  NAME: 100,
+  DESCRIPTION: 5000,
+  LOCATION: 200,
+  IMAGE_ALT: 200,
+};
+
 export const EventFormSchema = Yup.object().shape({
   name: Yup.string()
-    .max(100, 'Event name is too long')
+    .max(EVENT_FORM_CHAR_LIMITS.NAME, 'Event name is too long')
     .required('Event name is required'),
   eventType: Yup.string()
     .oneOf(EventOptions)
@@ -57,15 +64,21 @@ export const EventFormSchema = Yup.object().shape({
       }
     ),
   description: Yup.string()
-    .max(5000, 'Description text is too long')
+    .max(EVENT_FORM_CHAR_LIMITS.DESCRIPTION, 'Description text is too long')
     .required('Description of event is required'),
-  location: Yup.string().max(200, 'Location text is too long'),
+  location: Yup.string().max(
+    EVENT_FORM_CHAR_LIMITS.LOCATION,
+    'Location text is too long'
+  ),
   teamsUrl: Yup.string()
     .url('URL not valid')
     .matches(/^https:\/\/teams.microsoft.com\/(.*)$/, 'Teams URL not valid'),
   imageUrl: Yup.string().url('Image URL not valid'),
-  imageAlt: Yup.string().max(200, 'Image Alt Text too long'),
+  imageAlt: Yup.string().max(
+    EVENT_FORM_CHAR_LIMITS.IMAGE_ALT,
+    'Image Alt Text too long'
+  ),
   eventStatus: Yup.string()
-    .oneOf([EventStatus.DRAFT, EventStatus.PUBLISHED])
+    .oneOf<EventStatus>(Object.values(EventStatus))
     .required('Event status is required'),
 });
