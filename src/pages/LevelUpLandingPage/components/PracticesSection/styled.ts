@@ -2,7 +2,7 @@ import { usingTypography } from 'src/hooks/theme';
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  margin-top: ${usingTypography((t) => t.scaleSpacing(15))}px;
+  margin-top: ${usingTypography((t) => t.scaleSpacing(10))}px;
 
   & > h2 {
     text-align: center;
