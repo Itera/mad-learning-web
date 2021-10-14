@@ -5,16 +5,8 @@ import LinkBox from 'src/components/LinkBox';
 import { LinkBoxContainer } from 'src/components/LinkBox/styled';
 import ShortcutLink from 'src/components/ShortcutLink';
 import { ShortcutLinkContainer } from 'src/components/ShortcutLink/styled';
+import { Icons } from 'src/config/icons';
 import { Heading, SinglePracticeWrapper } from './styled';
-
-import {
-  faBook,
-  faCalendar,
-  faCertificate,
-  faExternalLinkAlt,
-  faGraduationCap,
-  faTools,
-} from '@fortawesome/free-solid-svg-icons';
 
 function SinglePracticePage() {
   return (
@@ -40,7 +32,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faTools}
+          icon={Icons.book}
           navigate="#"
         />
         <LinkBox
@@ -48,7 +40,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faGraduationCap}
+          icon={Icons.graduationCap}
           navigate="#"
         />
         <LinkBox
@@ -56,7 +48,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faCertificate}
+          icon={Icons.certificate}
           navigate="#"
         />
         <LinkBox
@@ -64,7 +56,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faExternalLinkAlt}
+          icon={Icons.externalLinkAlt}
           navigate="#"
         />
         <LinkBox
@@ -72,7 +64,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faCalendar}
+          icon={Icons.calendar}
           navigate="#"
         />
         <LinkBox
@@ -80,7 +72,7 @@ function SinglePracticePage() {
           text={
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
           }
-          icon={faBook}
+          icon={Icons.book}
           navigate="#"
         />
       </LinkBoxContainer>
