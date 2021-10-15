@@ -10,27 +10,25 @@ import PracticesSection from './components/PracticesSection';
 export default function LevelUpLandingPage() {
   return (
     <section id="level-up-landing-page">
+      <Hero title={'Ready to advance your career today?'} />
 
-      <Hero title={'Ready to advance your career today?'}/>
-      
-      <OverviewSection/>
+      <OverviewSection />
 
-      <EventSection/>
+      <EventSection />
 
-      <PracticesSection/>
+      <PracticesSection />
 
-      <LevelUpSection/>
+      <LevelUpSection />
 
-      <ImageArticle 
-        title={'Guidelines for external courses and events'}
-        text={'Kort tekst om retningslinjer for budsjett og tidsbruk for eksterne kurs og konferanser, samt link til opplæringspolitikk.'}
-        link={'Education Policy in Itera'}
-        image={'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'}
-        navigate={''}
+      <ImageArticle
+        title="Guidelines for external courses and events"
+        text="Kort tekst om retningslinjer for budsjett og tidsbruk for eksterne kurs og konferanser, samt link til opplæringspolitikk."
+        link="Education Policy in Itera"
+        image="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+        navigate=""
       />
 
-      <Footer pageText='If you have any feedback related to this page, please get in touch'/>
-
+      <Footer pageText="If you have any feedback related to this page, please get in touch" />
     </section>
   );
 }
