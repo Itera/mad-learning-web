@@ -15,9 +15,9 @@ export const OuterDiv = styled.div`
 `;
 
 export const CutoutImageText = styled.h3`
-  margin-top: ${usingTypography((t) => t.scaleSpacing(5))}px;
+  margin-top: 30px;
   margin-bottom: 0;
-  font-size: ${usingTypography((t) => t.scaleFont(2))}px;
+  font-size: 20px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
