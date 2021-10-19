@@ -138,7 +138,7 @@ function EventPage({ eventId, navigate, ...rest }: EventPageProps) {
                 }
                 right={
                   <>
-                    {resourceLinks?.length && (
+                    {resourceLinks && resourceLinks.length > 0 && (
                       <ResourceLinkList resourceLinks={resourceLinks} />
                     )}
                     {participants && (
