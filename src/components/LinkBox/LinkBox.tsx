@@ -1,7 +1,6 @@
 import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './style.css';
 
 import {
   LinkBoxText,
